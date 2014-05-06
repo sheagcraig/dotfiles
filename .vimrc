@@ -51,7 +51,7 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 
-" Turn on indention plugins (I think) Right now I'm just using the python one
+" Turn on indention plugins: I'm using python and puppet right now
 filetype plugin indent on
 
 " Code folding settings
