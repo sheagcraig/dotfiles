@@ -25,3 +25,5 @@ fi
 # Apparently Python's Mac installer doesn't put in ALL of the required path items to use PyObjC
 # Nor does it even HAVE PyObjC. That's available through the OS installed python though
 #export PYTHONPATH='/System/Library/Frameworks/Python.framework/Versions/Current/Extras/lib/python/PyObjC:/System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python'
+
+[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
