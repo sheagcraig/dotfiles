@@ -39,7 +39,7 @@ source ~/.git-completion.sh
 export PS1='[\!][\h]:\w$(__git_ps1 " (%s)")\$ '
 
 # Autorun######################################################################
-# Fortunes located at /usr/share/terminfo/66/fortune
+# Fortunes located at /usr/local/var/fortunes
 if [ -e /usr/local/bin/fortune ]; then
 	fortune
 fi
