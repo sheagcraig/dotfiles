@@ -1,22 +1,18 @@
+" Fix our indenting for python.
+" These are all set by Pymode, but I may want them in for other languages.
+"
 " set our tabs to four spaces
 set ts=4
+set softtabstop=4
+" set autoindent and ctrl-t/ctrl-d tabs to 4
+set shiftwidth=4
+" set vim to insert spaces rather than a tab char
+set expandtab
+" set auto-indenting on for programming
+set ai
 
 " Keep our width to programmer width
 set textwidth=79
-
-set softtabstop=4
-
-" set autoindent and ctrl-t/ctrl-d tabs to 4
-set shiftwidth=4
-
-" set vim to insert spaces rather than a tab char
-set expandtab
-
-" turn syntax highlighting on by default
-syntax on
-
-" set auto-indenting on for programming
-set ai
 
 " turn off compatibility with the old vi
 set nocompatible
@@ -24,9 +20,10 @@ set nocompatible
 " turn on the "visual bell" - which is much quieter than the "audio blink"
 set vb
 
+" Visually highlight searches.
 set hlsearch
 
-" automatically show matching brackets. works like it does in bbedit.
+" Automatically show matching brackets.
 set showmatch
 
 " do NOT put a carriage return at the end of the last line! if you are programming
@@ -39,6 +36,8 @@ set ruler
 " make that backspace key work the way it should
 set backspace=indent,eol,start
 
+" Colors! I like writing to dark terminals.
+"colorscheme liquidcarbon
 colorscheme elflord
 set background=dark
 
@@ -51,16 +50,33 @@ autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 
-" Turn on indention plugins: I'm using python and puppet right now
-filetype plugin indent on
-
+" These are also managed by Pymode, but again, may be helpful elsewhere.
 " Code folding settings
 set foldmethod=indent
 set foldnestmax=10
 set nofoldenable
 set foldlevel=1
+" Set spacebar to toggle folds
+nnoremap <space> za
+vnoremap <space> zf
 
 " Jump to last position in file
 if has("autocmd")
 	  au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
   endif
+
+" Make sure Vim knows .md is markdown
+au BufRead,BufNewFile *.md set filetype=markdown
+
+" Pathogen load
+filetype off
+
+call pathogen#infect()
+call pathogen#helptags()
+
+" Turn on indention plugins.
+filetype plugin indent on
+syntax on
+
+" Disable pylint check on every save
+let g:pymode_lint_on_write = 0
