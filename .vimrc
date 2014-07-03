@@ -81,3 +81,5 @@ syntax on
 
 " Disable pylint check on every save
 let g:pymode_lint_on_write = 0
+" For some reason pymode wants line length to be 80. Pep8 says 79.""
+let g:pymode_options_max_line_length = 79
