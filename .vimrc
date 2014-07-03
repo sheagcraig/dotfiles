@@ -68,6 +68,8 @@ if has("autocmd")
 
 " Make sure Vim knows .md is markdown
 au BufRead,BufNewFile *.md set filetype=markdown
+" And that AutoPkg recipes are XML
+au BufRead,BufNewFile *.recipe set filetype=xml
 
 " Pathogen load
 filetype off
