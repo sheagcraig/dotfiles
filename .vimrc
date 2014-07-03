@@ -1,5 +1,6 @@
 " Fix our indenting for python.
 " These are all set by Pymode, but I may want them in for other languages.
+" For some reason, if my indent/python.vim is missing, it inserts tabs anyway
 "
 " set our tabs to four spaces
 set ts=4
