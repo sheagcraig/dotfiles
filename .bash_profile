@@ -44,4 +44,4 @@ if [ -e /usr/local/bin/fortune ]; then
 	fortune
 fi
 
-#[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
+[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
