@@ -37,6 +37,9 @@ set ruler
 " make that backspace key work the way it should
 set backspace=indent,eol,start
 
+" Use _ as a word boundary also.
+set iskeyword-=_
+
 " Colors! I like writing to dark terminals.
 "colorscheme liquidcarbon
 colorscheme elflord
