@@ -221,7 +221,7 @@ def regenerate():
     """ Clear cache. """
     with RopeContext() as ctx:
         ctx.project.pycore._invalidate_resource_cache(ctx.resource) # noqa
-        ctx.importer.generate_cache(resources=[ctx.resource])
+        ctx.importer.generate_cache()
         ctx.project.sync()
 
 
@@ -372,7 +372,7 @@ class RopeContext(object):
         if os.path.exists("%s/__init__.py" % project_path):
             sys.path.append(project_path)
 
-        if self.options.get('autoimport') == '1':
+        if self.options.get('autoimport'):
             self.generate_autoimport_cache()
 
         env.debug('Context init', project_path)
@@ -409,12 +409,7 @@ class RopeContext(object):
                 importer.generate_modules_cache(modules)
             importer.project.sync()
 
-        sys.stdout, stdout_ = StringIO.StringIO(), sys.stdout
-        sys.stderr, stderr_ = StringIO.StringIO(), sys.stderr
-        process = multiprocessing.Process(target=_update_cache, args=(
-            self.importer, modules))
-        process.start()
-        sys.stdout, sys.stderr = stdout_, stderr_
+        _update_cache(self.importer, modules)
 
 
 class ProgressHandler(object):
@@ -465,15 +460,19 @@ class Refactoring(object): # noqa
                 if not input_str:
                     return False
 
-                changes = self.get_changes(refactor, input_str)
-
                 action = env.user_input_choices(
-                    'Choose what to do:', 'perform', 'preview')
+                    'Choose what to do:', 'perform', 'preview',
+                        'perform in class hierarchy',
+                        'preview in class hierarchy')
+
+                in_hierarchy = action.endswith("in class hierarchy")
+
+                changes = self.get_changes(refactor, input_str, in_hierarchy)
 
                 if not action:
                     return False
 
-                if action == 'preview':
+                if action.startswith('preview'):
                     print("\n   ")
                     print("-------------------------------")
                     print("\n%s\n" % changes.get_description())
@@ -505,7 +504,7 @@ class Refactoring(object): # noqa
         return True
 
     @staticmethod
-    def get_changes(refactor, input_str):
+    def get_changes(refactor, input_str, in_hierarchy=False):
         """ Get changes.
 
         :return Changes:
@@ -513,7 +512,7 @@ class Refactoring(object): # noqa
         """
         progress = ProgressHandler('Calculate changes ...')
         return refactor.get_changes(
-            input_str, task_handle=progress.handle)
+            input_str, task_handle=progress.handle, in_hierarchy = in_hierarchy)
 
 
 class RenameRefactoring(Refactoring):
