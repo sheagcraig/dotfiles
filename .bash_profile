@@ -39,9 +39,16 @@ source ~/.git-completion.sh
 export PS1='[\!][\h]:\w$(__git_ps1 " (%s)")\$ '
 
 # Autorun######################################################################
-[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
-
-# Fortunes located at /usr/local/var/fortunes
-if [ -e /usr/local/bin/fortune ] || [ -e /opt/boxen/homebrew/bin/fortune ]; then
-	fortune
+# Fortunes located at /usr/local/var/fortune
+# For some reason I had a note which said "Fortunes located at
+# /usr/share/terminfo/66/fortune", which is not the case.
+if [ -e /usr/local/bin/fortune ]; then
+	if [ -e /usr/local/bin/cowsay ]; then
+		fortune | cowsay
+	else
+		fortune
+	fi
 fi
+
+# Boxen currently disabled.
+#[ -f /opt/boxen/env.sh ] && source /opt/boxen/env.sh
