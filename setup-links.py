@@ -22,7 +22,7 @@ LUGGAGE_DOTFILES = ['luggage.local']
 FORTUNE = ['fortune']
 FORTUNE_PATH = '/usr/local/bin'
 FORTUNES = ['fortunes']
-FORTUNES_PATH = '/usr/local/var/fortunes'
+FORTUNES_PATH = '/usr/local/var'
 
 def check_and_link(files, destination):
     """Check for files and move them to backup, then symlink."""
@@ -74,8 +74,8 @@ check_and_link(LUGGAGE_DOTFILES, LUGGAGE_PATH)
 ensure_directory(FORTUNE_PATH)
 ensure_directory(FORTUNES_PATH)
 check_and_link(FORTUNE, FORTUNE_PATH)
-check_and_link(FORTUNES, FORTUNE_PATHS)
+check_and_link(FORTUNES, FORTUNES_PATH)
 
-cowsay = glob.glob(os.path.join(dotfilesd, 'cowsay*.pkg'))
+cowsay = glob.glob(os.path.join(dotfilesd, 'cowsay*.pkg'))[0]
 output = subprocess.check_output(['installer', '-target', '/', '-pkg', cowsay])
 print(output)
