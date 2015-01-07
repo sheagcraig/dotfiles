@@ -2,9 +2,10 @@
 	name = Shea Craig
 	email = shea.craig@da.org
 [core]
+	editor = /usr/bin/vim
 	excludesfile = ~/.gitignore_global
 [color]
-  ui = auto
+	ui = auto
 [color "branch"]
 	current = yellow reverse
 	local = yellow
