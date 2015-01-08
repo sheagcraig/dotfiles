@@ -41,9 +41,11 @@ set backspace=indent,eol,start
 set iskeyword-=_
 
 " Colors! I like writing to dark terminals.
+set background=dark
 "colorscheme liquidcarbon
 colorscheme elflord
-set background=dark
+" Fix the search color so it stands out from cursor
+hi Search cterm=reverse ctermfg=LightGreen ctermbg=Yellow
 
 " Turn on autocompletion: hit CTRL-X CTRL-O to use
 autocmd FileType python set omnifunc=pythoncomplete#Complete
