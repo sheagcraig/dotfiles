@@ -40,13 +40,6 @@ set backspace=indent,eol,start
 " Use _ as a word boundary also.
 set iskeyword-=_
 
-" Colors! I like writing to dark terminals.
-set background=dark
-"colorscheme liquidcarbon
-colorscheme elflord
-" Fix the search color so it stands out from cursor
-hi Search cterm=reverse ctermfg=LightGreen ctermbg=Yellow
-
 " Turn on autocompletion: hit CTRL-X CTRL-O to use
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
@@ -92,3 +85,11 @@ let g:pymode_lint_on_write = 0
 let g:pymode_options_max_line_length = 79
 " Rope drives me nuts.
 let g:pymode_rope = 0
+
+" Colors! I like writing to dark terminals.
+set background=dark
+"colorscheme liquidcarbon
+colorscheme elflord
+" Fix the search color so it stands out from cursor
+hi Search cterm=reverse ctermfg=LightGreen ctermbg=Yellow
+
