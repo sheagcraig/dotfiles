@@ -48,6 +48,10 @@ def ensure_directory(target, title=''):
             print("Warning: %s not installed!" % title)
 
 
+def git_clone(url, into):
+    subprocess.check_call(["git", "clone", url, into])
+
+
 if len(sys.argv) != 2:
     if os.path.basename(os.getcwd()) == 'dotfiles':
         dotfilesd = os.getcwd()
@@ -79,3 +83,7 @@ check_and_link(FORTUNES, FORTUNES_PATH)
 cowsay = glob.glob(os.path.join(dotfilesd, 'cowsay*.pkg'))[0]
 output = subprocess.check_output(['installer', '-target', '/', '-pkg', cowsay])
 print(output)
+
+# Powerline fonts.
+git_clone("https://github.com/powerline/fonts", "/tmp/powerline-fonts")
+subprocess.check_call(["/tmp/powerline-fonts/install.sh"])
