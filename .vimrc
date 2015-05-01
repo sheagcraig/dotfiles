@@ -89,7 +89,10 @@ let g:pymode_rope = 0
 " Colors! I like writing to dark terminals.
 set background=dark
 "colorscheme liquidcarbon
-colorscheme elflord
+"colorscheme elflord
+colorscheme nu42dark
+"colorscheme gentooish
+"colorscheme molokai
 " Fix the search color so it stands out from cursor
 hi Search cterm=reverse ctermfg=LightGreen ctermbg=Yellow
 
