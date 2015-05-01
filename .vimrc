@@ -96,3 +96,7 @@ colorscheme nu42dark
 " Fix the search color so it stands out from cursor
 hi Search cterm=reverse ctermfg=LightGreen ctermbg=Yellow
 
+" Have airline appear all of the time.
+set laststatus=2
+" Add symbols: Needs a powerline patched font.
+let g:airline_powerline_fonts = 1
