@@ -5,6 +5,8 @@ alias ls='ls -G'
 # Note: This can cause problems for scripts!
 alias grep='grep --color=always'
 alias ll='ls -alG'
+alias gs='git status'
+alias ga='git add'
 
 # My made up aliases
 alias pcat='plutil -convert xml1 -o -'

@@ -100,3 +100,7 @@ hi Search cterm=reverse ctermfg=LightGreen ctermbg=Yellow
 set laststatus=2
 " Add symbols: Needs a powerline patched font.
 let g:airline_powerline_fonts = 1
+
+" Configure vim-gitgutter
+" I alias grep to use color by default.
+let g:gitgutter_escape_grep = 1
