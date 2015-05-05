@@ -15,10 +15,19 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 """
-power-extreme
+power_xtreme
 
 Configure all managed dotfiles and dependencies by symlinking to git
-repo. Must be run as root via sudo.
+repo. Many of the vim bundles and assorted projects are managed as git
+submodules.
+
+Must be run as root via sudo.
+
+This script is named after the Centurions, near and dear to my 80's
+television overindulged heart.
+
+See here: http://en.wikipedia.org/wiki/The_Centurions_(TV_series)
+and here:
 """
 
 
