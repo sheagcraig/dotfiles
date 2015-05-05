@@ -35,7 +35,7 @@ def check_and_link(files, destination, backupd, user):
                 os.remove(dst)
             else:
                 print("File %s exists; copying to backup directory: %s" %
-                    (dst, backupd))
+                      (dst, backupd))
                 shutil.move(dst, backupd)
 
         os.symlink(os.path.realpath(dotfile), dst)
@@ -107,13 +107,13 @@ def main():
     ensure_directory(LUGGAGE_PATH, user, "Luggage")
     check_and_link(LUGGAGE_DOTFILES, LUGGAGE_PATH, backupd, user)
 
-    ## fortune, cowsay
+    # fortune, cowsay
     ensure_directory(FORTUNE_PATH, user)
     ensure_directory(FORTUNES_PATH, user)
     check_and_link(FORTUNE, FORTUNE_PATH, backupd, user)
     check_and_link(FORTUNES, FORTUNES_PATH, backupd, user)
 
-    if  sys.platform == "darwin":
+    if sys.platform == "darwin":
         cowsay = glob.glob("cowsay*.pkg")[0]
         output = subprocess.check_output(["installer", "-target", "/", "-pkg",
                                           cowsay])
