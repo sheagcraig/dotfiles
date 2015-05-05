@@ -28,3 +28,6 @@
 [submodule ".vim/bundle/vim-unimpaired"]
 	path = .vim/bundle/vim-unimpaired
 	url = git@github.com:tpope/vim-unimpaired.git
+[submodule "fonts"]
+	path = fonts
+	url = git@github.com:powerline/fonts.git
