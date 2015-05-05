@@ -1,4 +1,26 @@
 #!/usr/bin/python
+# Copyright (C) 2014 Shea G Craig
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+"""
+power-extreme
+
+Configure all managed dotfiles and dependencies by symlinking to git
+repo. Must be run as root via sudo.
+"""
+
 
 import glob
 import os
@@ -7,7 +29,7 @@ import subprocess
 import sys
 import time
 
-
+__version__ = "1.0.1"
 HOME_DOTFILES = [".bash_profile",
                  ".git-completion.sh",
                  ".git-prompt.sh",
@@ -31,18 +53,18 @@ def check_and_link(files, destination, backupd, user):
         dst = os.path.join(destination, dotfile)
         if os.path.exists(dst):
             if os.path.islink(dst):
-                print("Removing existing link: %s" % dst)
+                print "Removing existing link: %s" % dst
                 os.remove(dst)
             else:
-                print("File %s exists; copying to backup directory: %s" %
-                      (dst, backupd))
+                print  ("File %s exists; copying to backup directory: %s" %
+                        (dst, backupd))
                 shutil.move(dst, backupd)
 
         os.symlink(os.path.realpath(dotfile), dst)
         # Since we're dealing with symlinks, use lchown to operate on
         # the link and not its target.
         os.lchown(dst, user[0], user[1])
-        print("Linked %s to %s" % (dotfile, dst))
+        print "Linked %s to %s" % (dotfile, dst)
 
 
 def ensure_directory(target, user, title=""):
@@ -61,15 +83,13 @@ def ensure_directory(target, user, title=""):
             print "Warning: %s not installed!" % title
 
 
-def git_clone(url, into):
-    subprocess.check_call(["git", "clone", url, into])
-
-
 def git_submodule_init():
+    """Shortcut combination for init'ing submodules."""
     subprocess.check_call(["git", "submodule", "update", "--init"])
 
 
 def install_powerline_fonts():
+    """Use the powerline font install script to add monospace fonts."""
     subprocess.check_call(["fonts/install.sh"])
 
 
@@ -92,7 +112,7 @@ def main():
     # Get the location of the dotfiles and cd there.
     dotfilesd = os.path.realpath(os.path.dirname(sys.argv[0]))
     os.chdir(dotfilesd)
-    print("Dotfiles directory: %s" % dotfilesd)
+    print "Dotfiles directory: %s" % dotfilesd
 
     # Setup dotfiles in the home.
     check_and_link(HOME_DOTFILES, os.getenv("HOME"), backupd, user)
