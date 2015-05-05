@@ -34,11 +34,16 @@ export PYTHONPATH='/System/Library/Frameworks/Python.framework/Versions/Current/
 # Git helpers##################################################################
 source ~/.git-prompt.sh
 source ~/.git-completion.sh
-
+GIT_PS1_SHOWDIRTYSTATE=TRUE
+GIT_PS1_SHOWSTASHSTATE=TRUE
+GIT_PS1_SHOWUNTRACKEDFILES=TRUE
+GIT_PS1_SHOWCOLORHINTS=TRUE
+GIT_PS1_SHOWUPSTREAM=auto
 # Prompt#######################################################################
 #export PS1='[\!][\[\e[0;31m\u\e\][m@\h]:\w\$ '
 #export PS1='[\!][\h]:\w\$ '
-export PS1='[\!][\h]:\w$(__git_ps1 " (%s)")\$ '
+#export PS1='[\!][\h]:\w$(__git_ps1 " (%s)")\$ '
+PROMPT_COMMAND='__git_ps1 "[\!][\h]:\w\$" " "'
 
 # Autorun######################################################################
 # Fortunes located at /usr/local/var/fortune
