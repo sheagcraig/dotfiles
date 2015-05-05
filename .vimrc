@@ -32,7 +32,7 @@ set showmatch
 set binary noeol
 
 " It's nice to have line and column numbers displayed
-set ruler
+"set ruler
 
 " make that backspace key work the way it should
 set backspace=indent,eol,start
@@ -71,7 +71,6 @@ au BufRead,BufNewFile *.recipe set filetype=xml
 
 " Pathogen load
 filetype off
-
 call pathogen#infect()
 call pathogen#helptags()
 
