@@ -16,16 +16,16 @@ HOME_DOTFILES = [".bash_profile",
                  ".vim",
                  ".vimrc"]
 
-LUGGAGE_PATH = '/usr/local/share/luggage'
-LUGGAGE_DOTFILES = ['luggage.local']
+LUGGAGE_PATH = "/usr/local/share/luggage"
+LUGGAGE_DOTFILES = ["luggage.local"]
 
-FORTUNE = ['fortune']
-FORTUNE_PATH = '/usr/local/bin'
-FORTUNES = ['fortunes']
-FORTUNES_PATH = '/usr/local/var'
+FORTUNE = ["fortune"]
+FORTUNE_PATH = "/usr/local/bin"
+FORTUNES = ["fortunes"]
+FORTUNES_PATH = "/usr/local/var"
 
 
-def check_and_link(files, destination, backupd):
+def check_and_link(files, destination, backupd, user):
     """Check for files and move them to backup, then symlink."""
     for dotfile in files:
         dst = os.path.join(destination, dotfile)
@@ -38,11 +38,14 @@ def check_and_link(files, destination, backupd):
                     (dst, backupd))
                 shutil.move(dst, backupd)
 
-        os.symlink(dotfile, dst)
+        os.symlink(os.path.realpath(dotfile), dst)
+        # Since we're dealing with symlinks, use lchown to operate on
+        # the link and not its target.
+        os.lchown(dst, user[0], user[1])
         print("Linked %s to %s" % (dotfile, dst))
 
 
-def ensure_directory(target, title=""):
+def ensure_directory(target, user, title=""):
     """Make a directory if it doesn't already exist.
 
     Args:
@@ -53,6 +56,7 @@ def ensure_directory(target, title=""):
     """
     if not os.path.isdir(target):
         os.makedirs(target)
+        os.chown(target, user[0], user[1])
         if title:
             print "Warning: %s not installed!" % title
 
@@ -71,10 +75,19 @@ def install_powerline_fonts():
 
 def main():
     """Set up each dotfile resource."""
+    if os.geteuid() != 0:
+        print "Please sudo run this script."
+        sys.exit(1)
+
+    uid = int(os.getenv("SUDO_UID"))
+    gid = int(os.getenv("SUDO_GID"))
+    user = (uid, gid)
+
     # Make a backup directory.
     backupd = os.path.join(os.getcwd(), "backup-%s" %
                            time.strftime("%Y%m%d-%H%M%S"))
     os.mkdir(backupd)
+    os.chown(backupd, uid, gid)
 
     # Get the location of the dotfiles and cd there.
     dotfilesd = os.path.realpath(os.path.dirname(sys.argv[0]))
@@ -82,7 +95,7 @@ def main():
     print("Dotfiles directory: %s" % dotfilesd)
 
     # Setup dotfiles in the home.
-    check_and_link(HOME_DOTFILES, os.getenv("HOME"), backupd)
+    check_and_link(HOME_DOTFILES, os.getenv("HOME"), backupd, user)
 
     # Set up git submodules.
     git_submodule_init()
@@ -91,20 +104,20 @@ def main():
     install_powerline_fonts()
 
     # Setup luggage files.
-    ensure_directory(LUGGAGE_PATH, 'Luggage')
-    check_and_link(LUGGAGE_DOTFILES, LUGGAGE_PATH, backupd)
+    ensure_directory(LUGGAGE_PATH, user, "Luggage")
+    check_and_link(LUGGAGE_DOTFILES, LUGGAGE_PATH, backupd, user)
 
-    # fortune, cowsay
-    ensure_directory(FORTUNE_PATH)
-    ensure_directory(FORTUNES_PATH)
-    check_and_link(FORTUNE, FORTUNE_PATH, backupd)
-    check_and_link(FORTUNES, FORTUNES_PATH, backupd)
+    ## fortune, cowsay
+    ensure_directory(FORTUNE_PATH, user)
+    ensure_directory(FORTUNES_PATH, user)
+    check_and_link(FORTUNE, FORTUNE_PATH, backupd, user)
+    check_and_link(FORTUNES, FORTUNES_PATH, backupd, user)
 
     if  sys.platform == "darwin":
-        cowsay = glob.glob('cowsay*.pkg')[0]
-        output = subprocess.check_output(['installer', '-target', '/', '-pkg',
+        cowsay = glob.glob("cowsay*.pkg")[0]
+        output = subprocess.check_output(["installer", "-target", "/", "-pkg",
                                           cowsay])
-        print(output)
+        print output
 
 
 if __name__ == "__main__":
