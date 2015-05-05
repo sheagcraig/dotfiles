@@ -27,7 +27,7 @@ This script is named after the Centurions, near and dear to my 80's
 television overindulged heart.
 
 See here: http://en.wikipedia.org/wiki/The_Centurions_(TV_series)
-and here:
+and here: https://youtu.be/_xycHGdEB38
 """
 
 
