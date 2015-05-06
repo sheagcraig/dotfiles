@@ -56,6 +56,31 @@ FORTUNES = ["fortunes"]
 FORTUNES_PATH = "/usr/local/var"
 
 
+def check_and_copy(files, destination, backupd, user):
+    """Check for files and move them to backup, then copy."""
+    for dotfile in files:
+        dst = os.path.join(destination, dotfile)
+        if os.path.exists(dst):
+            if os.path.islink(dst):
+                print "Removing existing link: %s" % dst
+                os.remove(dst)
+            else:
+                print  ("File %s exists; copying to backup directory: %s" %
+                        (dst, backupd))
+                shutil.move(dst, backupd)
+
+        if os.path.isdir(dotfile):
+            shutil.copytree(dotfile, dst)
+        else:
+            shutil.copyfile(dotfile, dst)
+        os.chown(dst, user[0], user[1])
+        print "Copied %s to %s" % (dotfile, dst)
+        # If the file is a plist, refresh the cached values after
+        # linking by doing a defaults read.
+        if dotfile.endswith(".plist"):
+            defaults_read(dst)
+
+
 def check_and_link(files, destination, backupd, user):
     """Check for files and move them to backup, then symlink."""
     for dotfile in files:
@@ -142,7 +167,8 @@ def main():
     install_powerline_fonts()
 
     # Set up iTerm2
-    check_and_link(["com.googlecode.iterm2.plist"],
+    # Preferences should use copy rather than link because they tend to change.
+    check_and_copy(["com.googlecode.iterm2.plist"],
                    os.path.join(os.getenv("HOME"), "Library/Preferences"),
                    backupd, user)
 
