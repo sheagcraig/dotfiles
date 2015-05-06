@@ -112,3 +112,9 @@ let g:gitgutter_escape_grep = 1
 
 " Use our bash profile if shelling.
 set shell=bash\ -l
+
+" Add changelog date or timestamp with F5
+nnoremap <F5> "=strftime("%Y-%m-%d")<CR>P
+inoremap <F5> <C-R>=strftime("%Y-%m-%d")<CR>
+nnoremap <F6> "=strftime("%Y-%m-%d %T")<CR>P
+inoremap <F6> <C-R>=strftime("%Y-%m-%d %T")<CR>
