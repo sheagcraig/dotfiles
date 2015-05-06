@@ -27,8 +27,9 @@ set hlsearch
 " Automatically show matching brackets.
 set showmatch
 
-" do NOT put a carriage return at the end of the last line! if you are programming
-" for the web the default will cause http headers to be sent. that's bad.
+" do NOT put a carriage return at the end of the last line! if you are
+" programming for the web the default will cause http headers to be sent.
+" that's bad.
 set binary noeol
 
 " It's nice to have line and column numbers displayed
@@ -82,6 +83,11 @@ syntax on
 let g:pymode_lint_on_write = 0
 " For some reason pymode wants line length to be 80. Pep8 says 79.""
 let g:pymode_options_max_line_length = 79
+" This doesn't seem to have an effect.
+let g:pymode_options_colorcolumn = 1
+" ...so I have to do this.
+hi ColorColumn ctermbg=Red
+set cc=+1
 " Rope drives me nuts.
 let g:pymode_rope = 0
 
@@ -103,3 +109,6 @@ let g:airline_powerline_fonts = 1
 " Configure vim-gitgutter
 " I alias grep to use color by default.
 let g:gitgutter_escape_grep = 1
+
+" Use our bash profile if shelling.
+set shell=bash\ -l

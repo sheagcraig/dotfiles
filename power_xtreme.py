@@ -74,6 +74,10 @@ def check_and_link(files, destination, backupd, user):
         # the link and not its target.
         os.lchown(dst, user[0], user[1])
         print "Linked %s to %s" % (dotfile, dst)
+        # If the file is a plist, refresh the cached values after
+        # linking by doing a defaults read.
+        if dotfile.endswith(".plist"):
+            defaults_read(dst)
 
 
 def ensure_directory(target, user, title=""):
@@ -90,6 +94,11 @@ def ensure_directory(target, user, title=""):
         os.chown(target, user[0], user[1])
         if title:
             print "Warning: %s not installed!" % title
+
+
+def defaults_read(path):
+    """Renew cached preferences."""
+    subprocess.check_call(["defaults", "read", path])
 
 
 def git_submodule_init():
@@ -131,6 +140,9 @@ def main():
 
     # Install powerline fonts.
     install_powerline_fonts()
+
+    # Set up iTerm2
+    check_and_link(["com.googlecode.iterm2.plist"], os.path.join(os.getenv("HOME"), "Library/Preferences"), backupd, user)
 
     # Setup luggage files.
     ensure_directory(LUGGAGE_PATH, user, "Luggage")

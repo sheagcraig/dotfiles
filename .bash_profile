@@ -1,15 +1,15 @@
 # Environment##################################################################
 # If you don't know, now you know.
-EDITOR=/usr/bin/vim
-GREP_OPTIONS='--color=auto'
+export EDITOR=/usr/bin/vim
+export GREP_OPTIONS='--color=auto'
 
 # Aliases######################################################################
 # Builtin stuff
-alias ls='ls -G'
-alias ll='ls -alG'
-alias gs='git status'
 alias ga='git add'
 alias gi='git commit'
+alias gs='git status'
+alias ls='ls -G'
+alias ll='ls -alG'
 
 # My made up aliases
 alias pcat='plutil -convert xml1 -o -'
@@ -34,8 +34,8 @@ PROMPT_COMMAND='__git_ps1 "[\!][\h]:\w\$" " "'
 
 # Autorun######################################################################
 # Fortunes located at /usr/local/var/fortune
-if [ -e /usr/local/bin/fortune ]; then
-	if [ -e /usr/local/bin/cowsay ]; then
+if [[ -z "$VIM" ]] && [[ -e /usr/local/bin/fortune ]]; then
+	if [[ -e /usr/local/bin/cowsay ]]; then
 		fortune | cowsay
 	else
 		fortune
