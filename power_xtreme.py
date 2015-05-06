@@ -142,7 +142,9 @@ def main():
     install_powerline_fonts()
 
     # Set up iTerm2
-    check_and_link(["com.googlecode.iterm2.plist"], os.path.join(os.getenv("HOME"), "Library/Preferences"), backupd, user)
+    check_and_link(["com.googlecode.iterm2.plist"],
+                   os.path.join(os.getenv("HOME"), "Library/Preferences"),
+                   backupd, user)
 
     # Setup luggage files.
     ensure_directory(LUGGAGE_PATH, user, "Luggage")
