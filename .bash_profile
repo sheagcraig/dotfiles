@@ -20,8 +20,13 @@ export GREP_OPTIONS='--color=auto'
 alias ga='git add'
 alias gi='git commit'
 alias gs='git status'
-alias ls='ls -G'
-alias ll='ls -alG'
+if [[ $(uname) == "Darwin" ]]; then
+    alias ls='ls -G'
+    alias ll='ls -alG'
+else
+    alias ls='ls --color=auto'
+    alias ll='ls -al --color=auto'
+fi
 
 # My made up aliases
 alias pcat='plutil -convert xml1 -o -'
