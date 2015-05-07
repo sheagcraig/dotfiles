@@ -60,6 +60,8 @@ PIP = "/usr/local/bin/pip"
 PYTHON_PACKAGES = ['matplotlib',
                    'ndg-httpsclient',
                    'nose',
+                   'numpy',
+                   'Pillow',
                    'pyOpenSSL',
                    'pyasn1',
                    'pygal',
