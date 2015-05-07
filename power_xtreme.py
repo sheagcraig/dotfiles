@@ -55,6 +55,21 @@ FORTUNE_PATH = "/usr/local/bin"
 FORTUNES = ["fortunes"]
 FORTUNES_PATH = "/usr/local/var"
 
+EASY_INSTALL = "/usr/local/bin/easy_install"
+PIP = "/usr/local/bin/pip"
+PYTHON_PACKAGES = ['matplotlib',
+                   'ndg-httpsclient',
+                   'nose',
+                   'pyOpenSSL',
+                   'pyasn1',
+                   'pygal',
+                   'pylint',
+                   'pypandoc',
+                   'python-jss',
+                   'requests',
+                   'twine',
+                   'wheel']
+
 
 def check_and_copy(files, destination, backupd, user):
     """Check for files and move them to backup, then copy."""
@@ -136,6 +151,22 @@ def install_powerline_fonts():
     subprocess.check_call(["fonts/install.sh"])
 
 
+def pip_update(package):
+    """Attempt to run pip install -U."""
+    print "Installing python package: %s" % package
+    if not os.path.exists(PIP):
+        install_pip()
+
+    stdout = subprocess.check_output([PIP, 'install', '-U', package])
+    print stdout
+
+
+def install_pip():
+    """Use easy_install to install pip."""
+    stdout = subprocess.check_output([EASY_INSTALL, '-U', 'pip'])
+    print stdout
+
+
 def main():
     """Set up each dotfile resource."""
     if os.geteuid() != 0:
@@ -167,7 +198,10 @@ def main():
     install_powerline_fonts()
 
     # Set up iTerm2
-    # Preferences should use copy rather than link because they tend to change.
+    # Preferences should use copy rather than link because they tend to
+    # change.  Arguably, it would be even better to iterate through a
+    # plist object and defaults write each object or use PyObjC to merge
+    # them in.
     check_and_copy(["com.googlecode.iterm2.plist"],
                    os.path.join(os.getenv("HOME"), "Library/Preferences"),
                    backupd, user)
@@ -182,12 +216,17 @@ def main():
     check_and_link(FORTUNE, FORTUNE_PATH, backupd, user)
     check_and_link(FORTUNES, FORTUNES_PATH, backupd, user)
 
+    # I have cowsay built as a mac installer package. I don't see it
+    # changing a lot, so I'm happy to keep it static like that.
     if sys.platform == "darwin":
         cowsay = glob.glob("cowsay*.pkg")[0]
         output = subprocess.check_output(["installer", "-target", "/", "-pkg",
                                           cowsay])
         print output
 
+    # Install and/or update all python packages.
+    for package in PYTHON_PACKAGES:
+        pip_update(package)
 
 if __name__ == "__main__":
     main()
