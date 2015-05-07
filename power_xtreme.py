@@ -72,6 +72,7 @@ PYTHON_PACKAGES = ['matplotlib',
                    'twine',
                    'wheel']
 
+BREW_FORMULAS = ['tmux']
 
 def check_and_copy(files, destination, backupd, user):
     """Check for files and move them to backup, then copy."""
@@ -229,6 +230,18 @@ def main():
     # Install and/or update all python packages.
     for package in PYTHON_PACKAGES:
         pip_update(package)
+
+    # Homebrew
+    # Make sure that we _have_ brew first, since it's an OS X thing.
+    # TODO: Move to config script.
+    if subprocess.call(["which", "brew"]) == 0:
+        for recipe in BREW_FORMULAS:
+            # su's -c argument wants its args as a single token. I think.
+            output = subprocess.check_output(["su", os.getenv("SUDO_USER"),
+                                              "-c", "brew install %s" %
+                                              recipe])
+            print output
+
 
 if __name__ == "__main__":
     main()
