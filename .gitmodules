@@ -31,3 +31,9 @@
 [submodule "fonts"]
 	path = fonts
 	url = git@github.com:powerline/fonts.git
+[submodule ".vim/bundle/tmuxline.vim"]
+	path = .vim/bundle/tmuxline.vim
+	url = https://github.com/edkolev/tmuxline.vim
+[submodule ".vim/bundle/promptline.vim"]
+	path = .vim/bundle/promptline.vim
+	url = git@github.com:edkolev/promptline.vim.git

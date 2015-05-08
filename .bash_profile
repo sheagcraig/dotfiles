@@ -47,7 +47,7 @@ GIT_PS1_SHOWUPSTREAM=auto
 #export PS1='[\!][\[\e[0;31m\u\e\][m@\h]:\w\$ '
 #export PS1='[\!][\h]:\w\$ '
 #export PS1='[\!][\h]:\w$(__git_ps1 " (%s)")\$ '
-PROMPT_COMMAND='__git_ps1 "[\!][\h]:\w\$" " "'
+#PROMPT_COMMAND='__git_ps1 "[\!][\h]:\w\$" " "'
 
 # Autorun######################################################################
 # Fortunes located at /usr/local/var/fortune
@@ -58,3 +58,8 @@ if [[ -z "$VIM" ]] && [[ -e /usr/local/bin/fortune ]]; then
 		fortune
 	fi
 fi
+
+export LC_ALL="en_US.UTF8"
+export LANG="en_US.UTF8"
+
+source ~/.shell_prompt.sh

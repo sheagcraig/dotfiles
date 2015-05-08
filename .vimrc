@@ -43,6 +43,8 @@ set binary noeol
 " It's nice to have line and column numbers displayed
 "set ruler
 
+set encoding=utf-8
+
 " make that backspace key work the way it should
 set backspace=indent,eol,start
 
@@ -100,6 +102,7 @@ set cc=+1
 let g:pymode_rope = 0
 
 " Colors! I like writing to dark terminals.
+set t_Co=256
 set background=dark
 "colorscheme liquidcarbon
 "colorscheme elflord
