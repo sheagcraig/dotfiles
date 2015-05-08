@@ -59,7 +59,4 @@ if [[ -z "$VIM" ]] && [[ -e /usr/local/bin/fortune ]]; then
 	fi
 fi
 
-export LC_ALL="en_US.UTF8"
-export LANG="en_US.UTF8"
-
 source ~/.shell_prompt.sh

@@ -106,9 +106,9 @@ set t_Co=256
 set background=dark
 "colorscheme liquidcarbon
 "colorscheme elflord
-colorscheme nu42dark
+"colorscheme nu42dark
 "colorscheme gentooish
-"colorscheme molokai
+colorscheme molokai
 " Fix the search color so it stands out from cursor
 hi Search cterm=reverse ctermfg=LightGreen ctermbg=Yellow
 

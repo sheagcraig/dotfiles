@@ -44,6 +44,9 @@ HOME_DOTFILES = [".bash_profile",
                  ".git-prompt.sh",
                  ".gitconfig",
                  ".gitignore_global",
+                 ".shell_prompt.sh",
+                 ".tmux.conf",
+                 ".tmuxlinesnap",
                  ".vim",
                  ".vimrc"]
 
@@ -170,6 +173,12 @@ def install_pip():
     print stdout
 
 
+def source():
+    """Source our bash profile to refresh."""
+    subprocess.check_call(["su", os.getenv("SUDO_USER"),"-c",
+                           "source ~/.bash_profile"])
+
+
 def main():
     """Set up each dotfile resource."""
     if os.geteuid() != 0:
@@ -241,6 +250,9 @@ def main():
                                               "-c", "brew install %s" %
                                               recipe])
             print output
+
+    # Reload our bash profile.
+    source()
 
 
 if __name__ == "__main__":
