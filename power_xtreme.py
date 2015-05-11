@@ -21,7 +21,8 @@ Configure all managed dotfiles and dependencies by symlinking to git
 repo. Many of the vim bundles and assorted projects are managed as git
 submodules.
 
-Must be run as root via sudo.
+Must be run as root via sudo. This is to handle stuff that goes into
+system directories.
 
 This script is named after the Centurions, near and dear to my 80's
 television overindulged heart.
@@ -33,12 +34,13 @@ and here: https://youtu.be/_xycHGdEB38
 
 import glob
 import os
+import shlex
 import shutil
 import subprocess
 import sys
 import time
 
-__version__ = "1.0.1"
+__version__ = "1.0.2"
 HOME_DOTFILES = [".bash_profile",
                  ".git-completion.sh",
                  ".git-prompt.sh",
@@ -52,11 +54,6 @@ HOME_DOTFILES = [".bash_profile",
 
 LUGGAGE_PATH = "/usr/local/share/luggage"
 LUGGAGE_DOTFILES = ["luggage.local"]
-
-FORTUNE = ["fortune"]
-FORTUNE_PATH = "/usr/local/bin"
-FORTUNES = ["fortunes"]
-FORTUNES_PATH = "/usr/local/var"
 
 EASY_INSTALL = "/usr/local/bin/easy_install"
 PIP = "/usr/local/bin/pip"
@@ -75,7 +72,9 @@ PYTHON_PACKAGES = ['matplotlib',
                    'twine',
                    'wheel']
 
-BREW_FORMULAS = ['tmux']
+BREW_FORMULAS = ['cowsay',
+                 'fortune',
+                 'tmux']
 
 def check_and_copy(files, destination, backupd, user):
     """Check for files and move them to backup, then copy."""
@@ -179,8 +178,25 @@ def source():
                            "source ~/.bash_profile"])
 
 
+def homebrew():
+    """Install homebrew if needed, then install packages."""
+    if subprocess.call(["which", "brew"]) != 0:
+        cmd = [
+            "ruby", "-e", "$(curl -fsSL "
+            "https://raw.githubusercontent.com/Homebrew/install/master/install)"]
+        output = subprocess.check_output(cmd)
+        print output
+
+    for recipe in BREW_FORMULAS:
+        # su's -c argument wants its args as a single token. I think.
+        output = subprocess.check_output(["su", os.getenv("SUDO_USER"), "-c",
+                                          "brew install %s" % recipe])
+        print output
+
+
 def main():
     """Set up each dotfile resource."""
+    # Prepare information about user.
     if os.geteuid() != 0:
         print "Please sudo run this script."
         sys.exit(1)
@@ -209,47 +225,32 @@ def main():
     # Install powerline fonts.
     install_powerline_fonts()
 
-    # Set up iTerm2
-    # Preferences should use copy rather than link because they tend to
-    # change.  Arguably, it would be even better to iterate through a
-    # plist object and defaults write each object or use PyObjC to merge
-    # them in.
-    check_and_copy(["com.googlecode.iterm2.plist"],
-                   os.path.join(os.getenv("HOME"), "Library/Preferences"),
-                   backupd, user)
-
-    # Setup luggage files.
-    ensure_directory(LUGGAGE_PATH, user, "Luggage")
-    check_and_link(LUGGAGE_DOTFILES, LUGGAGE_PATH, backupd, user)
-
-    # fortune, cowsay
-    ensure_directory(FORTUNE_PATH, user)
-    ensure_directory(FORTUNES_PATH, user)
-    check_and_link(FORTUNE, FORTUNE_PATH, backupd, user)
-    check_and_link(FORTUNES, FORTUNES_PATH, backupd, user)
-
-    # I have cowsay built as a mac installer package. I don't see it
-    # changing a lot, so I'm happy to keep it static like that.
-    if sys.platform == "darwin":
-        cowsay = glob.glob("cowsay*.pkg")[0]
-        output = subprocess.check_output(["installer", "-target", "/", "-pkg",
-                                          cowsay])
-        print output
-
     # Install and/or update all python packages.
     for package in PYTHON_PACKAGES:
         pip_update(package)
 
-    # Homebrew
-    # Make sure that we _have_ brew first, since it's an OS X thing.
-    # TODO: Move to config script.
-    if subprocess.call(["which", "brew"]) == 0:
-        for recipe in BREW_FORMULAS:
-            # su's -c argument wants its args as a single token. I think.
-            output = subprocess.check_output(["su", os.getenv("SUDO_USER"),
-                                              "-c", "brew install %s" %
-                                              recipe])
-            print output
+    # Manage Linux specific items. #####################################
+
+    # Nothing yet.
+
+    # Manage OS X specific items. ######################################
+    if sys.platform == "darwin":
+
+        # Homebrew
+        homebrew()
+
+        # Set up iTerm2
+        # Preferences should use copy rather than link because they tend
+        # to change.  Arguably, it would be even better to iterate
+        # through a plist object and defaults write each object or use
+        # PyObjC to merge them in.
+        check_and_copy(["com.googlecode.iterm2.plist"],
+                    os.path.join(os.getenv("HOME"), "Library/Preferences"),
+                    backupd, user)
+
+        # Setup luggage files.
+        ensure_directory(LUGGAGE_PATH, user, "Luggage")
+        check_and_link(LUGGAGE_DOTFILES, LUGGAGE_PATH, backupd, user)
 
     # Reload our bash profile.
     source()
