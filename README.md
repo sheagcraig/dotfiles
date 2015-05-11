@@ -1,3 +1,4 @@
+```
 @@@@@@@    @@@@@@   @@@@@@@  @@@@@@@@  @@@  @@@       @@@@@@@@   @@@@@@   
 @@@@@@@@  @@@@@@@@  @@@@@@@  @@@@@@@@  @@@  @@@       @@@@@@@@  @@@@@@@   
 @@!  @@@  @@!  @@@    @@!    @@!       @@!  @@!       @@!       !@@       
@@ -8,7 +9,7 @@
 :!:  !:!  :!:  !:!    :!:    :!:       :!:   :!:      :!:           !:!   
  :::: ::  ::::: ::     ::     ::        ::   :: ::::   :: ::::  :::: ::   
 :: :  :    : :  :      :      :        :    : :: : :  : :: ::   :: : :    
-                                                                          
+```                                                                          
 
 These are my configs. They can make *your* life a lot better.
 
@@ -28,3 +29,4 @@ I need to split some of this stuff off. Namely, power_xtreme should set up dotfi
 - Migrate fortune/cowsay to brew.
 - Brew is OS X only. Add similar for yum.
 - Exclude from non OS X stuff like the luggage.
+- Work on bash prompt with airline.
