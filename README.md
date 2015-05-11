@@ -22,3 +22,9 @@ To set up, run ```sudo power_xtreme.py```. It does the following:
 - Source the (newly linked) .bash_profile so it takes effect immediately.
 
 I need to split some of this stuff off. Namely, power_xtreme should set up dotfiles. Something else should be in charge of initial package installation.
+
+### TODO
+- Break package management into another script.
+- Migrate fortune/cowsay to brew.
+- Brew is OS X only. Add similar for yum.
+- Exclude from non OS X stuff like the luggage.
