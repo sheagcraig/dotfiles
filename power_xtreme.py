@@ -57,24 +57,39 @@ LUGGAGE_DOTFILES = ["luggage.local"]
 
 EASY_INSTALL = "/usr/local/bin/easy_install"
 PIP = "/usr/local/bin/pip"
-PYTHON_PACKAGES = ['matplotlib',
-                   'ndg-httpsclient',
-                   'nose',
-                   'numpy',
-                   'Pillow',
-                   'pyOpenSSL',
-                   'pyasn1',
-                   'pygal',
-                   'pylint',
-                   'pypandoc',
-                   'python-jss',
-                   'requests',
-                   'twine',
-                   'wheel']
+PYTHON_PACKAGES = ["matplotlib",
+                   "ndg-httpsclient",
+                   "nose",
+                   "numpy",
+                   "Pillow",
+                   "pyOpenSSL",
+                   "pyasn1",
+                   "pygal",
+                   "pylint",
+                   "pypandoc",
+                   "python-jss",
+                   "requests",
+                   "twine",
+                   "wheel"]
 
-BREW_FORMULAS = ['cowsay',
-                 'fortune',
-                 'tmux']
+BREW_FORMULAS = ["cowsay",
+                 "fortune",
+                 "tmux"]
+YUM_PACKAGES = ["cowsay",
+                "fortune",
+                "freetype",
+                "freetype-devel",
+                "gcc",
+                "gcc-c++",
+                "libffi",
+                "openssl-devel",
+                "pandoc",
+                "python-devel",
+                "tmux",
+                "tmux",
+                "vim-common",
+                "vim-enhanced"]
+
 
 def check_and_copy(files, destination, backupd, user):
     """Check for files and move them to backup, then copy."""
@@ -217,6 +232,12 @@ def homebrew():
         print output
 
 
+def yum_install(packages):
+    """yum install a list of packages."""
+    output = subprocess.call(["yum", "-y", "install"] + packages)
+    print output
+
+
 def main():
     """Set up each dotfile resource."""
     # Prepare information about user.
@@ -254,8 +275,7 @@ def main():
         pip_update(package)
 
     # Manage Linux specific items. #####################################
-
-    # Nothing yet.
+    yum_install(YUM_PACKAGES)
 
     # Manage OS X specific items. ######################################
     if sys.platform == "darwin":
