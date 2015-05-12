@@ -26,6 +26,7 @@ if [[ $(uname) == "Darwin" ]]; then
 else
     alias ls='ls --color=auto'
     alias ll='ls -al --color=auto'
+	alias tmux='tmux -2'
 fi
 
 # My made up aliases
