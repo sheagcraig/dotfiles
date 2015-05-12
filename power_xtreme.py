@@ -174,23 +174,44 @@ def install_pip():
 
 def source():
     """Source our bash profile to refresh."""
-    subprocess.check_call(["su", os.getenv("SUDO_USER"),"-c",
-                           "source ~/.bash_profile"])
+    #subprocess.check_call(["su", os.getenv("SUDO_USER"),"-c",
+    #                       "source ~/.bash_profile"])
+    user_shell("source ~/.bash_profile")
+
+
+def user():
+    return os.getenv("SUDO_USER")
+
+
+def user_shell(cmd):
+    """Execute a shell command as the admin user who ran this sudo."""
+    return subprocess.check_output(["su", user(), "-c", cmd])
+
+
+def install_homebrew():
+    import requests
+    response = requests.get(
+        "https://raw.githubusercontent.com/Homebrew/install/master/install")
+    homebrew_install = "/tmp/homebrew-install.rb"
+    with open(homebrew_install, "w") as f:
+        f.write(response.text)
+    # Homebrew installer prompts you once to hit enter.
+    p = subprocess.Popen(["su", user(), "-c", "ruby %s" %
+                          homebrew_install], stdin=subprocess.PIPE)
+    output = p.communicate("\n")
+    print output
 
 
 def homebrew():
     """Install homebrew if needed, then install packages."""
     if subprocess.call(["which", "brew"]) != 0:
-        cmd = [
-            "ruby", "-e", "$(curl -fsSL "
-            "https://raw.githubusercontent.com/Homebrew/install/master/install)"]
-        output = subprocess.check_output(cmd)
-        print output
+        install_homebrew()
 
     for recipe in BREW_FORMULAS:
         # su's -c argument wants its args as a single token. I think.
-        output = subprocess.check_output(["su", os.getenv("SUDO_USER"), "-c",
-                                          "brew install %s" % recipe])
+        #output = subprocess.check_output(["su", os.getenv("SUDO_USER"), "-c",
+        #                                  "brew install %s" % recipe])
+        output = user_shell("brew install %s" % recipe)
         print output
 
 
@@ -225,7 +246,7 @@ def main():
     # Install powerline fonts.
     install_powerline_fonts()
 
-    # Install and/or update all python packages.
+    ## Install and/or update all python packages.
     for package in PYTHON_PACKAGES:
         pip_update(package)
 
