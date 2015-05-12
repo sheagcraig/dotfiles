@@ -153,22 +153,24 @@ def git_submodule_init():
 
 def install_powerline_fonts():
     """Use the powerline font install script to add monospace fonts."""
-    subprocess.check_call(["fonts/install.sh"])
+    #subprocess.check_call(["su", os.getenv("SUDO_USER"), "-c",
+    #                       "fonts/install.sh"])
+    user_shell("fonts/install.sh")
 
 
 def pip_update(package):
     """Attempt to run pip install -U."""
-    print "Installing python package: %s" % package
-    if not os.path.exists(PIP):
+    if subprocess.call(["which", "pip"]) != 0:
         install_pip()
 
-    stdout = subprocess.check_output([PIP, 'install', '-U', package])
+    print "Installing python package: %s" % package
+    stdout = subprocess.check_output(["pip", "install", "-U", package])
     print stdout
 
 
 def install_pip():
     """Use easy_install to install pip."""
-    stdout = subprocess.check_output([EASY_INSTALL, '-U', 'pip'])
+    stdout = subprocess.check_output(["easy_install", "-U", "pip"])
     print stdout
 
 
@@ -179,13 +181,13 @@ def source():
     user_shell("source ~/.bash_profile")
 
 
-def user():
+def sudo_user():
     return os.getenv("SUDO_USER")
 
 
 def user_shell(cmd):
     """Execute a shell command as the admin user who ran this sudo."""
-    return subprocess.check_output(["su", user(), "-c", cmd])
+    return subprocess.check_output(["su", sudo_user(), "-c", cmd])
 
 
 def install_homebrew():
@@ -196,7 +198,7 @@ def install_homebrew():
     with open(homebrew_install, "w") as f:
         f.write(response.text)
     # Homebrew installer prompts you once to hit enter.
-    p = subprocess.Popen(["su", user(), "-c", "ruby %s" %
+    p = subprocess.Popen(["su", sudo_user(), "-c", "ruby %s" %
                           homebrew_install], stdin=subprocess.PIPE)
     output = p.communicate("\n")
     print output
@@ -238,7 +240,8 @@ def main():
     print "Dotfiles directory: %s" % dotfilesd
 
     # Setup dotfiles in the home.
-    check_and_link(HOME_DOTFILES, os.getenv("HOME"), backupd, user)
+    check_and_link(HOME_DOTFILES, os.path.expanduser(
+        "~%s" % sudo_user()), backupd, user)
 
     # Set up git submodules.
     git_submodule_init()
