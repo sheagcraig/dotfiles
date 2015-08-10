@@ -68,7 +68,7 @@ PYTHON_PACKAGES = ["matplotlib",
                    "pygal",
                    "pylint",
                    "pypandoc",
-                   "python-jss",
+                   #"python-jss",
                    "requests",
                    "twine",
                    "wheel"]
@@ -276,7 +276,8 @@ def main():
         pip_update(package)
 
     # Manage Linux specific items. #####################################
-    yum_install(YUM_PACKAGES)
+    if sys.platform.startswith("linux"):
+        yum_install(YUM_PACKAGES)
 
     # Manage OS X specific items. ######################################
     if sys.platform == "darwin":
@@ -290,8 +291,8 @@ def main():
         # through a plist object and defaults write each object or use
         # PyObjC to merge them in.
         check_and_copy(["com.googlecode.iterm2.plist"],
-                    os.path.join(os.getenv("HOME"), "Library/Preferences"),
-                    backupd, user)
+                       os.path.join(os.getenv("HOME"), "Library/Preferences"),
+                       backupd, user)
 
         # Setup luggage files.
         ensure_directory(LUGGAGE_PATH, user, "Luggage")
