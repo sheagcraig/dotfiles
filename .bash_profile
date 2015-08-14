@@ -32,6 +32,7 @@ fi
 # My made up aliases
 alias pcat='plutil -convert xml1 -o -'
 alias slog='tail -f /var/log/system.log'
+alias jss='python -i $HOME/Developer/python-jss/startup.py'
 
 # Path Manipulation############################################################
 
