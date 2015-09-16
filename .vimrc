@@ -79,6 +79,8 @@ endif
 au BufRead,BufNewFile *.md set filetype=markdown
 " And that AutoPkg recipes are XML
 au BufRead,BufNewFile *.recipe set filetype=xml
+" As well as SavingThrow ADF's
+au BufRead,BufNewFile *.adf set filetype=xml
 
 " Pathogen load
 filetype off
