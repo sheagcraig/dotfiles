@@ -112,7 +112,7 @@ set background=dark
 "colorscheme gentooish
 colorscheme molokai
 " Fix the search color so it stands out from cursor
-hi Search cterm=reverse ctermfg=LightGreen ctermbg=Yellow
+hi Search cterm=reverse ctermfg=DarkCyan ctermbg=Yellow
 
 " Have airline appear all of the time.
 set laststatus=2
@@ -122,6 +122,8 @@ let g:airline_powerline_fonts = 1
 " Configure vim-gitgutter
 " I alias grep to use color by default.
 let g:gitgutter_escape_grep = 1
+" Bump up the number of signs gitgutter can add.
+let g:gitgutter_max_signs = 5000
 
 " Use our bash profile if shelling.
 set shell=bash\ -l
