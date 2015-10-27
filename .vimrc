@@ -133,3 +133,7 @@ nnoremap <F5> "=strftime("%Y-%m-%d")<CR>P
 inoremap <F5> <C-R>=strftime("%Y-%m-%d")<CR>
 nnoremap <F6> "=strftime("%Y-%m-%d %T")<CR>P
 inoremap <F6> <C-R>=strftime("%Y-%m-%d %T")<CR>
+
+" Add mappings to copy to system clipboard with vim -clipboard.
+vmap <C-x> :!pbcopy<CR>
+vmap <C-c> :w !pbcopy<CR><CR>
