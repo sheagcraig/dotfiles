@@ -165,7 +165,7 @@ def defaults_read(path):
 
 def git_submodule_init():
     """Shortcut combination for init'ing submodules."""
-    subprocess.check_call(["git", "submodule", "update", "--init"])
+    user_shell(" ".join(["git", "submodule", "update", "--init"]))
 
 
 def install_powerline_fonts():
@@ -181,7 +181,9 @@ def pip_update(package):
         install_pip()
 
     print "Installing python package: %s" % package
-    stdout = subprocess.check_output(["pip", "install", "-U", package])
+    # stdout = subprocess.check_output(["pip", "install", "-U", "--user",
+    #                                   package])
+    stdout = user_shell(" ".join(["pip", "install", "-U", "--user", package]))
     print stdout
 
 
