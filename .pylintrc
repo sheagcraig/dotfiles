@@ -7,3 +7,23 @@ output-format=colorized
 
 # Tells whether to display a full report or only the messages
 reports=no
+
+[SPELLING]
+
+# Spelling dictionary name. Available dictionaries: de_DE (myspell), en_AU
+# (myspell), en_GB (myspell), en_US (myspell), fr_FR (myspell).
+#spelling-dict=en_US
+
+[FORMAT]
+
+# Maximum number of characters on a single line.
+max-line-length=79
+
+# Regexp for a line that is allowed to be longer than the limit.
+ignore-long-lines=^\s*(# pylint:)?(<?https?://\S+>?)?$
+
+[TYPECHECK]
+
+# Tells whether missing members accessed in mixin class should be ignored. A
+# # mixin class is detected if its name ends with "mixin" (case insensitive).
+ignore-mixin-members=yes

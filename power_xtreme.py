@@ -69,12 +69,14 @@ PYTHON_PACKAGES = ["matplotlib",
                    "pygal",
                    "pylint",
                    "pypandoc",
+                   "pyenchant",
                    #"python-jss",
                    "requests",
                    "twine",
                    "wheel"]
 
 BREW_FORMULAS = ["cowsay",
+                 "enchant",
                  "fortune",
                  "tmux"]
 YUM_PACKAGES = ["cowsay",
