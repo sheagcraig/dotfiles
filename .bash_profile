@@ -13,7 +13,8 @@
 # Environment##################################################################
 # If you don't know, now you know.
 export EDITOR=/usr/bin/vim
-export GREP_OPTIONS='--color=auto'
+# -S: Follow symbolic links in recursive mode.
+export GREP_OPTIONS='--color=auto --recursive -S'
 
 # Aliases######################################################################
 # Builtin stuff
