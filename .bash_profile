@@ -15,6 +15,8 @@
 export EDITOR=/usr/bin/vim
 # -S: Follow symbolic links in recursive mode.
 export GREP_OPTIONS='--color=auto --recursive -S'
+# Python is messed up in OS X 10.11. Move my user site-packages up the list.
+export PYTHONPATH="$HOME/Library/Python/2.7/lib/python/site-packages"
 
 # Aliases######################################################################
 # Builtin stuff
