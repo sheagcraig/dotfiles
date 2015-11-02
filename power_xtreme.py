@@ -59,6 +59,7 @@ LUGGAGE_DOTFILES = ["luggage.local"]
 EASY_INSTALL = "/usr/local/bin/easy_install"
 PIP = "/usr/local/bin/pip"
 PYTHON_PACKAGES = ["matplotlib",
+                   "mock",
                    "ndg-httpsclient",
                    "nose",
                    "numpy",
@@ -73,7 +74,7 @@ PYTHON_PACKAGES = ["matplotlib",
                    #"python-jss",
                    "requests",
                    "twine",
-                   "wheel"]
+                   "wheel",]
 
 BREW_FORMULAS = ["cowsay",
                  "enchant",
@@ -92,7 +93,7 @@ YUM_PACKAGES = ["cowsay",
                 "tmux",
                 "tmux",
                 "vim-common",
-                "vim-enhanced"]
+                "vim-enhanced",]
 
 
 def check_and_copy(files, destination, backupd, user):
