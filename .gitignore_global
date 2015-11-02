@@ -2,3 +2,4 @@
 .DS_Store?
 *.netrwhist
 *.pyc
+*.ropeproject
