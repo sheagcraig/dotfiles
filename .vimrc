@@ -137,3 +137,6 @@ inoremap <F6> <C-R>=strftime("%Y-%m-%d %T")<CR>
 " Add mappings to copy to system clipboard with vim -clipboard.
 vmap <C-x> :!pbcopy<CR>
 vmap <C-c> :w !pbcopy<CR><CR>
+
+" Toggle between tw=79 and 73, and tell us.
+nnoremap tw :let &textwidth = (&textwidth / 79 == 1 ? 72 : 79)<CR>:set textwidth?<CR>
