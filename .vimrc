@@ -101,7 +101,7 @@ let g:pymode_options_colorcolumn = 1
 hi ColorColumn ctermbg=Red
 set cc=+1
 " Rope drives me nuts.
-let g:pymode_rope = 1
+let g:pymode_rope = 0
 
 " Colors! I like writing to dark terminals.
 set t_Co=256
