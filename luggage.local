@@ -19,3 +19,6 @@ pack-outset-login-every-%: % l_usr_local_outset
 
 pack-outset-login-once-%: % l_usr_local_outset
 	@sudo ${INSTALL} -m 755 -g wheel -o root "${<}" ${WORK_D}/usr/local/outset/login-once
+
+pack-outset-on-demand-%: % l_usr_local_outset
+	@sudo ${INSTALL} -m 755 -g wheel -o root "${<}" ${WORK_D}/usr/local/outset/on-demand
