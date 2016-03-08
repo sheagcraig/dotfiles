@@ -14,6 +14,7 @@
 # If you don't know, now you know.
 export EDITOR=/usr/bin/vim
 # -S: Follow symbolic links in recursive mode.
+# This causes annoying "recursive" messages when piping.
 export GREP_OPTIONS='--color=auto --recursive -S'
 # Python is messed up in OS X 10.11. Move my user site-packages up the list.
 export PYTHONPATH="$HOME/Library/Python/2.7/lib/python/site-packages"
@@ -38,6 +39,8 @@ alias slog='tail -f /var/log/system.log'
 alias jss='python -i $HOME/Developer/python-jss/startup.py'
 
 # Path Manipulation############################################################
+PATH="/Library/Frameworks/Python.framework/Versions/3.5/bin:${PATH}"
+export PATH
 
 # Git helpers##################################################################
 source ~/.git-prompt.sh
@@ -65,3 +68,5 @@ if [[ -z "$VIM" ]] && [[ -e /usr/local/bin/fortune ]]; then
 fi
 
 source ~/.shell_prompt.sh
+
+test -e ${HOME}/.iterm2_shell_integration.bash && source ${HOME}/.iterm2_shell_integration.bash
