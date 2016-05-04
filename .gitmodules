@@ -57,3 +57,6 @@
 [submodule "emmet-vim"]
 	path = emmet-vim
 	url = git@github.com:mattn/emmet-vim.git
+[submodule ".vim/bundle/vim-yaml"]
+	path = .vim/bundle/vim-yaml
+	url = https://github.com/avakhov/vim-yaml
