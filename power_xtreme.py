@@ -58,6 +58,7 @@ LUGGAGE_DOTFILES = ["luggage.local"]
 
 EASY_INSTALL = "/usr/local/bin/easy_install"
 PIP = "/usr/local/bin/pip"
+# TODO: May take this out and use virtualenvs exclusively.
 PYTHON_PACKAGES = ["matplotlib",
                    "mock",
                    "ndg-httpsclient",
@@ -79,7 +80,8 @@ PYTHON_PACKAGES = ["matplotlib",
 BREW_FORMULAS = ["cowsay",
                  "enchant",
                  "fortune",
-                 "tmux"]
+                 "tmux",
+                 "tree"]
 YUM_PACKAGES = ["cowsay",
                 "fortune",
                 "freetype",
