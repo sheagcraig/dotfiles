@@ -128,6 +128,10 @@ let g:gitgutter_max_signs = 5000
 " Use our bash profile if shelling.
 set shell=bash\ -l
 
+" Only use emmet for html/css
+" let g:user_emmet_install_global = 0
+" autocmd FileType html,css EmmetInstall
+
 " Add changelog date or timestamp with F5
 nnoremap <F5> "=strftime("%Y-%m-%d")<CR>P
 inoremap <F5> <C-R>=strftime("%Y-%m-%d")<CR>
@@ -140,3 +144,8 @@ vmap <C-c> :w !pbcopy<CR><CR>
 
 " Toggle between tw=79 and 73, and tell us.
 nnoremap tw :let &textwidth = (&textwidth / 79 == 1 ? 72 : 79)<CR>:set textwidth?<CR>
+
+" Python debugger abbreviation (type pdb in insert mode)
+au filetype python :iabbrev pdb import pdb; pdb.set_trace()
+" Python main idiom (type ifname in insert mode)
+au filetype python :iabbrev ifname if __name__ == "__main__":<CR>main()
