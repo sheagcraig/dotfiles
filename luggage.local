@@ -1,18 +1,15 @@
 USE_PKGBUILD=1
 
 l_usr_local_outset: l_usr_local
-	@sudo mkdir -p ${WORK_D}/usr/local/outset/{firstboot-packages,firstboot-scripts,everyboot-scripts,login-every,login-once,on-demand}
+	@sudo mkdir -p ${WORK_D}/usr/local/outset/{boot-every,boot-once,login-every,login-once,on-demand}
 	@sudo chown -R root:wheel ${WORK_D}/usr/local/outset
 	@sudo chmod -R 755 ${WORK_D}/usr/local/outset
 
-pack-outset-firstboot-packages-%: % l_usr_local_outset
-	@sudo ${INSTALL} -m 755 -g wheel -o root "${<}" ${WORK_D}/usr/local/outset/firstboot-packages
+pack-outset-boot-every-%: % l_usr_local_outset
+	@sudo ${INSTALL} -m 755 -g wheel -o root "${<}" ${WORK_D}/usr/local/outset/boot-every
 
-pack-outset-firstboot-scripts-%: % l_usr_local_outset
-	@sudo ${INSTALL} -m 755 -g wheel -o root "${<}" ${WORK_D}/usr/local/outset/firstboot-scripts
-
-pack-outset-everyboot-scripts-%: % l_usr_local_outset
-	@sudo ${INSTALL} -m 755 -g wheel -o root "${<}" ${WORK_D}/usr/local/outset/everyboot-scripts
+pack-outset-boot-once-%: % l_usr_local_outset
+	@sudo ${INSTALL} -m 755 -g wheel -o root "${<}" ${WORK_D}/usr/local/outset/boot-once
 
 pack-outset-login-every-%: % l_usr_local_outset
 	@sudo ${INSTALL} -m 755 -g wheel -o root "${<}" ${WORK_D}/usr/local/outset/login-every
