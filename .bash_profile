@@ -37,7 +37,7 @@ alias slog='tail -f /var/log/system.log'
 alias jss='python -i $HOME/Developer/python-jss/startup.py'
 
 # Path Manipulation############################################################
-PATH="/Library/Frameworks/Python.framework/Versions/3.5/bin:${PATH}"
+PATH="$HOME/Library/Python/2.7/bin:${PATH}"
 export PATH
 
 # Git helpers##################################################################

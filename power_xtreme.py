@@ -40,7 +40,7 @@ import subprocess
 import sys
 import time
 
-__version__ = "1.0.2"
+__version__ = "2.0.0"
 HOME_DOTFILES = [".bash_profile",
                  ".git-completion.sh",
                  ".git-prompt.sh",
@@ -59,23 +59,24 @@ LUGGAGE_DOTFILES = ["luggage.local"]
 EASY_INSTALL = "/usr/local/bin/easy_install"
 PIP = "/usr/local/bin/pip"
 # TODO: May take this out and use virtualenvs exclusively.
-PYTHON_PACKAGES = ["matplotlib",
-                   "mock",
-                   "ndg-httpsclient",
-                   "nose",
-                   "numpy",
-                   "pdbpp",
-                   "Pillow",
-                   "pyOpenSSL",
-                   "pyasn1",
-                   "pygal",
-                   "pylint",
-                   "pypandoc",
-                   "pyenchant",
-                   #"python-jss",
-                   "requests",
-                   "twine",
-                   "wheel",]
+PYTHON_PACKAGES = ["requests"]
+# PYTHON_PACKAGES = ["matplotlib",
+#                    "mock",
+#                    "ndg-httpsclient",
+#                    "nose",
+#                    "numpy",
+#                    "pdbpp",
+#                    "Pillow",
+#                    "pyOpenSSL",
+#                    "pyasn1",
+#                    "pygal",
+#                    "pylint",
+#                    "pypandoc",
+#                    "pyenchant",
+#                    #"python-jss",
+#                    "requests",
+#                    "twine",
+#                    "wheel",]
 
 BREW_FORMULAS = ["cowsay",
                  "enchant",
@@ -96,6 +97,69 @@ YUM_PACKAGES = ["cowsay",
                 "tmux",
                 "vim-common",
                 "vim-enhanced",]
+
+
+def main():
+    """Set up each dotfile resource."""
+    # Prepare information about user.
+    if os.geteuid() != 0:
+        print "Please sudo run this script."
+        sys.exit(1)
+
+    uid = int(os.getenv("SUDO_UID"))
+    gid = int(os.getenv("SUDO_GID"))
+    user = (uid, gid)
+
+    # Make a backup directory.
+    backupd = os.path.join(os.getcwd(), "backup-%s" %
+                           time.strftime("%Y%m%d-%H%M%S"))
+    os.mkdir(backupd)
+    os.chown(backupd, uid, gid)
+
+    # Get the location of the dotfiles and cd there.
+    dotfilesd = os.path.realpath(os.path.dirname(sys.argv[0]))
+    os.chdir(dotfilesd)
+    print "Dotfiles directory: %s" % dotfilesd
+
+    # Setup dotfiles in the home.
+    check_and_link(HOME_DOTFILES, os.path.expanduser(
+        "~%s" % sudo_user()), backupd, user)
+
+    # Set up git submodules.
+    git_submodule_init()
+
+    # Install powerline fonts.
+    install_powerline_fonts()
+
+    ## Install and/or update all python packages.
+    for package in PYTHON_PACKAGES:
+        pip_update(package)
+
+    # Manage Linux specific items. #####################################
+    if sys.platform.startswith("linux"):
+        yum_install(YUM_PACKAGES)
+
+    # Manage OS X specific items. ######################################
+    if sys.platform == "darwin":
+
+        # Homebrew
+        homebrew()
+
+        # Set up iTerm2
+        # Preferences should use copy rather than link because they tend
+        # to change.  Arguably, it would be even better to iterate
+        # through a plist object and defaults write each object or use
+        # PyObjC to merge them in.
+        check_and_copy(["com.googlecode.iterm2.plist"],
+                       os.path.join(os.getenv("HOME"), "Library/Preferences"),
+                       backupd, user)
+
+        # Setup luggage files.
+        ensure_directory(LUGGAGE_PATH, user, "Luggage")
+        check_and_link(LUGGAGE_DOTFILES, LUGGAGE_PATH, backupd, user)
+
+    # Reload our bash profile.
+    source()
 
 
 def check_and_copy(files, destination, backupd, user):
@@ -182,19 +246,19 @@ def install_powerline_fonts():
 
 def pip_update(package):
     """Attempt to run pip install -U."""
-    if subprocess.call(["which", "pip"]) != 0:
+    if subprocess.call(["su", sudo_user(), "-c", "which pip"]) != 0:
         install_pip()
 
     print "Installing python package: %s" % package
     # stdout = subprocess.check_output(["pip", "install", "-U", "--user",
     #                                   package])
-    stdout = user_shell(" ".join(["pip", "install", "-U", "--user", package]))
+    stdout = user_shell("pip install -U --user {}".format(package))
     print stdout
 
 
 def install_pip():
     """Use easy_install to install pip."""
-    stdout = subprocess.check_output(["easy_install", "-U", "pip"])
+    stdout = user_shell("python -m ensurepip --user")
     print stdout
 
 
@@ -245,69 +309,6 @@ def yum_install(packages):
     """yum install a list of packages."""
     output = subprocess.call(["yum", "-y", "install"] + packages)
     print output
-
-
-def main():
-    """Set up each dotfile resource."""
-    # Prepare information about user.
-    if os.geteuid() != 0:
-        print "Please sudo run this script."
-        sys.exit(1)
-
-    uid = int(os.getenv("SUDO_UID"))
-    gid = int(os.getenv("SUDO_GID"))
-    user = (uid, gid)
-
-    # Make a backup directory.
-    backupd = os.path.join(os.getcwd(), "backup-%s" %
-                           time.strftime("%Y%m%d-%H%M%S"))
-    os.mkdir(backupd)
-    os.chown(backupd, uid, gid)
-
-    # Get the location of the dotfiles and cd there.
-    dotfilesd = os.path.realpath(os.path.dirname(sys.argv[0]))
-    os.chdir(dotfilesd)
-    print "Dotfiles directory: %s" % dotfilesd
-
-    # Setup dotfiles in the home.
-    check_and_link(HOME_DOTFILES, os.path.expanduser(
-        "~%s" % sudo_user()), backupd, user)
-
-    # Set up git submodules.
-    git_submodule_init()
-
-    # Install powerline fonts.
-    install_powerline_fonts()
-
-    ## Install and/or update all python packages.
-    for package in PYTHON_PACKAGES:
-        pip_update(package)
-
-    # Manage Linux specific items. #####################################
-    if sys.platform.startswith("linux"):
-        yum_install(YUM_PACKAGES)
-
-    # Manage OS X specific items. ######################################
-    if sys.platform == "darwin":
-
-        # Homebrew
-        homebrew()
-
-        # Set up iTerm2
-        # Preferences should use copy rather than link because they tend
-        # to change.  Arguably, it would be even better to iterate
-        # through a plist object and defaults write each object or use
-        # PyObjC to merge them in.
-        check_and_copy(["com.googlecode.iterm2.plist"],
-                       os.path.join(os.getenv("HOME"), "Library/Preferences"),
-                       backupd, user)
-
-        # Setup luggage files.
-        ensure_directory(LUGGAGE_PATH, user, "Luggage")
-        check_and_link(LUGGAGE_DOTFILES, LUGGAGE_PATH, backupd, user)
-
-    # Reload our bash profile.
-    source()
 
 
 if __name__ == "__main__":
