@@ -15,7 +15,10 @@
 export EDITOR=/usr/bin/vim
 export GREP_OPTIONS='--color=auto'
 # Python is messed up in OS X 10.11. Move my user site-packages up the list.
-export PYTHONPATH="$HOME/Library/Python/2.7/lib/python/site-packages"
+# export PYTHONPATH="$HOME/Library/Python/2.7/lib/python/site-packages"
+
+# Give me those tasty vi readline codes.
+set -o vi
 
 # Aliases######################################################################
 # Builtin stuff
@@ -37,8 +40,8 @@ alias slog='tail -f /var/log/system.log'
 alias jss='python -i $HOME/Developer/python-jss/startup.py'
 
 # Path Manipulation############################################################
-PATH="$HOME/Library/Python/2.7/bin:${PATH}"
-export PATH
+#PATH="$HOME/Library/Python/2.7/bin:${PATH}"
+# export PATH
 
 # Git helpers##################################################################
 source ~/.git-prompt.sh
