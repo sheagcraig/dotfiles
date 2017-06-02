@@ -14,11 +14,20 @@
 # If you don't know, now you know.
 export EDITOR=/usr/bin/vim
 export GREP_OPTIONS='--color=auto'
-# Python is messed up in OS X 10.11. Move my user site-packages up the list.
-# export PYTHONPATH="$HOME/Library/Python/2.7/lib/python/site-packages"
 
 # Give me those tasty vi readline codes.
 set -o vi
+
+# Python#######################################################################
+# Only allow Pip to run in a virtualenv
+export PIP_REQUIRE_VIRTUALENV=true
+# But if you really want to install in global dir:
+gpip(){
+	   PIP_REQUIRE_VIRTUALENV="" pip "$@"
+}
+
+# Cache Pip downloads to speed up creating new venvs.
+export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
 
 # Aliases######################################################################
 # Builtin stuff
@@ -40,8 +49,6 @@ alias slog='tail -f /var/log/system.log'
 alias jss='python -i $HOME/Developer/python-jss/startup.py'
 
 # Path Manipulation############################################################
-#PATH="$HOME/Library/Python/2.7/bin:${PATH}"
-# export PATH
 
 # Git helpers##################################################################
 source ~/.git-prompt.sh
@@ -71,3 +78,4 @@ fi
 source ~/.shell_prompt.sh
 
 test -e ${HOME}/.iterm2_shell_integration.bash && source ${HOME}/.iterm2_shell_integration.bash
+export PATH="/usr/local/opt/openssl/bin:$PATH"
