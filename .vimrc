@@ -145,6 +145,9 @@ vmap <C-c> :w !pbcopy<CR><CR>
 " Toggle between tw=79 and 73, and tell us.
 nnoremap tw :let &textwidth = (&textwidth / 79 == 1 ? 72 : 79)<CR>:set textwidth?<CR>
 
+" Search for current visual selection
+vnoremap // y/<C-R>"<CR>
+
 " Python debugger abbreviation (type pdb in insert mode)
 au filetype python :iabbrev pdb import pdb; pdb.set_trace()
 " Python main idiom (type ifname in insert mode)
