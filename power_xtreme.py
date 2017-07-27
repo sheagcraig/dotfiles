@@ -58,8 +58,10 @@ LUGGAGE_DOTFILES = ["luggage.local"]
 
 EASY_INSTALL = "/usr/local/bin/easy_install"
 PIP = "/usr/local/bin/pip"
-# TODO: May take this out and use virtualenvs exclusively.
-PYTHON_PACKAGES = ["requests"]
+PIP_CONF_PATH = "Library/Application Support/pip"
+PIP_CONF = "pip.conf"
+# Use virtualenvs instead!
+PYTHON_PACKAGES = []
 # PYTHON_PACKAGES = ["matplotlib",
 #                    "mock",
 #                    "ndg-httpsclient",
@@ -94,7 +96,6 @@ YUM_PACKAGES = ["cowsay",
                 "pandoc",
                 "python-devel",
                 "tmux",
-                "tmux",
                 "vim-common",
                 "vim-enhanced",]
 
@@ -121,9 +122,9 @@ def main():
     os.chdir(dotfilesd)
     print "Dotfiles directory: %s" % dotfilesd
 
+    home = os.path.expanduser("~{}".format(sudo_user()))
     # Setup dotfiles in the home.
-    check_and_link(HOME_DOTFILES, os.path.expanduser(
-        "~%s" % sudo_user()), backupd, user)
+    check_and_link(HOME_DOTFILES, home, backupd, user)
 
     # Set up git submodules.
     git_submodule_init()
@@ -131,7 +132,7 @@ def main():
     # Install powerline fonts.
     install_powerline_fonts()
 
-    ## Install and/or update all python packages.
+    # Install and/or update all python packages.
     for package in PYTHON_PACKAGES:
         pip_update(package)
 
@@ -141,6 +142,11 @@ def main():
 
     # Manage OS X specific items. ######################################
     if sys.platform == "darwin":
+
+        # Configure pip on macOS
+        pip_conf_path = os.path.join(home, PIP_CONF_PATH)
+        ensure_directory(pip_conf_path, user, "")
+        check_and_link([PIP_CONF], pip_conf_path, backupd, user)
 
         # Homebrew
         homebrew()
