@@ -235,7 +235,8 @@ def ensure_directory(target, user, title=""):
 
 def defaults_read(path):
     """Renew cached preferences."""
-    subprocess.check_call(["defaults", "read", path])
+    # Throw away output
+    _ = subprocess.check_output(["defaults", "read", path])
 
 
 def git_submodule_init():
@@ -302,13 +303,24 @@ def homebrew():
     """Install homebrew if needed, then install packages."""
     if subprocess.call(["which", "brew"]) != 0:
         install_homebrew()
+    else:
+        # If brew is already installed, update brew and its formulae.
+        brew_update()
 
+    # Install missing formulae.
     for recipe in BREW_FORMULAS:
-        # su's -c argument wants its args as a single token. I think.
-        #output = subprocess.check_output(["su", os.getenv("SUDO_USER"), "-c",
-        #                                  "brew install %s" % recipe])
         output = user_shell("brew install %s" % recipe)
         print output
+
+    # TODO: This currently fails
+    # Now update already installed items.
+    # output = user_shell("brew upgrade")
+    # print output
+
+
+def brew_update():
+    output = user_shell("brew update")
+    print output
 
 
 def yum_install(packages):
