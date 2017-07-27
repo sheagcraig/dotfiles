@@ -1,4 +1,3 @@
-#                                          
 #  @@@@@@@    @@@@@@    @@@@@@   @@@  @@@  
 #  @@@@@@@@  @@@@@@@@  @@@@@@@   @@@  @@@  
 #  @@!  @@@  @@!  @@@  !@@       @@!  @@@  
@@ -29,6 +28,15 @@ gpip(){
 # Cache Pip downloads to speed up creating new venvs.
 export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
 
+# Enable pip completion 
+_pip_completion()
+{
+    COMPREPLY=( $( COMP_WORDS="${COMP_WORDS[*]}" \
+                   COMP_CWORD=$COMP_CWORD \
+                   PIP_AUTO_COMPLETE=1 $1 ) )
+}
+complete -o default -F _pip_completion pip
+
 # Aliases######################################################################
 # Builtin stuff
 alias ga='git add'
@@ -46,7 +54,7 @@ fi
 # My made up aliases
 alias pcat='plutil -convert xml1 -o -'
 alias slog='tail -f /var/log/system.log'
-alias jss='python -i $HOME/Developer/python-jss/startup.py'
+# alias jss='python -i $HOME/Developer/python-jss/startup.py'
 
 # Path Manipulation############################################################
 
