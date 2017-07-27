@@ -23,7 +23,6 @@ submodules.
 
 Must be run as root via sudo. This is to handle stuff that goes into
 system directories.
-
 This script is named after the Centurions, near and dear to my 80's
 television overindulged heart.
 
@@ -135,6 +134,22 @@ def main():
     # Install and/or update all python packages.
     for package in PYTHON_PACKAGES:
         pip_update(package)
+
+    # Nag me to add .pypirc if it's not here already
+    # Can't be in repo since it has secrets in it.
+    pypirc = os.path.join(dotfilesd, '.pypirc')
+    if not os.path.exists(pypirc):
+        try:
+            shutil.copy(
+                os.path.join(home, 'Dropbox', 'boxen', 'pypirc'), pypirc)
+        except:
+            print 'Failed to copy pypirc from Dropbox; is it connected?'
+
+    if os.path.exists(pypirc):
+        import pdb; pdb.set_trace()
+        check_and_link(['.pypirc'], home, backupd, user)
+    else:
+        print 'Please add the pypirc dotfile to repo and run again!'
 
     # Manage Linux specific items. #####################################
     if sys.platform.startswith("linux"):
