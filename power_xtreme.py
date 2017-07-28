@@ -29,14 +29,16 @@ and here: https://youtu.be/_xycHGdEB38
 """
 
 
+import datetime
 import glob
 import os
 import shlex
 import shutil
 import subprocess
 import sys
-import time
+from pathlib import Path
 
+import requests
 import yaml
 
 
@@ -45,22 +47,21 @@ __version__ = "3.0.0"
 
 def main():
     """Set up each dotfile resource."""
-    user = (os.getuid(), os.getgid())
+    # user = (os.getuid(), os.getgid())
     backupd = get_backup_dir()
 
     # Get the location of the dotfiles and cd there.
-    dotfilesd = os.path.realpath(os.path.dirname(__file__))
+    dotfilesd = Path(__file__).parent.resolve()
     os.chdir(dotfilesd)
-    print("Dotfiles directory: %s" % dotfilesd)
+    print(f'Dotfiles directory: {dotfilesd}')
 
-    with open('config.yaml') as infile:
-        config = yaml.load(infile)
+    text = Path('config.yaml').read_text()
+    config = yaml.load(text)
 
     link_dotfiles(config['dotfiles'], backupd)
-
     git_submodule_init()
-
     install_powerline_fonts()
+
 
 def undone():
     pass
@@ -117,9 +118,12 @@ def undone():
 
 def get_backup_dir():
     """Make a timestamped backup directory."""
-    backupd = os.path.join(
-        os.getcwd(), "backup-%s" % time.strftime("%Y%m%d-%H%M%S"))
-    os.mkdir(backupd)
+    now = datetime.datetime.utcnow()
+    backupd = Path.cwd() / f'backup-{now}'
+    # backupd = os.path.join(
+    #     os.getcwd(), "backup-%s" % time.strftime("%Y%m%d-%H%M%S"))
+    # os.mkdir(backupd)
+    backupd.mkdir()
     return backupd
 
 
@@ -150,48 +154,46 @@ def check_and_copy(files, destination, backupd, user):
 
 def link_dotfiles(config, backupd):
     for dest, dotfiles in config.items():
-        check_and_link(dotfiles, os.path.expanduser(dest), backupd)
+        check_and_link(dotfiles, Path(dest).expanduser(), backupd)
 
 
 def check_and_link(files, destination, backupd):
     """Check for files and move them to backup, then symlink."""
     ensure_directory(destination)
-    for dotfile in files:
-        dst = os.path.join(destination, dotfile)
-        if os.path.exists(dst):
-            if os.path.islink(dst):
-                print("Removing existing link: %s" % dst)
-                os.remove(dst)
+    for item in files:
+        dotfile = Path(item)
+        dst = destination / dotfile
+        if dst.exists():
+            if dst.is_symlink():
+                print(f'Removing existing link: {dst}')
+                dst.unlink()
             else:
-                print("File %s exists; copying to backup directory: %s" %
-                      (dst, backupd))
-                shutil.move(dst, backupd)
+                print(
+                    f'File {dst} exists; copying to backup directory: '
+                    f'{backupd}')
+                dst.rename(backupd / dst.stem)
 
-        os.symlink(os.path.realpath(dotfile), dst)
-        # Since we're dealing with symlinks, use lchown to operate on
-        # the link and not its target.
-        # os.lchown(dst, user[0], user[1])
-        print("Linked %s to %s" % (dotfile, dst))
+        dst.symlink_to(dotfile.resolve())
+        print(f'Linked {dotfile} to {dst}')
         # If the file is a plist, refresh the cached values after
         # linking by doing a defaults read.
-        if dotfile.endswith(".plist"):
+        if dotfile.suffix.upper() == '.PLIST':
             defaults_read(dst)
 
 
-def ensure_directory(target, title=""):
+def ensure_directory(target: Path, title: str=None):
     """Make a directory if it doesn't already exist.
 
     Args:
-        target: String path to a directory to ensure.
-        title: String name of software which should have made the dir.
-            Defaults to "". Useful as a warning about needing to set
-            up other projects.
+        target: Directory to ensure exists.
+        title: Name of software which should have made the dir.
+            If provided, prints a warning.  Defaults to None. Useful as a
+            warning about needing to set up other projects.
     """
-    if not os.path.isdir(target):
-        os.makedirs(target)
-        # os.chown(target, user[0], user[1])
+    if not target.is_dir():
+        target.mkdir()
         if title:
-            print("Warning: %s not installed!" % title)
+            print(f'Warning: {title} not installed!')
 
 
 def defaults_read(path):
@@ -246,7 +248,6 @@ def user_shell(cmd):
 
 
 def install_homebrew():
-    import requests
     response = requests.get(
         "https://raw.githubusercontent.com/Homebrew/install/master/install")
     homebrew_install = "/tmp/homebrew-install.rb"

@@ -7,3 +7,10 @@
 		- Either way, start another python process with sudo and block or make a separate script or something.
 - Use a configuration file yaml? json? for all data rather than a ton of globals
 - Add interactive prompt for whether you watn to git submodule update --remote too
+- lint and clean
+- Remove extra junk from config file
+- Audit submodules
+- Add bootstrapping code
+	- Install python3 from python.org
+	- install certifi and link
+	- Setup venv and activate.
