@@ -1,0 +1,79 @@
+dotfiles:
+  '~':
+    - .bash_profile
+    - .git-completion.sh
+    - .git-prompt.sh
+    - .gitconfig
+    - .gitignore_global
+    - .pylintrc
+    - .shell_prompt.sh
+    - .tmux.conf
+    - .tmuxlinesnap
+    - .vim
+    - .vimrc
+  ~/Library/Application Support/pip:
+    - pip.conf
+  /usr/local/share/luggage:
+    - luggage.local
+
+brew_formulae:
+  - cowsay
+  - enchant
+  - fortune
+  - tmux
+  - tree
+
+yum_packages:
+  - cowsay
+  - fortune
+  - freetype
+  - freetype-devel
+  - gcc
+  - gcc-c++
+  - libffi
+  - openssl-devel
+  - pandoc
+  - python-devel
+  - tmux
+  - vim-common
+  - vim-enhanced
+
+  # EASY_INSTALL = "/usr/local/bin/easy_install"
+  # PIP = "/usr/local/bin/pip"
+  # PYTHON_PACKAGES = []
+  # PYTHON_PACKAGES = ["matplotlib",
+  #                    "mock",
+  #                    "ndg-httpsclient",
+  #                    "nose",
+  #                    "numpy",
+  #                    "pdbpp",
+  #                    "Pillow",
+  #                    "pyOpenSSL",
+  #                    "pyasn1",
+  #                    "pygal",
+  #                    "pylint",
+  #                    "pypandoc",
+  #                    "pyenchant",
+  #                    #"python-jss",
+  #                    "requests",
+  #                    "twine",
+  #                    "wheel",]
+
+  # BREW_FORMULAS = ["cowsay",
+  #                  "enchant",
+  #                  "fortune",
+  #                  "tmux",
+  #                  "tree"]
+  # YUM_PACKAGES = ["cowsay",
+  #                 "fortune",
+  #                 "freetype",
+  #                 "freetype-devel",
+  #                 "gcc",
+  #                 "gcc-c++",
+  #                 "libffi",
+  #                 "openssl-devel",
+  #                 "pandoc",
+  #                 "python-devel",
+  #                 "tmux",
+  #                 "vim-common",
+  #                 "vim-enhanced",]

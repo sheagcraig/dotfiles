@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # Copyright (C) 2014 Shea G Craig
 #
 # This program is free software: you can redistribute it and/or modify
@@ -39,149 +39,93 @@ import subprocess
 import sys
 import time
 
-__version__ = "2.0.0"
-HOME_DOTFILES = [".bash_profile",
-                 ".git-completion.sh",
-                 ".git-prompt.sh",
-                 ".gitconfig",
-                 ".gitignore_global",
-                 ".pylintrc",
-                 ".shell_prompt.sh",
-                 ".tmux.conf",
-                 ".tmuxlinesnap",
-                 ".vim",
-                 ".vimrc"]
+import yaml
 
-LUGGAGE_PATH = "/usr/local/share/luggage"
-LUGGAGE_DOTFILES = ["luggage.local"]
 
-EASY_INSTALL = "/usr/local/bin/easy_install"
-PIP = "/usr/local/bin/pip"
-PIP_CONF_PATH = "Library/Application Support/pip"
-PIP_CONF = "pip.conf"
-# Use virtualenvs instead!
-PYTHON_PACKAGES = []
-# PYTHON_PACKAGES = ["matplotlib",
-#                    "mock",
-#                    "ndg-httpsclient",
-#                    "nose",
-#                    "numpy",
-#                    "pdbpp",
-#                    "Pillow",
-#                    "pyOpenSSL",
-#                    "pyasn1",
-#                    "pygal",
-#                    "pylint",
-#                    "pypandoc",
-#                    "pyenchant",
-#                    #"python-jss",
-#                    "requests",
-#                    "twine",
-#                    "wheel",]
-
-BREW_FORMULAS = ["cowsay",
-                 "enchant",
-                 "fortune",
-                 "tmux",
-                 "tree"]
-YUM_PACKAGES = ["cowsay",
-                "fortune",
-                "freetype",
-                "freetype-devel",
-                "gcc",
-                "gcc-c++",
-                "libffi",
-                "openssl-devel",
-                "pandoc",
-                "python-devel",
-                "tmux",
-                "vim-common",
-                "vim-enhanced",]
+__version__ = "3.0.0"
 
 
 def main():
     """Set up each dotfile resource."""
-    # Prepare information about user.
-    if os.geteuid() != 0:
-        print "Please sudo run this script."
-        sys.exit(1)
+    user = (os.getuid(), os.getgid())
 
-    uid = int(os.getenv("SUDO_UID"))
-    gid = int(os.getenv("SUDO_GID"))
-    user = (uid, gid)
-
-    # Make a backup directory.
-    backupd = os.path.join(os.getcwd(), "backup-%s" %
-                           time.strftime("%Y%m%d-%H%M%S"))
-    os.mkdir(backupd)
-    os.chown(backupd, uid, gid)
 
     # Get the location of the dotfiles and cd there.
-    dotfilesd = os.path.realpath(os.path.dirname(sys.argv[0]))
+    dotfilesd = os.path.realpath(os.path.dirname(__file__))
     os.chdir(dotfilesd)
-    print "Dotfiles directory: %s" % dotfilesd
+    print("Dotfiles directory: %s" % dotfilesd)
 
-    home = os.path.expanduser("~{}".format(sudo_user()))
+    with open('config.yaml') as infile:
+        config = yaml.load(infile)
+
+    link_dotfiles(config['dotfiles'], backupd)
+    # home = os.path.expanduser("~")
+
     # Setup dotfiles in the home.
-    check_and_link(HOME_DOTFILES, home, backupd, user)
+    # check_and_link(HOME_DOTFILES, home, backupd, user)
 
     # Set up git submodules.
-    git_submodule_init()
+    # git_submodule_init()
 
-    # Install powerline fonts.
-    install_powerline_fonts()
+    # # Install powerline fonts.
+    # install_powerline_fonts()
 
-    # Install and/or update all python packages.
-    for package in PYTHON_PACKAGES:
-        pip_update(package)
+    # # Install and/or update all python packages.
+    # for package in PYTHON_PACKAGES:
+    #     pip_update(package)
 
-    # Nag me to add .pypirc if it's not here already
-    # Can't be in repo since it has secrets in it.
-    pypirc = os.path.join(dotfilesd, '.pypirc')
-    if not os.path.exists(pypirc):
-        try:
-            shutil.copy(
-                os.path.join(home, 'Dropbox', 'boxen', 'pypirc'), pypirc)
-        except:
-            print 'Failed to copy pypirc from Dropbox; is it connected?'
+    # # Nag me to add .pypirc if it's not here already
+    # # Can't be in repo since it has secrets in it.
+    # pypirc = os.path.join(dotfilesd, '.pypirc')
+    # if not os.path.exists(pypirc):
+    #     try:
+    #         shutil.copy(
+    #             os.path.join(home, 'Dropbox', 'boxen', 'pypirc'), pypirc)
+    #     except:
+    #         print 'Failed to copy pypirc from Dropbox; is it connected?'
 
-    if os.path.exists(pypirc):
-        import pdb; pdb.set_trace()
-        check_and_link(['.pypirc'], home, backupd, user)
-    else:
-        print 'Please add the pypirc dotfile to repo and run again!'
+    # if os.path.exists(pypirc):
+    #     check_and_link(['.pypirc'], home, backupd, user)
+    # else:
+    #     print 'Please add the pypirc dotfile to repo and run again!'
 
-    # Manage Linux specific items. #####################################
-    if sys.platform.startswith("linux"):
-        yum_install(YUM_PACKAGES)
+    # # Manage Linux specific items. #####################################
+    # if sys.platform.startswith("linux"):
+    #     yum_install(YUM_PACKAGES)
 
-    # Manage OS X specific items. ######################################
-    if sys.platform == "darwin":
+    # # Manage OS X specific items. ######################################
+    # if sys.platform == "darwin":
 
-        # Configure pip on macOS
-        pip_conf_path = os.path.join(home, PIP_CONF_PATH)
-        ensure_directory(pip_conf_path, user, "")
-        check_and_link([PIP_CONF], pip_conf_path, backupd, user)
+    #     # Configure pip on macOS
+    #     pip_conf_path = os.path.join(home, PIP_CONF_PATH)
+    #     ensure_directory(pip_conf_path, "")
+    #     check_and_link([PIP_CONF], pip_conf_path, backupd, user)
 
-        # Homebrew
-        homebrew()
+    #     # Homebrew
+    #     homebrew()
 
-        # Set up iTerm2
-        # Preferences should use copy rather than link because they tend
-        # to change.  Arguably, it would be even better to iterate
-        # through a plist object and defaults write each object or use
-        # PyObjC to merge them in.
-        check_and_copy(["com.googlecode.iterm2.plist"],
-                       os.path.join(os.getenv("HOME"), "Library/Preferences"),
-                       backupd, user)
+    #     # Set up iTerm2
+    #     # Preferences should use copy rather than link because they tend
+    #     # to change.  Arguably, it would be even better to iterate
+    #     # through a plist object and defaults write each object or use
+    #     # PyObjC to merge them in.
+    #     check_and_copy(["com.googlecode.iterm2.plist"],
+    #                    os.path.join(os.getenv("HOME"), "Library/Preferences"),
+    #                    backupd, user)
 
-        # Setup luggage files.
-        ensure_directory(LUGGAGE_PATH, user, "Luggage")
-        check_and_link(LUGGAGE_DOTFILES, LUGGAGE_PATH, backupd, user)
+    #     # Setup luggage files.
+    #     ensure_directory(LUGGAGE_PATH, "Luggage")
+    #     check_and_link(LUGGAGE_DOTFILES, LUGGAGE_PATH, backupd, user)
 
-    # Reload our bash profile.
-    source()
+    # # Reload our bash profile.
+    # source()
 
+def get_backup_dir():
+    """Make a timestamped backup directory."""
+    backupd = os.path.join(
+        os.getcwd(), "backup-%s" % time.strftime("%Y%m%d-%H%M%S"))
+    os.mkdir(backupd)
+    return backupd
 
 def check_and_copy(files, destination, backupd, user):
     """Check for files and move them to backup, then copy."""
@@ -189,11 +133,11 @@ def check_and_copy(files, destination, backupd, user):
         dst = os.path.join(destination, dotfile)
         if os.path.exists(dst):
             if os.path.islink(dst):
-                print "Removing existing link: %s" % dst
+                print("Removing existing link: %s" % dst)
                 os.remove(dst)
             else:
-                print  ("File %s exists; copying to backup directory: %s" %
-                        (dst, backupd))
+                print("File %s exists; copying to backup directory: %s" %
+                      (dst, backupd))
                 shutil.move(dst, backupd)
 
         if os.path.isdir(dotfile):
@@ -201,38 +145,45 @@ def check_and_copy(files, destination, backupd, user):
         else:
             shutil.copyfile(dotfile, dst)
         os.chown(dst, user[0], user[1])
-        print "Copied %s to %s" % (dotfile, dst)
+        print("Copied %s to %s" % (dotfile, dst))
         # If the file is a plist, refresh the cached values after
         # linking by doing a defaults read.
         if dotfile.endswith(".plist"):
             defaults_read(dst)
 
 
-def check_and_link(files, destination, backupd, user):
+def link_dotfiles(config, backupd):
+    for dest, dotfiles in config.items():
+        check_and_link(dotfiles, os.path.expanduser(dest), backupd)
+
+
+# def check_and_link(files, destination, backupd, user):
+def check_and_link(files, destination, backupd):
     """Check for files and move them to backup, then symlink."""
+    ensure_directory(destination)
     for dotfile in files:
         dst = os.path.join(destination, dotfile)
         if os.path.exists(dst):
             if os.path.islink(dst):
-                print "Removing existing link: %s" % dst
+                print("Removing existing link: %s" % dst)
                 os.remove(dst)
             else:
-                print  ("File %s exists; copying to backup directory: %s" %
-                        (dst, backupd))
+                print("File %s exists; copying to backup directory: %s" %
+                      (dst, backupd))
                 shutil.move(dst, backupd)
 
         os.symlink(os.path.realpath(dotfile), dst)
         # Since we're dealing with symlinks, use lchown to operate on
         # the link and not its target.
-        os.lchown(dst, user[0], user[1])
-        print "Linked %s to %s" % (dotfile, dst)
+        # os.lchown(dst, user[0], user[1])
+        print("Linked %s to %s" % (dotfile, dst))
         # If the file is a plist, refresh the cached values after
         # linking by doing a defaults read.
         if dotfile.endswith(".plist"):
             defaults_read(dst)
 
 
-def ensure_directory(target, user, title=""):
+def ensure_directory(target, title=""):
     """Make a directory if it doesn't already exist.
 
     Args:
@@ -243,9 +194,9 @@ def ensure_directory(target, user, title=""):
     """
     if not os.path.isdir(target):
         os.makedirs(target)
-        os.chown(target, user[0], user[1])
+        # os.chown(target, user[0], user[1])
         if title:
-            print "Warning: %s not installed!" % title
+            print("Warning: %s not installed!" % title)
 
 
 def defaults_read(path):
@@ -271,17 +222,17 @@ def pip_update(package):
     if subprocess.call(["su", sudo_user(), "-c", "which pip"]) != 0:
         install_pip()
 
-    print "Installing python package: %s" % package
+    print("Installing python package: %s" % package)
     # stdout = subprocess.check_output(["pip", "install", "-U", "--user",
     #                                   package])
     stdout = user_shell("pip install -U --user {}".format(package))
-    print stdout
+    print(stdout)
 
 
 def install_pip():
     """Use easy_install to install pip."""
     stdout = user_shell("python -m ensurepip --user")
-    print stdout
+    print(stdout)
 
 
 def source():
@@ -311,7 +262,7 @@ def install_homebrew():
     p = subprocess.Popen(["su", sudo_user(), "-c", "ruby %s" %
                           homebrew_install], stdin=subprocess.PIPE)
     output = p.communicate("\n")
-    print output
+    print(output)
 
 
 def homebrew():
@@ -325,7 +276,7 @@ def homebrew():
     # Install missing formulae.
     for recipe in BREW_FORMULAS:
         output = user_shell("brew install %s" % recipe)
-        print output
+        print(output)
 
     # TODO: This currently fails
     # Now update already installed items.
@@ -335,13 +286,13 @@ def homebrew():
 
 def brew_update():
     output = user_shell("brew update")
-    print output
+    print(output)
 
 
 def yum_install(packages):
     """yum install a list of packages."""
     output = subprocess.call(["yum", "-y", "install"] + packages)
-    print output
+    print(output)
 
 
 if __name__ == "__main__":
