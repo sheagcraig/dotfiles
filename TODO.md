@@ -1,0 +1,9 @@
+- Add in ssh keys from boxen folder as well
+	- Make generic this mechanism (used for pypirc as well)
+- Does this really need to run as root? De-rootify in a branch and see if that is better.
+	- As far as I can tell, the only things that need root here are:
+		- Linux yum installs
+		- possibly installing the luggage files; but can we do this to another place?
+		- Either way, start another python process with sudo and block or make a separate script or something.
+- Use a configuration file yaml? json? for all data rather than a ton of globals
+- Add interactive prompt for whether you watn to git submodule update --remote too

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (C) 2014 Shea G Craig
+# Copyright (C) 2014-2017 Shea G Craig
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -21,8 +21,6 @@ Configure all managed dotfiles and dependencies by symlinking to git
 repo. Many of the vim bundles and assorted projects are managed as git
 submodules.
 
-Must be run as root via sudo. This is to handle stuff that goes into
-system directories.
 This script is named after the Centurions, near and dear to my 80's
 television overindulged heart.
 
@@ -48,7 +46,7 @@ __version__ = "3.0.0"
 def main():
     """Set up each dotfile resource."""
     user = (os.getuid(), os.getgid())
-
+    backupd = get_backup_dir()
 
     # Get the location of the dotfiles and cd there.
     dotfilesd = os.path.realpath(os.path.dirname(__file__))
@@ -59,17 +57,13 @@ def main():
         config = yaml.load(infile)
 
     link_dotfiles(config['dotfiles'], backupd)
-    # home = os.path.expanduser("~")
 
-    # Setup dotfiles in the home.
-    # check_and_link(HOME_DOTFILES, home, backupd, user)
+    git_submodule_init()
 
-    # Set up git submodules.
-    # git_submodule_init()
+    install_powerline_fonts()
 
-    # # Install powerline fonts.
-    # install_powerline_fonts()
-
+def undone():
+    pass
     # # Install and/or update all python packages.
     # for package in PYTHON_PACKAGES:
     #     pip_update(package)
@@ -120,12 +114,14 @@ def main():
     # # Reload our bash profile.
     # source()
 
+
 def get_backup_dir():
     """Make a timestamped backup directory."""
     backupd = os.path.join(
         os.getcwd(), "backup-%s" % time.strftime("%Y%m%d-%H%M%S"))
     os.mkdir(backupd)
     return backupd
+
 
 def check_and_copy(files, destination, backupd, user):
     """Check for files and move them to backup, then copy."""
@@ -157,7 +153,6 @@ def link_dotfiles(config, backupd):
         check_and_link(dotfiles, os.path.expanduser(dest), backupd)
 
 
-# def check_and_link(files, destination, backupd, user):
 def check_and_link(files, destination, backupd):
     """Check for files and move them to backup, then symlink."""
     ensure_directory(destination)
@@ -207,14 +202,13 @@ def defaults_read(path):
 
 def git_submodule_init():
     """Shortcut combination for init'ing submodules."""
-    user_shell(" ".join(["git", "submodule", "update", "--init"]))
+    subprocess.check_call(
+        ['git', 'submodule', 'update', '--init', '--recursive'])
 
 
 def install_powerline_fonts():
     """Use the powerline font install script to add monospace fonts."""
-    #subprocess.check_call(["su", os.getenv("SUDO_USER"), "-c",
-    #                       "fonts/install.sh"])
-    user_shell("fonts/install.sh")
+    subprocess.check_call(["fonts/install.sh"])
 
 
 def pip_update(package):
