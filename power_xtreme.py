@@ -47,7 +47,6 @@ __version__ = "3.0.0"
 
 def main():
     """Set up each dotfile resource."""
-    # user = (os.getuid(), os.getgid())
     backupd = get_backup_dir()
 
     # Get the location of the dotfiles and cd there.
@@ -120,9 +119,6 @@ def get_backup_dir():
     """Make a timestamped backup directory."""
     now = datetime.datetime.utcnow()
     backupd = Path.cwd() / f'backup-{now}'
-    # backupd = os.path.join(
-    #     os.getcwd(), "backup-%s" % time.strftime("%Y%m%d-%H%M%S"))
-    # os.mkdir(backupd)
     backupd.mkdir()
     return backupd
 
