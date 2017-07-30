@@ -1,0 +1,50 @@
+---
+- hosts: all
+  connection: local
+
+  vars:
+    dotfiles_repo: "https://github.com/sheagcraig/dotfiles.git"
+    dotfiles_repo_local_destination: "~/Developer/the_dotfiles"
+    dotfiles_files:
+      - .bash_profile
+      - .git-completion.sh
+      - .git-prompt.sh
+      - .gitconfig
+      - .gitignore_global
+      - .pylintrc
+      - .shell_prompt.sh
+      - .tmux.conf
+      - .tmuxlinesnap
+      - .vim
+      - .vimrc
+
+  roles:
+    - role: geerlingguy.dotfiles
+
+  tasks:
+    - file:
+        path: ~/.pip
+        state: directory
+    - file:
+        src: "{{ playbook_dir }}/pip.conf"
+        dest: ~/.pip/pip.conf
+        state: link
+  # ~/.pip:
+  #   # Use the deprecated location because it works for both macOS and Linux
+  #   - pip.conf
+  # /usr/local/share/luggage:
+  #   - luggage.local
+  # ~/.ssh:
+  #   - config
+
+# secrets:
+  # '~':
+  #   mode: 0755
+  #   files:
+  #     .pypirc: 0600
+  # ~/.ssh:
+  #   mode: 0700
+  #   files:
+  #     id_rsa: 0600
+  #     id_rsa.pub: 0644
+...
