@@ -11,10 +11,24 @@ dotfiles:
     - .tmuxlinesnap
     - .vim
     - .vimrc
-  ~/Library/Application Support/pip:
+  ~/.pip:
+    # Use the deprecated location because it works for both macOS and Linux
     - pip.conf
   /usr/local/share/luggage:
     - luggage.local
+  ~/.ssh:
+    - config
+
+secrets:
+  '~':
+    mode: 0755
+    files:
+      .pypirc: 0600
+  ~/.ssh:
+    mode: 0700
+    files:
+      id_rsa: 0600
+      id_rsa.pub: 0644
 
 brew_formulae:
   - cowsay
@@ -22,6 +36,25 @@ brew_formulae:
   - fortune
   - tmux
   - tree
+
+python_packages: []
+  # matplotlib
+  # mock
+  # ndg-httpsclient
+  # nose
+  # numpy
+  # pdbpp
+  # Pillow
+  # pyOpenSSL
+  # pyasn1
+  # pygal
+  # pylint
+  # pypandoc
+  # pyenchant
+  # "python-jss
+  # requests
+  # twine
+  # wheel
 
 yum_packages:
   - cowsay
@@ -37,43 +70,3 @@ yum_packages:
   - tmux
   - vim-common
   - vim-enhanced
-
-  # EASY_INSTALL = "/usr/local/bin/easy_install"
-  # PIP = "/usr/local/bin/pip"
-  # PYTHON_PACKAGES = []
-  # PYTHON_PACKAGES = ["matplotlib",
-  #                    "mock",
-  #                    "ndg-httpsclient",
-  #                    "nose",
-  #                    "numpy",
-  #                    "pdbpp",
-  #                    "Pillow",
-  #                    "pyOpenSSL",
-  #                    "pyasn1",
-  #                    "pygal",
-  #                    "pylint",
-  #                    "pypandoc",
-  #                    "pyenchant",
-  #                    #"python-jss",
-  #                    "requests",
-  #                    "twine",
-  #                    "wheel",]
-
-  # BREW_FORMULAS = ["cowsay",
-  #                  "enchant",
-  #                  "fortune",
-  #                  "tmux",
-  #                  "tree"]
-  # YUM_PACKAGES = ["cowsay",
-  #                 "fortune",
-  #                 "freetype",
-  #                 "freetype-devel",
-  #                 "gcc",
-  #                 "gcc-c++",
-  #                 "libffi",
-  #                 "openssl-devel",
-  #                 "pandoc",
-  #                 "python-devel",
-  #                 "tmux",
-  #                 "vim-common",
-  #                 "vim-enhanced",]

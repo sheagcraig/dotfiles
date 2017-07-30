@@ -58,30 +58,16 @@ def main():
     config = yaml.load(text)
 
     link_dotfiles(config['dotfiles'], backupd)
+    add_secrets(config['secrets'], backupd)
     git_submodule_init()
     install_powerline_fonts()
+    # TODO: This is problematic because presumably power_extreme will
+    # be running in a venv. AND I'm not installing anything anymore
+    # anyhow.
+    # pip_update(config['python_packages'])
 
 
 def undone():
-    pass
-    # # Install and/or update all python packages.
-    # for package in PYTHON_PACKAGES:
-    #     pip_update(package)
-
-    # # Nag me to add .pypirc if it's not here already
-    # # Can't be in repo since it has secrets in it.
-    # pypirc = os.path.join(dotfilesd, '.pypirc')
-    # if not os.path.exists(pypirc):
-    #     try:
-    #         shutil.copy(
-    #             os.path.join(home, 'Dropbox', 'boxen', 'pypirc'), pypirc)
-    #     except:
-    #         print 'Failed to copy pypirc from Dropbox; is it connected?'
-
-    # if os.path.exists(pypirc):
-    #     check_and_link(['.pypirc'], home, backupd, user)
-    # else:
-    #     print 'Please add the pypirc dotfile to repo and run again!'
 
     # # Manage Linux specific items. #####################################
     # if sys.platform.startswith("linux"):
@@ -90,15 +76,12 @@ def undone():
     # # Manage OS X specific items. ######################################
     # if sys.platform == "darwin":
 
-    #     # Configure pip on macOS
-    #     pip_conf_path = os.path.join(home, PIP_CONF_PATH)
-    #     ensure_directory(pip_conf_path, "")
-    #     check_and_link([PIP_CONF], pip_conf_path, backupd, user)
-
     #     # Homebrew
     #     homebrew()
 
     #     # Set up iTerm2
+    # TODO: Is this needed? What do I have set in iTerm even?
+    # Either way, probably need to set prefs with Cocoa
     #     # Preferences should use copy rather than link because they tend
     #     # to change.  Arguably, it would be even better to iterate
     #     # through a plist object and defaults write each object or use
@@ -106,10 +89,6 @@ def undone():
     #     check_and_copy(["com.googlecode.iterm2.plist"],
     #                    os.path.join(os.getenv("HOME"), "Library/Preferences"),
     #                    backupd, user)
-
-    #     # Setup luggage files.
-    #     ensure_directory(LUGGAGE_PATH, "Luggage")
-    #     check_and_link(LUGGAGE_DOTFILES, LUGGAGE_PATH, backupd, user)
 
     # # Reload our bash profile.
     # source()
@@ -123,34 +102,26 @@ def get_backup_dir():
     return backupd
 
 
-def check_and_copy(files, destination, backupd, user):
-    """Check for files and move them to backup, then copy."""
-    for dotfile in files:
-        dst = os.path.join(destination, dotfile)
-        if os.path.exists(dst):
-            if os.path.islink(dst):
-                print("Removing existing link: %s" % dst)
-                os.remove(dst)
-            else:
-                print("File %s exists; copying to backup directory: %s" %
-                      (dst, backupd))
-                shutil.move(dst, backupd)
-
-        if os.path.isdir(dotfile):
-            shutil.copytree(dotfile, dst)
-        else:
-            shutil.copyfile(dotfile, dst)
-        os.chown(dst, user[0], user[1])
-        print("Copied %s to %s" % (dotfile, dst))
-        # If the file is a plist, refresh the cached values after
-        # linking by doing a defaults read.
-        if dotfile.endswith(".plist"):
-            defaults_read(dst)
-
-
 def link_dotfiles(config, backupd):
     for dest, dotfiles in config.items():
         check_and_link(dotfiles, Path(dest).expanduser(), backupd)
+
+
+def add_secrets(secrets, backupd):
+    # TODO: Need to add Dropbox connection nag
+    boxend = Path('~/Dropbox/boxen').expanduser()
+    for dest, dest_config in secrets.items():
+        dest_dir = Path(dest).expanduser()
+
+        if not dest_dir.exists():
+            dest_dir.mkdir(dest_config['mode'])
+
+        # for secret, mode in dest_config['files']:
+        # TODO: Need to remove existing items so it doesn't throw
+        #     destination = dest_dir / secret
+        # TODO: This is wrong; pypirc will fail e.g.
+        #     shutil.copy2(boxend / 'ssh' / secret, destination)
+        #     destination.chmod(mode)
 
 
 def check_and_link(files, destination, backupd):
@@ -209,22 +180,45 @@ def install_powerline_fonts():
     subprocess.check_call(["fonts/install.sh"])
 
 
-def pip_update(package):
+def pip_update(packages):
     """Attempt to run pip install -U."""
-    if subprocess.call(["su", sudo_user(), "-c", "which pip"]) != 0:
-        install_pip()
-
-    print("Installing python package: %s" % package)
-    # stdout = subprocess.check_output(["pip", "install", "-U", "--user",
-    #                                   package])
-    stdout = user_shell("pip install -U --user {}".format(package))
-    print(stdout)
+    subprocess.check_call(
+        ["pip", "install", "-U", "--user"] + packages)
 
 
-def install_pip():
-    """Use easy_install to install pip."""
-    stdout = user_shell("python -m ensurepip --user")
-    print(stdout)
+
+
+
+
+
+
+
+
+
+
+def check_and_copy(files, destination, backupd, user):
+    """Check for files and move them to backup, then copy."""
+    for dotfile in files:
+        dst = os.path.join(destination, dotfile)
+        if os.path.exists(dst):
+            if os.path.islink(dst):
+                print("Removing existing link: %s" % dst)
+                os.remove(dst)
+            else:
+                print("File %s exists; copying to backup directory: %s" %
+                      (dst, backupd))
+                shutil.move(dst, backupd)
+
+        if os.path.isdir(dotfile):
+            shutil.copytree(dotfile, dst)
+        else:
+            shutil.copyfile(dotfile, dst)
+        os.chown(dst, user[0], user[1])
+        print("Copied %s to %s" % (dotfile, dst))
+        # If the file is a plist, refresh the cached values after
+        # linking by doing a defaults read.
+        if dotfile.endswith(".plist"):
+            defaults_read(dst)
 
 
 def source():
