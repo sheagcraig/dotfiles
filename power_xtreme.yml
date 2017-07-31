@@ -5,4 +5,8 @@
   roles:
     - role: dotfiles
 
+  tasks:
+    - name: Git init included submodules.
+      command: git submodule update --init --recursive
+
 ...
