@@ -8,5 +8,7 @@
   tasks:
     - name: Git init included submodules.
       command: git submodule update --init --recursive
+    - name: Install powerline fonts.
+      command: fonts/install.sh
 
 ...
