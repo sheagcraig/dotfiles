@@ -3,13 +3,16 @@
   file: 
     path: "{{ item.dir | expanduser }}"
     state: directory
+  when: (item.limit_to_platform | default(False) and item.limit_to_platform == ansible_system)
   with_items: "{{ dotfiles_files }}"
 
-- name: Copy all non-git files from Dropbox desired location.
+- name: Copy all non-git files from Dropbox desired location into place for Mac.
   copy:
     src: "{{ secrets_dir | expanduser }}/{{ item.1.name }}"
     dest: "{{item.0.dir | expanduser }}/{{ item.1.name }}"
-  when: item.1.type | default('link')  == 'secret'
+  when: 
+    - item.1.type | default('link')  == 'secret'
+    - (item.1.limit_to_platform | default(False) and item.1.limit_to_platform == ansible_system)
   with_subelements:
     - "{{ dotfiles_files }}"
     - files
@@ -21,7 +24,9 @@
     force: True
     mode: "{{ item.1.mode | default(omit) }}"
     state: link
-  when: item.1.type | default('link')  == 'link'
+  when:
+    - item.1.type | default('link')  == 'link'
+    - (item.1.limit_to_platform | default(False) and item.1.limit_to_platform == ansible_system)
   with_subelements:
     - "{{ dotfiles_files }}"
     - files

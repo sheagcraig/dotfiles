@@ -18,8 +18,10 @@ dotfiles_files:
       files:
         - name: pip.conf
     - dir: /usr/local/share/luggage
+      limit_to_platform: Darwin
       files:
         - name: luggage.local
+          limit_to_platform: Darwin
     - dir: ~/.ssh
       files:
         - name: config
