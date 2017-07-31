@@ -33,8 +33,7 @@ Here's what happens:
 1. Git inits submodules
 	- For this repo, this primarily consists of vim plugins and Emmet.
 1. Installs the fonts used by Powerline/Airline
-1. Copies all plist files and reads them (to force preference caching to update).
-1. Sources the (newly linked) .bash_profile so it takes effect immediately.
+1. Instructs iTerm2 to use the preferences included in this project.
 
 I used to install all of my common python packages, but since I do that in virtualenvs these days, I no longer do so.
 
@@ -49,3 +48,6 @@ Some files are pulled from my Dropbox folder since they can't be included on a p
 
 ## References
 My starting point was https://github.com/geerlingguy/mac-dev-playbook and the associated roles included in that project. Look there for fancier stuff.
+
+The kind of tricky iTerm2 config is based on http://stratus3d.com/blog/2015/02/28/sync-iterm2-profile-with-dotfiles-repository/
+Any changes to the iTerm profile must be saved back out to this file and committed (although that's true of all the dotfiles).
