@@ -1,0 +1,28 @@
+---
+- name: Ensure all required directories are present.
+  file: 
+    path: "{{ item.dir | expanduser }}"
+    state: directory
+  with_items: "{{ dotfiles_files }}"
+
+- name: Copy all non-git files from Dropbox desired location.
+  copy:
+    src: "{{ secrets_dir | expanduser }}/{{ item.1.name }}"
+    dest: "{{item.0.dir | expanduser }}/{{ item.1.name }}"
+  when: item.1.type | default('link')  == 'secret'
+  with_subelements:
+    - "{{ dotfiles_files }}"
+    - files
+
+- name: Link all dotfiles.
+  file:
+    src: "{{ playbook_dir }}/{{ item.1.name }}"
+    dest: "{{ item.0.dir | expanduser }}/{{ item.1.name }}"
+    force: True
+    mode: "{{ item.1.mode | default(omit) }}"
+    state: link
+  when: item.1.type | default('link')  == 'link'
+  with_subelements:
+    - "{{ dotfiles_files }}"
+    - files
+
