@@ -7,6 +7,7 @@
 
   roles:
     - role: dotfiles
+    - role: geerlingguy.homebrew
 
   tasks:
     - name: Git init included submodules.
@@ -15,11 +16,6 @@
     - name: Install powerline fonts.
       command: fonts/install.sh
 
-    - name: Install yum packages for Linux.
-      yum:
-        name: "{{ item }}"
-        state: latest
-      when: ansible_distribution in ['CentOS', 'RHEL']
-      with_items: "{{ yum_packages }}"
+    - include: tasks/yum.yml
 
 ...
