@@ -1,0 +1,21 @@
+---
+# Custom Terminal theme.
+- name: Get current Terminal profile.
+  shell: defaults read com.apple.terminal 'Default Window Settings'
+  register: terminal_theme
+  changed_when: false
+  always_run: yes
+
+- name: Ensure custom Terminal profile is added.
+  shell: open test_settings.terminal
+  changed_when: false
+  when: "'test_settings' not in terminal_theme.stdout"
+
+# TODO: This doesn't work in Yosemite. Consider a different solution?
+- name: Ensure custom Terminal profile is set as default.
+  shell: "{{ item }}"
+  with_items:
+    - defaults write com.apple.terminal 'Default Window Settings' test_settings
+    - defaults write com.apple.terminal 'Startup Window Settings' test_settings
+  changed_when: false
+  when: "'test_settings' not in terminal_theme.stdout"

@@ -1,0 +1,6 @@
+---
+- name: Tell iTerm to load its settings from the dotfiles repo
+  command: defaults write com.googlecode.iterm2.plist PrefsCustomFolder {{ playbook_dir }}
+
+- name: Tell iTerm to enable loading settings
+  command: defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true

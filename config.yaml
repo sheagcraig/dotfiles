@@ -23,6 +23,7 @@ homebrew_cask_apps:
   - grandperspective
   - handbrake
   - iina
+  - iterm2
   - openemu
   - pacifist
   - packages
