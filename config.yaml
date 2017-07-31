@@ -6,7 +6,7 @@ brew_formulae:
   - tmux
   - tree
 
-python_packages: []
+python_packages:
   # matplotlib
   # mock
   # ndg-httpsclient
