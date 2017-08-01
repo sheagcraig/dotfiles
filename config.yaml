@@ -65,3 +65,5 @@ yum_packages:
   - tmux
   - vim-common
   - vim-enhanced
+
+my_apple_term_theme: SGC.terminal

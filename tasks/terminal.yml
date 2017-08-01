@@ -7,15 +7,14 @@
   always_run: yes
 
 - name: Ensure custom Terminal profile is added.
-  shell: open test_settings.terminal
+  shell: open {{ my_apple_term_theme }}
   changed_when: false
-  when: "'test_settings' not in terminal_theme.stdout"
+  when: my_apple_term_theme not in terminal_theme.stdout
 
-# TODO: This doesn't work in Yosemite. Consider a different solution?
 - name: Ensure custom Terminal profile is set as default.
   shell: "{{ item }}"
   with_items:
-    - defaults write com.apple.terminal 'Default Window Settings' test_settings
-    - defaults write com.apple.terminal 'Startup Window Settings' test_settings
+    - defaults write com.apple.terminal 'Default Window Settings' {{ my_apple_term_theme | basename | regex_replace('\.profile', '') }}
+    - defaults write com.apple.terminal 'Startup Window Settings' {{ my_apple_term_theme | basename | regex_replace('\.profile', '') }}
   changed_when: false
-  when: "'test_settings' not in terminal_theme.stdout"
+  when: my_apple_term_theme not in terminal_theme.stdout
