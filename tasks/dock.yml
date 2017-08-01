@@ -1,0 +1,16 @@
+---
+- name: Autohide Dock
+  osx_defaults: 
+    domain: com.apple.dock
+    key: autohide
+    state: present
+    type: bool
+    value: true
+
+- name: Remove unwanted stuff from Dock
+  command: dockutil --remove {{ item }} --no-restart
+  with_items: "{{ dock_removals }}"
+
+- name: Apply dock changes by restarting Dock
+  command: killall Dock
+
