@@ -1,4 +1,6 @@
 homebrew_upgrade_all_packages: True
+homebrew_taps:
+  - clangen/musikcube
 homebrew_installed_packages:
   - chromedriver
   - cowsay
@@ -7,6 +9,7 @@ homebrew_installed_packages:
   - figlet
   - fortune
   - httpie
+  - musikcube
   - nmap
   - pandoc
   - phantomjs
@@ -15,7 +18,6 @@ homebrew_installed_packages:
   - sqlite
   - tmux
   - tree
-
 homebrew_cask_apps:
   - atom
   - evernote
