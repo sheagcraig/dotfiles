@@ -54,7 +54,7 @@
 	path = .vim/bundle/vim-markdown
 	url = git@github.com:tpope/vim-markdown.git
 	branch = master
-[submodule "emmet-vim"]
+[submodule ".vim/bundle/emmet-vim"]
 	path = emmet-vim
 	url = git@github.com:mattn/emmet-vim.git
 [submodule ".vim/bundle/vim-yaml"]
