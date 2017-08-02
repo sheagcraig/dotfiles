@@ -11,10 +11,12 @@
 - name: See if removal items are present
   command: dockutil --find {{ item }} 
   with_items: "{{ dock_removals }}"
+  failed_when: False
+  changed_when: False
   register: dock_to_remove
 
 - name: Remove unwanted stuff from Dock
-  command: dockutil --remove {{ item }} --no-restart
-  with_items: "{{ dock_to_remove }}"
+  command: dockutil --remove {{ item.item }} --no-restart
+  with_items: "{{ dock_to_remove.results }}"
+  when: item.rc == 0
   notify: restart_dock
-

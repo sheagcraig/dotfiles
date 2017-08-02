@@ -7,7 +7,12 @@
 
   roles:
     - role: dotfiles
+      tags: ['dotfiles']
     - role: geerlingguy.homebrew
+      tags: ['brew']
+    - role: dock
+      tags: ['dock']
+      when: ansible_distribution == 'MacOSX'
 
   tasks:
     - name: Git init included submodules.
@@ -17,8 +22,11 @@
       command: fonts/install.sh
 
     - include: tasks/yum.yml
+      when: ansible_distribution in ['CentOS', 'Red Hat Enterprise Linux']
 
-    - include: tasks/iterm.yml
-    - include: tasks/terminal.yml
+    - block:
+        - include: tasks/iterm.yml
+        - include: tasks/terminal.yml
+      when: ansible_distribution == 'MacOSX'
 
 ...

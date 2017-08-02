@@ -2,6 +2,7 @@ homebrew_upgrade_all_packages: True
 homebrew_installed_packages:
   - chromedriver
   - cowsay
+  - dockutil
   - enchant
   - figlet
   - fortune
@@ -67,3 +68,15 @@ yum_packages:
   - vim-enhanced
 
 my_apple_term_theme: SGC.terminal
+
+dock_removals:
+  - FaceTime
+  - Notes
+  - Reminders
+  - Maps
+  - Photos
+  - iTunes
+  - iBooks
+
+# TODO
+dock_additions:

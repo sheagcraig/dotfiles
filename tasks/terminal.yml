@@ -1,5 +1,4 @@
 ---
-# Custom Terminal theme.
 - name: Get current Terminal profile.
   shell: defaults read com.apple.terminal 'Default Window Settings'
   register: terminal_theme
