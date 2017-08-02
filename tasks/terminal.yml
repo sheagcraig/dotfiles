@@ -1,19 +1,20 @@
 ---
-- name: Get current Terminal profile.
-  shell: defaults read com.apple.terminal 'Default Window Settings'
-  register: terminal_theme
+- name: Check for terminal profile
+  command: defaults read com.apple.terminal 'Window Settings'
+  register: window_settings
   changed_when: false
-  always_run: yes
 
 - name: Ensure custom Terminal profile is added.
   shell: open {{ my_apple_term_theme }}
-  changed_when: false
-  when: my_apple_term_theme not in terminal_theme.stdout
+  when: my_apple_term_theme | basename | regex_replace('\\.terminal', '') not in window_settings.stdout
 
-- name: Ensure custom Terminal profile is set as default.
-  shell: "{{ item }}"
+- name: Get current Terminal profile.
+  osx_defaults: 
+    domain: com.apple.terminal
+    key: "{{ item }}"
+    value: "{{ my_apple_term_theme | basename | regex_replace('\\.terminal', '') }}"
+    state: present
+  register: terminal_theme
   with_items:
-    - defaults write com.apple.terminal 'Default Window Settings' {{ my_apple_term_theme | basename | regex_replace('\.profile', '') }}
-    - defaults write com.apple.terminal 'Startup Window Settings' {{ my_apple_term_theme | basename | regex_replace('\.profile', '') }}
-  changed_when: false
-  when: my_apple_term_theme not in terminal_theme.stdout
+    - 'Default Window Settings'
+    - 'Startup Window Settings'
