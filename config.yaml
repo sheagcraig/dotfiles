@@ -1,3 +1,35 @@
+---
+dotfiles_files:
+    - dir: "~"
+      files:
+        - name: .bash_profile
+        - name: .git-completion.sh
+        - name: .git-prompt.sh
+        - name: .gitconfig
+        - name: .gitignore_global
+        - {name: .pypirc, mode: '0600', type: secret}
+        - name: .pylintrc
+        - name: .shell_prompt.sh
+        - name: .tmux.conf
+        - name: .tmuxlinesnap
+        - name: .vim
+        - name: .vimrc
+    - dir: ~/.pip
+      files:
+        - name: pip.conf
+    - dir: /usr/local/share/luggage
+      limit_to_platform: Darwin
+      files:
+      - name: luggage.local
+        limit_to_platform: Darwin
+    - dir: ~/.ssh
+      files:
+        - name: config
+        - {name: id_rsa, mode: '0600', type: secret}
+        - {name: id_rsa.pub, mode: '0644', type: secret}
+
+secrets_dir: "~/Dropbox/boxen"
+
 homebrew_upgrade_all_packages: True
 homebrew_taps:
   - clangen/musikcube
@@ -57,13 +89,9 @@ python_packages:
 
 yum_packages:
   - cowsay
-  - fortune
-  - freetype
-  - freetype-devel
+  - fortune-mod
   - gcc
   - gcc-c++
-  - libffi
-  - openssl-devel
   - pandoc
   - python-devel
   - tmux

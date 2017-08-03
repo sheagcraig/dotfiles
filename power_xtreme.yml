@@ -9,6 +9,7 @@
     - role: dotfiles
       tags: ['dotfiles']
     - role: geerlingguy.homebrew
+      when: ansible_distribution == 'MacOSX'
       tags: ['brew']
     - role: dock
       tags: ['dock']
@@ -23,6 +24,7 @@
 
     - include: tasks/yum.yml
       when: ansible_distribution in ['CentOS', 'Red Hat Enterprise Linux']
+      become: True
 
     - block:
         - include: tasks/iterm.yml
