@@ -11,7 +11,6 @@
     - role: geerlingguy.homebrew
       when: ansible_distribution == 'MacOSX'
       tags: ['brew']
-      when: ansible_distribution == 'MacOSX'
     - role: dock
       tags: ['dock']
       when: ansible_distribution == 'MacOSX'

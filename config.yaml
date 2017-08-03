@@ -95,6 +95,7 @@ yum_packages:
   - pandoc
   - python-devel
   - tmux
+  - tree
   - vim-common
   - vim-enhanced
 
