@@ -11,6 +11,7 @@
     - role: geerlingguy.homebrew
       when: ansible_distribution == 'MacOSX'
       tags: ['brew']
+      when: ansible_distribution == 'MacOSX'
     - role: dock
       tags: ['dock']
       when: ansible_distribution == 'MacOSX'
@@ -23,7 +24,7 @@
       command: fonts/install.sh
 
     - include: tasks/yum.yml
-      when: ansible_distribution in ['CentOS', 'Red Hat Enterprise Linux']
+      when: ansible_os_family == 'RedHat'
       become: True
 
     - block:
