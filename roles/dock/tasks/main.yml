@@ -8,6 +8,15 @@
     value: true
   notify: restart_dock
 
+- name: Set dock icon sizes smaller
+  osx_defaults: 
+    domain: com.apple.dock
+    key: tilesize
+    state: present
+    type: float
+    value: 36
+  notify: restart_dock
+
 - name: See if removal items are present
   command: dockutil --find {{ item }} 
   with_items: "{{ dock_removals }}"

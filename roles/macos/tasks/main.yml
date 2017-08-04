@@ -1,0 +1,100 @@
+---
+- block:
+
+  - name: Use column view for all Finder windows.
+    osx_defaults:
+      domain: com.apple.Finder
+      key: FXPreferredViewStyle
+      value: clmv
+    notify: Restart Finder
+
+  - name: Allow text selection in Quicklook
+    osx_defaults:
+      domain: com.apple.Finder
+      key: QLEnableTextSelection
+      type: bool
+      value: True
+
+  - name: Show different devices on the Desktop
+    osx_defaults:
+      domain: com.apple.Finder
+      key: "{{ item }}"
+      type: bool
+      value: True
+    with_items:
+      - ShowHardDrivesOnDesktop
+      - ShowExternalHardDrivesOnDesktop
+      - ShowMountedServersOnDesktop
+      - ShowRemovableMediaOnDesktop
+
+  - name: Show normally hidden things in Finder...
+    osx_defaults:
+      domain: com.apple.Finder
+      key: "{{ item }}"
+      type: bool
+      value: True
+    with_items:
+      - AppleShowAllExtensions
+      - _FXShowPosixPathInTitle
+
+  - name: Disable prompt when changing file extension
+    osx_defaults:
+      domain: com.apple.Finder
+      key: FXEnableExtensionChangeWarning
+      type: bool
+      value: False
+
+  - name: Don't spray .DS_Store all over network & USB volumes
+    osx_defaults:
+      domain: com.apple.Finder
+      key: "{{ item }}"
+      type: bool
+      value: True
+    with_items:
+      - DSDontWriteUSBStores
+      - DSDontWriteNetworkStores
+
+  - name: Enable Safari develop menu
+    osx_defaults:
+      domain: com.apple.Safari
+      key: "{{ item }}"
+      type: bool
+      value: True
+    with_items:
+      - IncludeDevelopMenu
+      - WebKitDeveloperExtrasEnabledPreferenceKey
+      - com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled 
+
+  - name: Enable develop menu contextual item for all WebViews
+    osx_defaults:
+      key: WebKitDeveloperExtras
+      type: bool
+      value: True
+
+  - name: Set orange highlight color
+    osx_defaults:
+      key: AppleHighlightColor
+      type: string
+      value: "1.000000 0.874510 0.701961"
+    notify: Restart Finder
+
+  - name: Set dark theme
+    osx_defaults:
+      key: AppleInterfaceStyle
+      value: Dark
+    # This doesn't actually change the menu bar theme until you sign out.
+    notify:
+      - Restart SystemUIServer
+      - restart_dock
+
+  - name: Disable auto-correct
+    osx_defaults:
+      key: NSAutomaticSpellingCorrectionEnabled
+      type: bool
+      value: False
+
+  - name: Enable keyboard to tab between modal views
+    osx_defaults:
+      key: AppleKeyboardUIMode
+      type: int
+      value: 3
