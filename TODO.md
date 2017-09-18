@@ -1,4 +1,9 @@
 # Ansible Version
+- luggage stuff needs become, but my role cannot yet account for that.
+- Homebrew installation ends up being done as root, which brew then complains about when you try to actually brew anything.
+	- Turns out brew doesn't support 10.13 yet; I have the role that is updated to work though. Hmmm.
+- First git init prompts to accept github cert.
+- My github key had wrong permissions. I've fixed it, but the dotfiles role doesn't check and fix. Also, it did it wrong initially (private had 600, got 644)
 - Set up so that it can be run locally or as a push
 - Break out linux stuff into separate playbook?
 - Add interactive prompt for whether you want to git submodule update --remote too

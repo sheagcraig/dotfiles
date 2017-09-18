@@ -17,16 +17,17 @@ dotfiles_files:
     - dir: ~/.pip
       files:
         - name: pip.conf
-    - dir: /usr/local/share/luggage
-      limit_to_platform: Darwin
-      files:
-      - name: luggage.local
-        limit_to_platform: Darwin
+          # - dir: /usr/local/share/luggage
+          #become: true
+          #limit_to_platform: Darwin
+          #files:
+          #- name: luggage.local
+          #limit_to_platform: Darwin
     - dir: ~/.ssh
       files:
         - name: config
         - {name: id_rsa, mode: '0600', type: secret}
-        - {name: id_rsa.pub, mode: '0644', type: secret}
+        - {name: id_rsa.pub, mode: '0640', type: secret}
 
 secrets_dir: "~/Dropbox/boxen"
 
