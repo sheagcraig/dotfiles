@@ -23,6 +23,9 @@ I usually build my machine with the configuration management system I maintain, 
 To actually configure the Mac:
 1. `cd <this project's folder>`
 1. `ansible-galaxy install -r requirements.yml`
+1. I use Dropbox to store my vault-encrypted SSH keys and other secrets. To install, `ansible-playbook -i inventory dropbox_install.yml --ask-become-pass`
+1. Wait for Dropbox to sync the secrets folder.
+1. Decrypt the secrets into place: `ansible-vault decrypt --ask-vault-pass --output=<secrets_dir>/ <secret_file>`
 1. `ansible-playbook -i inventory power_xtreme.yml --ask-become-pass`
 
 Here's what happens:

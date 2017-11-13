@@ -29,7 +29,7 @@ dotfiles_files:
         - {name: id_rsa, mode: '0600', type: secret}
         - {name: id_rsa.pub, mode: '0640', type: secret}
 
-secrets_dir: "~/Dropbox/boxen"
+secrets_dir: "{{ playbook_dir }}/secrets"
 
 homebrew_upgrade_all_packages: True
 homebrew_taps:
@@ -54,6 +54,7 @@ homebrew_installed_packages:
   - tree
 homebrew_cask_apps:
   - atom
+  - dropbox
   - evernote
   - google-earth-pro
   - google-hangouts
