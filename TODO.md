@@ -13,3 +13,14 @@
 	- Install python3 from python.org
 	- install certifi and link
 	- Setup venv and activate.
+
+
+- ANsible won't install with stock macOS python
+- Ansible Galaxy doesn't verify SSL (expecting OpenSSL it seems like)
+- include for tasks is deprecated?
+- Add note about needing Dropbox first.
+- Homebrew blows up and does nothing.
+- nss/nspr are included in my SAS build, so there are perms issues when Homebrew tries to install them over SAS ones.
+- Commandline tools are installed after they are required for the bootstrap
+- Dark theme setting still doesn't activate
+- Show date in time menu bar.
