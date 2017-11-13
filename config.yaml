@@ -47,6 +47,7 @@ homebrew_installed_packages:
   - pandoc
   - phantomjs
   - postgresql
+  - readline
   - reattach-to-user-namespace
   - sqlite
   - tmux
