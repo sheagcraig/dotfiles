@@ -17,10 +17,14 @@
 
 - ANsible won't install with stock macOS python
 - Ansible Galaxy doesn't verify SSL (expecting OpenSSL it seems like)
-- include for tasks is deprecated?
-- Add note about needing Dropbox first.
 - Homebrew blows up and does nothing.
-- nss/nspr are included in my SAS build, so there are perms issues when Homebrew tries to install them over SAS ones.
 - Commandline tools are installed after they are required for the bootstrap
 - Dark theme setting still doesn't activate
 - Show date in time menu bar.
+
+- update syntax to use include_role include_playbook, etc
+- Reorder so brew stuff comes last
+- but check for dependencies first
+- Fix perms given to "special" dot files
+- fix pip setup (breaks enrollment package because of our pypiserver.
+
