@@ -5,12 +5,17 @@
     state: directory
   when: item.limit_to_platform | default(ansible_system) == ansible_system
   with_items: "{{ dotfiles_files }}"
+  become: "{{ True if not item.dir.startswith('~') else False }}"
 
 - block:
   - name: Copy all non-git files from Dropbox desired location into place for Mac.
     copy:
       src: "{{ secrets_dir | expanduser }}/{{ item.1.name }}"
       dest: "{{item.0.dir | expanduser }}/{{ item.1.name }}"
+      owner: "{{ item.1.owner | default(omit) }}"
+      group: "{{ item.1.group| default(omit) }}"
+      mode: "{{ item.1.mode | default(omit) }}"
+    become: "{{ True if item.1.owner| default('') == 'root' else False }}"
     when: 
       - item.1.type | default('link')  == 'secret'
       - item.1.limit_to_platform | default(ansible_system) == ansible_system
@@ -25,8 +30,11 @@
     src: "{{ playbook_dir }}/{{ item.1.name }}"
     dest: "{{ item.0.dir | expanduser }}/{{ item.1.name }}"
     force: True
+    owner: "{{ item.1.owner | default(omit) }}"
+    group: "{{ item.1.group| default(omit) }}"
     mode: "{{ item.1.mode | default(omit) }}"
     state: link
+  become: "{{ True if item.1.owner| default('') == 'root' else False }}"
   when:
     - item.1.type | default('link')  == 'link'
     - item.1.limit_to_platform | default(ansible_system) == ansible_system
