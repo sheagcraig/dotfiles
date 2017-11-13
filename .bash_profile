@@ -42,6 +42,8 @@ complete -o default -F _pip_completion pip
 alias ga='git add'
 alias gi='git commit'
 alias gs='git status'
+alias gd='git diff'
+
 if [[ $(uname) == "Darwin" ]]; then
     alias ls='ls -G'
     alias ll='ls -alG'
@@ -86,4 +88,4 @@ fi
 source ~/.shell_prompt.sh
 
 test -e ${HOME}/.iterm2_shell_integration.bash && source ${HOME}/.iterm2_shell_integration.bash
-export PATH="/usr/local/opt/openssl/bin:$PATH"
+export PATH="$PATH:/Library/Frameworks/Python.framework/Versions/3.6/bin"
