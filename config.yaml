@@ -59,11 +59,11 @@ homebrew_cask_apps:
   - grandperspective
   - handbrake
   - hopper-disassembler
-  - iina
   - iterm2
   - openemu
   - pacifist
   - packages
+  - qlmarkdown
   - skitch
   - spotify
   - suspicious-package
