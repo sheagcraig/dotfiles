@@ -50,12 +50,12 @@ virtualenvs these days, I no longer do so.
 This installs my dotfiles, brew packages, etc. If you would like to install
 your own, you'll need to override the configuration variables.
 
-Take a look at the config.yaml file to see where all of the lists of packages
+Take a look at the config.yml file to see where all of the lists of packages
 are configured.
 
 The dotfiles are listed in the dotfiles role's defaults/main.yml only since I
 don't feel the need to have them in two places. Specifying your desired
-dotfiles in the main config.yaml will override these. If anybody else wants to
+dotfiles in the main config.yml will override these. If anybody else wants to
 use this, I'd be happy to add in a dotfile folder variable to join to these
 prior to performing the linking/copying, otherwise it expects them to be in the
 root of the project dir. Hit me with a GitHub Issue if you're interested and I

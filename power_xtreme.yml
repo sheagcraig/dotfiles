@@ -3,7 +3,7 @@
   connection: local
 
   vars_files:
-    - config.yaml
+    - config.yml
 
   roles:
     - role: dotfiles
@@ -34,4 +34,18 @@
         - include: tasks/terminal.yml
       when: ansible_distribution == 'MacOSX'
 
+    # Python stuff
+    - name: Install python packages into my site_packages rather than global.
+      pip:
+        name: "{{ python_packages }}"
+        extra_args: --user
+      tags: pip
+    # These packages are used very heavily, or change frequently to incorporate
+    # security changes and should be updated on the regular.
+    - name: Install the latest versions of important python packages into my site_packages rather than global.
+      pip:
+        name: "{{ python_packages }}"
+        extra_args: --user
+        state: latest
+      tags: pip
 ...

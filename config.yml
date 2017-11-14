@@ -69,23 +69,29 @@ homebrew_cask_apps:
   - vlc
 
 python_packages:
-  # matplotlib
-  # mock
-  # ndg-httpsclient
-  # nose
-  # numpy
-  # pdbpp
-  # Pillow
-  # pyOpenSSL
-  # pyasn1
-  # pygal
-  # pylint
-  # pypandoc
-  # pyenchant
-  # "python-jss
-  # requests
-  # twine
-  # wheel
+  - Pillow
+  - jinja2
+  - lxml
+  - matplotlib
+  - mock
+  - ndg-httpsclient
+  - nose
+  - numpy
+  - pdbpp
+  - pyOpenSSL
+  - pyasn1
+  - pyenchant
+  - pygal
+  - pylint
+  - pypandoc
+  - twine
+
+python_latest_packages:
+  - certifi
+  - pip
+  - pipenv
+  - requests
+  - wheel
 
 yum_packages:
   - cowsay
