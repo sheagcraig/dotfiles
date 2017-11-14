@@ -19,11 +19,11 @@ set -o vi
 
 # Python#######################################################################
 # Only allow Pip to run in a virtualenv
-export PIP_REQUIRE_VIRTUALENV=true
+# export PIP_REQUIRE_VIRTUALENV=true
 # But if you really want to install in global dir:
-gpip(){
-	   PIP_REQUIRE_VIRTUALENV="" pip "$@"
-}
+# gpip(){
+# 	   PIP_REQUIRE_VIRTUALENV="" pip "$@"
+# }
 
 # Cache Pip downloads to speed up creating new venvs.
 export PIP_DOWNLOAD_CACHE=$HOME/.pip/cache
