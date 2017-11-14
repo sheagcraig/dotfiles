@@ -1,37 +1,39 @@
 ---
-- hosts: all
-  connection: local
+- hosts: localhost
 
   vars_files:
     - config.yml
 
-  roles:
-    - role: dotfiles
-      tags: ['dotfiles']
-    - role: geerlingguy.homebrew
-      when: ansible_distribution == 'MacOSX'
-      tags: ['brew']
-    - role: dock
-      tags: ['dock']
-      when: ansible_distribution == 'MacOSX'
-    - role: macos
-      tags: ['macos']
-      when: ansible_distribution == 'MacOSX'
-
   tasks:
-    - name: Git init included submodules.
-      command: git submodule update --init --recursive
+    - name: Link or copy dotfiles into place.
+      include_role: name=dotfiles
+      tags: ['dotfiles']
 
     - name: Install powerline fonts.
       command: fonts/install.sh
 
-    - include: tasks/yum.yml
+    - name: Configure various macOS system preferences.
+      include_role: name=macos
+      tags: ['macos']
+      when: ansible_distribution == 'MacOSX'
+
+    - name: Git init included submodules.
+      command: git submodule update --init --recursive
+
+    - name: Add and remove things from the macOS dock.
+      include_role: name=dock
+      tags: ['dock']
+      when: ansible_distribution == 'MacOSX'
+
+    - name: Install packages on RHEL-based OS's
+      include_tasks: tasks/yum.yml
       when: ansible_os_family == 'RedHat'
       become: True
 
-    - block:
-        - include: tasks/iterm.yml
-        - include: tasks/terminal.yml
+    - name: Set up system terminal and iTerm to my liking.
+      block:
+        - include_tasks: tasks/iterm.yml
+        - include_tasks: tasks/terminal.yml
       when: ansible_distribution == 'MacOSX'
 
     # Python stuff
@@ -48,4 +50,10 @@
         extra_args: --user
         state: latest
       tags: pip
+
+    - name: Install Homebrew, Cask, tap kegs, and install desired apps.
+      include_role: name=geerlingguy.homebrew
+      when: ansible_distribution == 'MacOSX'
+      tags: ['brew']
+
 ...

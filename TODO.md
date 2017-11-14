@@ -1,31 +1,24 @@
 # Ansible Version
-- Homebrew installation ends up being done as root, which brew then complains about when you try to actually brew anything.
+- Homebrew installation ends up being done as root, which brew then complains
+  about when you try to actually brew anything.
 	- Turns out brew doesn't support 10.13 yet; I have the role that is updated to work though. Hmmm.
 	- Test soon, then document the solution (chown post-install?)
 - First git init prompts to accept github cert.
 	- Script no prompt auto accept of ssh?
 	- Just deploy to trusted hosts?
-- Set up so that it can be run locally or as a push
-- Break out linux stuff into separate playbook?
+- Break out linux stuff into separate playbook or avoid redundent distro== testing.
 - Add interactive prompt for whether you want to git submodule update --remote too
-- lint and clean
 - Audit submodules
-- Add bootstrapping code
-	- Install python3 from python.org
-	- install certifi and link
-		- Do I need certifi?
-	- Setup venv and activate.
-		- Why did I put this here?
-
-- Ansible won't install with stock macOS python
 - Ansible Galaxy doesn't verify SSL (expecting OpenSSL it seems like)
-- Homebrew blows up and does nothing.
-- Commandline tools are installed after they are required for the bootstrap
-- Dark theme setting still doesn't activate
+- Quick bootstrap script to:
+	- Should be interactive since I won't need all of these all the time.
+	- install python3 from python.org
+	- install ansible
+	- Commandline tools are installed after they are required for the bootstrap
 - Show date in time menu bar.
+- Add notification to prompt dark theme enablement until I can make it work.
 
-- update syntax to use include_role include_playbook, etc
-- Reorder so brew stuff comes last
-- but check for dependencies first
-- fix pip setup (breaks enrollment package because of our pypiserver.
-
+# Outstanding issues
+- Ansible won't install with stock macOS python. NBD because my python3 don't want none.
+- Brew can't install an app if there's already one there, causing ansible errors.
+- Dark theme setting doesn't activate.
