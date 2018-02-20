@@ -39,7 +39,7 @@ homebrew_installed_packages:
   - figlet
   - fortune
   - httpie
-  - musikcube
+  - libdvdcss
   - nmap
   - pandoc
   - phantomjs
