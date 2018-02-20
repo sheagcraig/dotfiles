@@ -88,4 +88,4 @@ fi
 source ~/.shell_prompt.sh
 
 test -e ${HOME}/.iterm2_shell_integration.bash && source ${HOME}/.iterm2_shell_integration.bash
-export PATH="$PATH:/Library/Frameworks/Python.framework/Versions/3.6/bin"
+export PATH="$PATH:/Library/Frameworks/Python.framework/Versions/3.6/bin:~/Library/Python/3.6/bin"
