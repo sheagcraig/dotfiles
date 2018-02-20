@@ -20,7 +20,9 @@ You'll also need the Xcode developer tools for installing Ansible.
 1. `sudo pip install ansible`
 
 I usually build my machine with the configuration management system I maintain,
-so these dependencies are already installed.
+so these dependencies are already installed. Also, I use python3 instead of the
+Apple-provided system Python, so if it complains about finding pip3 or is
+installing packages in "unexpected" places, keep this in mind.
 
 To actually configure the Mac:
 1. `cd <this project's folder>`
