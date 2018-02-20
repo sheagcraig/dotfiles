@@ -20,8 +20,8 @@ set expandtab
 " set auto-indenting on for programming
 set ai
 
-" Keep our width to programmer width
-set textwidth=79
+" Set our width to programmer width+
+set textwidth=100
 
 " turn off compatibility with the old vi
 set nocompatible
@@ -94,7 +94,7 @@ syntax on
 " Disable pylint check on every save
 let g:pymode_lint_on_write = 0
 " For some reason pymode wants line length to be 80. Pep8 says 79.""
-let g:pymode_options_max_line_length = 79
+let g:pymode_options_max_line_length = 100
 " This doesn't seem to have an effect.
 let g:pymode_options_colorcolumn = 1
 " ...so I have to do this.
