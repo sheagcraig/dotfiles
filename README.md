@@ -26,12 +26,12 @@ To actually configure the Mac:
 1. `cd <this project's folder>`
 1. `ansible-galaxy install -r requirements.yml`
 1. I use Dropbox to store my vault-encrypted SSH keys and other secrets. To
-   install, `ansible-playbook -i inventory --ask-become-pass --become
+   install, `ansible-playbook -i inventory --ask-become-pass
    dropbox_install.yml`
 1. Wait for Dropbox to sync the secrets folder.
 1. Decrypt the secrets into place: `ansible-vault decrypt --ask-vault-pass
    --output=<secrets_dir>/ <secret_file>`
-1. `ansible-playbook -i inventory --ask-become-pass --become power_xtreme.yml`
+1. `ansible-playbook -i inventory --ask-become-pass power_xtreme.yml`
 
 Here's what happens:
 1. Symlinks dotfiles into place.
