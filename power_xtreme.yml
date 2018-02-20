@@ -9,6 +9,9 @@
       include_role: name=dotfiles
       tags: ['dotfiles']
 
+    - name: Git init included submodules.
+      command: git submodule update --init --recursive
+
     - name: Install powerline fonts.
       command: fonts/install.sh
 
@@ -16,9 +19,6 @@
       include_role: name=macos
       tags: ['macos']
       when: ansible_distribution == 'MacOSX'
-
-    - name: Git init included submodules.
-      command: git submodule update --init --recursive
 
     - name: Add and remove things from the macOS dock.
       import_role: name=dock
