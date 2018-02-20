@@ -1,6 +1,6 @@
 ---
 - name: Check for terminal profile
-  command: defaults read com.apple.terminal 'Window Settings'
+  command: defaults read com.apple.Terminal 'Window Settings'
   register: window_settings
   changed_when: false
 
