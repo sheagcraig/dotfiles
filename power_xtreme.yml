@@ -21,7 +21,7 @@
       command: git submodule update --init --recursive
 
     - name: Add and remove things from the macOS dock.
-      include_role: name=dock
+      import_role: name=dock
       tags: ['dock']
       when: ansible_distribution == 'MacOSX'
 
