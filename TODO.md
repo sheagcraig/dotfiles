@@ -1,11 +1,9 @@
 # Ansible Version
-- Homebrew installation ends up being done as root, which brew then complains
-  about when you try to actually brew anything.
-	- Turns out brew doesn't support 10.13 yet; I have the role that is updated to work though. Hmmm.
-	- Test soon, then document the solution (chown post-install?)
-- First git init prompts to accept github cert.
-	- Script no prompt auto accept of ssh?
-	- Just deploy to trusted hosts?
+- Ansible Galaxy cert is not verifiable out of the box. (had to -c ignore)
+- Brew fails the first time; a brew doctor or brew list seems to resolve magically. Then run again.
+- Homebrew choked on a man folder not being owned properly
+- Dock kill didn't happen.
+- Auto-arrange desktop.
 - Break out linux stuff into separate playbook or avoid redundent distro== testing.
 - Add interactive prompt for whether you want to git submodule update --remote too
 - Audit submodules
@@ -19,6 +17,4 @@
 - Add notification to prompt dark theme enablement until I can make it work.
 
 # Outstanding issues
-- Ansible won't install with stock macOS python. NBD because my python3 don't want none.
-- Brew can't install an app if there's already one there, causing ansible errors.
 - Dark theme setting doesn't activate.
