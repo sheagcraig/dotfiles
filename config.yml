@@ -30,9 +30,9 @@ secrets_dir: "{{ playbook_dir }}/secrets"
 
 homebrew_upgrade_all_packages: True
 homebrew_taps:
+  - caskroom/cask
   - clangen/musikcube
 homebrew_installed_packages:
-  - chromedriver
   - cowsay
   - dockutil
   - enchant
@@ -49,8 +49,10 @@ homebrew_installed_packages:
   - sqlite
   - tmux
   - tree
+  - youtube-dl
 homebrew_cask_apps:
   - atom
+  - chromedriver
   - dropbox
   - evernote
   - google-earth-pro
@@ -113,6 +115,7 @@ dock_removals:
   - Reminders
   - Maps
   - Photos
+  - Siri
   - iTunes
   - iBooks
 
