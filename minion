@@ -1,0 +1,13 @@
+master_type: disable
+
+file_client: local
+
+file_roots:
+  base:
+    - /Users/shcrai/Developer/dotfiles
+
+pillar_roots:
+  base:
+    - /Users/shcrai/Developer/dotfiles/pillars
+
+multiprocessing: False

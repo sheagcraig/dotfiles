@@ -1,3 +1,27 @@
+# TODO
+- Install dropbox before dotfiles; set up require
+- Plan out how to make highstate run despite individual state errors.
+	- I think it does this by default, unless you set failhard=True
+- I forgot about decrypting secrets!
+	- Be careful, because the dropbox ones are ansible vault encrypted!
+	- I have decrypted copies in the dotfiles secrets dir for now.
+
+# Questions
+- I don't like the fact that the highstate top file is in the file root, but I
+  then have to either add states/<statename> for each state I want to run, or
+  have a single state which then lives at the root of the states dir and does
+  the _actual_ association by using includes.
+- Figure out what to do about submodules; they're moving into the salt/files
+  dir here, which probably means that I need to update the .gitmodules file
+  and/or remove and re-add them? Test on a clean repo.
+	- This includes, what do I do about VC these?
+
+# Future ideas
+- Dynamically specify file roots in minion config
+	- This would be a sed line in the power_xtreme script.
+- Probably need a way to grab and install salt.
+
+
 # Ansible Version
 - Ansible Galaxy cert is not verifiable out of the box. (had to -c ignore)
 - Brew fails the first time; a brew doctor or brew list seems to resolve magically. Then run again.
