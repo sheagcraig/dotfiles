@@ -11,3 +11,8 @@ pillar_roots:
     - /Users/shcrai/Developer/dotfiles/pillars
 
 multiprocessing: False
+
+# This is to allow the "new" syntax for using module.run in a state.
+# Test and remove after "Sodium" release.
+use_superseded:
+  - module.run
