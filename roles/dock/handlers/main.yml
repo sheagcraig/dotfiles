@@ -1,4 +1,0 @@
----
-- name: restart_dock
-  command: killall Dock
-...

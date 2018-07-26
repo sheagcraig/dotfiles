@@ -1,8 +1,0 @@
----
-dotfiles_files:
-    - dir: "~"
-      files:
-        - name: .bash_profile
-
-secrets_dir: "~/Dropbox/boxen"
-...

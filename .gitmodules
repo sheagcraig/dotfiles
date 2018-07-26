@@ -1,62 +1,51 @@
-[submodule ".vim/bundle/python-mode"]
-	path = .vim/bundle/python-mode
-	url = git@github.com:klen/python-mode.git
-	branch = master
-[submodule ".vim/bundle/swift.vim"]
-	path = .vim/bundle/swift.vim
-	url = git@github.com:keith/swift.vim.git
-	branch = master
-[submodule ".vim/bundle/vim-airline"]
-	path = .vim/bundle/vim-airline
-	url = git@github.com:bling/vim-airline.git
-	branch = master
-[submodule ".vim/bundle/vim-commentary"]
-	path = .vim/bundle/vim-commentary
-	url = git@github.com:tpope/vim-commentary.git
-	branch = master
-[submodule ".vim/bundle/vim-fugitive"]
-	path = .vim/bundle/vim-fugitive
-	url = git@github.com:tpope/vim-fugitive.git
-	branch = master
-[submodule ".vim/bundle/vim-gitgutter"]
-	path = .vim/bundle/vim-gitgutter
-	url = git@github.com:airblade/vim-gitgutter.git
-	branch = master
-[submodule ".vim/bundle/vim-repeat"]
-	path = .vim/bundle/vim-repeat
-	url = git@github.com:tpope/vim-repeat.git
-	branch = master
-[submodule ".vim/bundle/vim-speeddating"]
-	path = .vim/bundle/vim-speeddating
-	url = git@github.com:tpope/vim-speeddating.git
-	branch = master
-[submodule ".vim/bundle/vim-surround"]
-	path = .vim/bundle/vim-surround
-	url = git@github.com:tpope/vim-surround.git
-	branch = master
-[submodule ".vim/bundle/vim-unimpaired"]
-	path = .vim/bundle/vim-unimpaired
-	url = git@github.com:tpope/vim-unimpaired.git
-	branch = master
-[submodule "fonts"]
-	path = fonts
-	url = git@github.com:powerline/fonts.git
-	branch = master
-[submodule ".vim/bundle/tmuxline.vim"]
-	path = .vim/bundle/tmuxline.vim
-	url = https://github.com/edkolev/tmuxline.vim
-	branch = master
-[submodule ".vim/bundle/promptline.vim"]
-	path = .vim/bundle/promptline.vim
-	url = git@github.com:edkolev/promptline.vim.git
-	branch = master
-[submodule ".vim/bundle/vim-markdown"]
-	path = .vim/bundle/vim-markdown
-	url = git@github.com:tpope/vim-markdown.git
-	branch = master
-[submodule ".vim/bundle/vim-yaml"]
-	path = .vim/bundle/vim-yaml
-	url = https://github.com/avakhov/vim-yaml
-[submodule ".vim/bundle/emmet-vim"]
-	path = .vim/bundle/emmet-vim
-	url = git@github.com:mattn/emmet-vim.git
+[submodule "files/.vim/bundle/python-mode"]
+	path = files/.vim/bundle/python-mode
+	url = https://github.com/klen/python-mode.git
+[submodule "files/.vim/bundle/swift.vim"]
+	path = files/.vim/bundle/swift.vim
+	url = https://github.com/keith/swift.vim.git
+[submodule "files/.vim/bundle/vim-airline"]
+	path = files/.vim/bundle/vim-airline
+	url = https://github.com/bling/vim-airline.git
+[submodule "files/.vim/bundle/vim-commentary"]
+	path = files/.vim/bundle/vim-commentary
+	url = https://github.com/tpope/vim-commentary
+[submodule "files/.vim/bundle/vim-fugitive"]
+	path = files/.vim/bundle/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
+[submodule "files/.vim/bundle/vim-repeat"]
+	path = files/.vim/bundle/vim-repeat
+	url = https://github.com/tpope/vim-repeat
+[submodule "files/.vim/bundle/vim-speeddating"]
+	path = files/.vim/bundle/vim-speeddating
+	url = https://github.com/tpope/vim-speeddating
+[submodule "files/.vim/bundle/vim-surround"]
+	path = files/.vim/bundle/vim-surround
+	url = https://github.com/tpope/vim-surround
+[submodule "files/.vim/bundle/vim-unimpaired"]
+	path = files/.vim/bundle/vim-unimpaired
+	url = https://github.com/tpope/vim-unimpaired
+[submodule "files/.vim/bundle/vim-markdown"]
+	path = files/.vim/bundle/vim-markdown
+	url = https://github.com/tpope/vim-markdown
+[submodule "files/.vim/bundle/vim-gitgutter"]
+	path = files/.vim/bundle/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter.git
+[submodule "files/fonts"]
+	path = files/fonts
+	url = https://github.com/powerline/fonts.git
+[submodule "files/.vim/bundle/tmuxline.vim"]
+	path = files/.vim/bundle/tmuxline.vim
+	url = https://github.com/edkolev/tmuxline.vim.git
+[submodule "files/.vim/bundle/promptline.vim"]
+	path = files/.vim/bundle/promptline.vim
+	url = https://github.com/edkolev/promptline.vim.git
+[submodule "files/.vim/bundle/vim-yaml"]
+	path = files/.vim/bundle/vim-yaml
+	url = https://github.com/avakhov/vim-yaml.git
+[submodule "files/.vim/bundle/emmet-vim"]
+	path = files/.vim/bundle/emmet-vim
+	url = https://github.com/mattn/emmet-vim.git
+[submodule "files/.vim/bundle/salt-vim"]
+	path = files/.vim/bundle/salt-vim
+	url = https://github.com/saltstack/salt-vim.git

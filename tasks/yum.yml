@@ -1,7 +1,0 @@
----
-- name: Install yum packages for Linux.
-  yum:
-    name: "{{ item }}"
-    state: latest
-  when: ansible_distribution in ['CentOS', 'RHEL']
-  with_items: "{{ yum_packages }}"
