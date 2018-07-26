@@ -4,7 +4,7 @@
 {% if file.get('type', 'link') == 'secret' %}
 Link {{ file['name'] }} dotfile:
   file.managed:
-    - target: {{ pillar['secrets_dir'] }}/{{ file['name'] }}
+    - source: {{ pillar['secrets_dir'] }}/{{ file['name'] }}
 {% else %}
 Copy secret {{ file['name'] }} dotfile:
   file.symlink:

@@ -5,6 +5,8 @@
 - I forgot about decrypting secrets!
 	- Be careful, because the dropbox ones are ansible vault encrypted!
 	- I have decrypted copies in the dotfiles secrets dir for now.
+	- So I need to create a way to get the secrets from Dropbox and decrypt them either on-the-fly or into the secrets dir.
+	- Make sure the secrets dir has no access to external folks, and is gitignored.
 
 # Questions
 - I don't like the fact that the highstate top file is in the file root, but I
