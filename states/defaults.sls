@@ -132,6 +132,6 @@ Restart SystemUIServer:
 Restart Dock:
   cmd.run:
     - name: killall Dock
-    - user: {{ pillar['user'] }}
+    - runas: {{ pillar['user'] }}
     - onchanges:
       - macdefaults: Set dark theme
