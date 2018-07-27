@@ -2,3 +2,4 @@ base:
   '*':
     - dotfiles
     - homebrew
+    - dock

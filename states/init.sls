@@ -3,3 +3,4 @@ include:
   - .submodules
   - .homebrew
   - .defaults
+  - .dock
