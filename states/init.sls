@@ -1,3 +1,4 @@
 include:
   - .dotfiles
   - .submodules
+  - .homebrew
