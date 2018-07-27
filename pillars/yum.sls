@@ -1,0 +1,11 @@
+yum_packages:
+  - cowsay
+  - fortune-mod
+  - gcc
+  - gcc-c++
+  - pandoc
+  - python-devel
+  - tmux
+  - tree
+  - vim-common
+  - vim-enhanced
