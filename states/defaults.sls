@@ -117,7 +117,7 @@ Enable nameboard to tab between modal views:
 Restart Finder:
   cmd.run:
     - name: killall Finder
-    - user: {{ pillar['user'] }}
+    - runas: {{ pillar['user'] }}
     - onchanges:
       - macdefaults: Use column view for all Finder windows
       - macdefaults: Set orange highlight color
@@ -125,7 +125,7 @@ Restart Finder:
 Restart SystemUIServer:
   cmd.run:
     - name: killall SystemUIServer
-    - user: {{ pillar['user'] }}
+    - runas: {{ pillar['user'] }}
     - onchanges:
       - macdefaults: Set dark theme
 
