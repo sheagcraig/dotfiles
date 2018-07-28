@@ -1,7 +1,3 @@
-# This is not currently being used. May be required when I start a clean machine?
-homebrew_taps:
-  - caskroom/cask
-
 homebrew_installed_packages:
   - cowsay
   - dockutil
@@ -21,24 +17,23 @@ homebrew_installed_packages:
   - tmux
   - tree
   - youtube-dl
-
-# Very much not implemented at this time
-homebrew_cask_apps:
-  - atom
-  - chromedriver
-  # - dropbox # Installed manually
-  - evernote
-  - google-earth-pro
-  - google-hangouts
-  - grandperspective
-  - handbrake
-  - hopper-disassembler
-  - iterm2
-  - openemu
-  - pacifist
-  - packages
-  - qlmarkdown
-  - skitch
-  - spotify
-  - suspicious-package
-  - vlc
+  - caskroom/cask/atom
+  - caskroom/cask/atom
+  - caskroom/cask/chromedriver
+  # - caskroom/cask/dropbox # Installed manually
+  - caskroom/cask/evernote
+  - caskroom/cask/google-earth-pro
+  - caskroom/cask/google-hangouts
+  - caskroom/cask/grandperspective
+  - caskroom/cask/handbrake
+  - caskroom/cask/hopper-disassembler
+  - caskroom/cask/iterm2
+  - caskroom/cask/openemu
+  - caskroom/cask/pacifist
+  - caskroom/cask/packages
+  - caskroom/cask/qlmarkdown
+  - caskroom/cask/skitch
+  - caskroom/cask/spotify
+  - caskroom/cask/steam
+  - caskroom/cask/suspicious-package
+  - caskroom/cask/vlc
