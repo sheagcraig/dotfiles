@@ -1,6 +1,7 @@
 base:
   '*':
-    - dotfiles
-    - homebrew
     - dock
+    - dotfiles
+    - npm
+    - homebrew
     - yum

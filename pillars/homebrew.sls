@@ -1,4 +1,5 @@
 homebrew_installed_packages:
+  - awscli
   - cowsay
   - dockutil
   - enchant
@@ -8,6 +9,7 @@ homebrew_installed_packages:
   # - httpie
   - libdvdcss
   - nmap
+  - npm
   - pandoc
   - phantomjs
   - postgresql

@@ -63,9 +63,11 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 " These are also managed by Pymode, but again, may be helpful elsewhere.
 " Code folding settings
 set foldmethod=indent
-set foldnestmax=10
+" set foldnestmax=10
+set foldnestmax=1
 set nofoldenable
-set foldlevel=1
+set foldlevel=0
+" set foldlevel=1
 " Set spacebar to toggle folds
 nnoremap <space> za
 vnoremap <space> zf
@@ -91,6 +93,10 @@ call pathogen#helptags()
 filetype plugin indent on
 syntax on
 
+" Put pymode in python3 land
+let g:pymode_python = 'python3'
+" Disable pylint check on every save
+let g:pymode_lint = 0
 " Disable pylint check on every save
 let g:pymode_lint_on_write = 0
 " For some reason pymode wants line length to be 80. Pep8 says 79.""
@@ -147,6 +153,17 @@ nnoremap tw :let &textwidth = (&textwidth / 79 == 1 ? 72 : 79)<CR>:set textwidth
 
 " Search for current visual selection
 vnoremap // y/<C-R>"<CR>
+" Search for selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
 
 " Python debugger abbreviation (type pdb in insert mode)
 au filetype python :iabbrev pdb import pdb; pdb.set_trace()

@@ -88,4 +88,5 @@ fi
 source ~/.shell_prompt.sh
 
 test -e ${HOME}/.iterm2_shell_integration.bash && source ${HOME}/.iterm2_shell_integration.bash
-export PATH="$PATH:/Library/Frameworks/Python.framework/Versions/3.6/bin:~/Library/Python/3.6/bin"
+# For now, use the python.org installed py3
+export PATH="/Library/Frameworks/Python.framework/Versions/3.7/bin:~/Library/Python/3.7/bin:$PATH"
