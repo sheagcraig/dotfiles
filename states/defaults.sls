@@ -89,8 +89,15 @@ Set orange highlight color:
     - value: 1.000000 0.874510 0.701961
     - user: {{ pillar['user'] }}
 
-# Doesn't seem to actually work consistently; maybe Mojave...
-# This doesn't actually change the menu bar theme until you sign out.
+Set orange accent color:
+  macdefaults.write:
+    - name: AppleAccentColor
+    - domain: NSGlobalDomain
+    - vtype: int
+    - value: 1
+    - user: {{ pillar['user'] }}
+
+# This doesn't actually change the style untl you sign in and out
 Set dark theme:
   macdefaults.write:
     - name: AppleInterfaceStyle
