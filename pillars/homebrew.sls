@@ -5,13 +5,10 @@ homebrew_installed_packages:
   - enchant
   - figlet
   - fortune
-  # I'm not using this, and it requires a brewed python3, which is annoying in my env.
-  # - httpie
   - libdvdcss
   - nmap
   - npm
   - pandoc
-  - phantomjs
   - postgresql
   - readline
   - reattach-to-user-namespace
@@ -22,13 +19,13 @@ homebrew_installed_packages:
   - caskroom/cask/atom
   - caskroom/cask/atom
   - caskroom/cask/chromedriver
-  # - caskroom/cask/dropbox # Installed manually
+  - caskroom/cask/dropbox
   - caskroom/cask/evernote
   - caskroom/cask/google-earth-pro
   - caskroom/cask/google-hangouts
   - caskroom/cask/grandperspective
   - caskroom/cask/handbrake
-  - caskroom/cask/hopper-disassembler
+  # Apparently this is gone?  - caskroom/cask/hopper-disassembler
   - caskroom/cask/iterm2
   - caskroom/cask/openemu
   - caskroom/cask/pacifist
