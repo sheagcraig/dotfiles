@@ -10,6 +10,9 @@ pillar_roots:
   base:
     - /Users/shcrai/Developer/dotfiles/pillars
 
+#module_dirs:
+#  - /Users/shcrai/Develop/dotfiles/_modules
+
 multiprocessing: False
 
 # This is to allow the "new" syntax for using module.run in a state.
