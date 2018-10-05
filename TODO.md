@@ -1,17 +1,14 @@
 # TODO: New
 - Figure out a way to turn on Messages iCloud sync.
+- Add brew installation so that it runs before all of the stuff that requires it.
+- Brew fails and I can't figure out why. I commented out some requires to work around.
 
-# TODO: Conversion
-- Py packages?
+# TODO: Fix
 - pkg.latest still doesn't work. So do a brew upgrade + brew cask upgrade afterwards.
 	- This runs every time though; I think you can do an `onlyif`, and call `brew outdated` to see if there are any updates. But I have to wait for some new ones to become available to confirm.
 - Find a way to check if the fonts install script needs to run and then not run it every time.
-
-# TODO: Fix
 - First run of iTerm complains about custom prefs. But then it works fine subsequently.
 - Install dropbox before dotfiles; set up require
-- I don't know what happens when you first run this in terms of brew. Does it
-  install brew if it's missing?
 - Dropbox is currently commented out because it's already there (and thus brew
   complains). But I should be able to set up dependencies to install Dropbox
   before decrypting secrets into place.
@@ -21,15 +18,11 @@
 	- So I need to create a way to get the secrets from Dropbox and decrypt them either on-the-fly or into the secrets dir.
 	- Make sure the secrets dir has no access to external folks, and is gitignored.
 
-# Questions
+# Questionss
 - I don't like the fact that the highstate top file is in the file root, but I
   then have to either add states/<statename> for each state I want to run, or
   have a single state which then lives at the root of the states dir and does
   the _actual_ association by using includes.
-- Figure out what to do about submodules; they're moving into the salt/files
-  dir here, which probably means that I need to update the .gitmodules file
-  and/or remove and re-add them? Test on a clean repo.
-	- This includes, what do I do about VC these?
 
 # Future ideas
 - Dynamically specify file roots in minion config
