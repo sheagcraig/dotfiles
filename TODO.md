@@ -1,7 +1,20 @@
-# TODO
+# TODO: New
+- Figure out a way to turn on Messages iCloud sync.
+
+# TODO: Conversion
+- Py packages?
+- pkg.latest still doesn't work. So do a brew upgrade + brew cask upgrade afterwards.
+	- This runs every time though; I think you can do an `onlyif`, and call `brew outdated` to see if there are any updates. But I have to wait for some new ones to become available to confirm.
+- Find a way to check if the fonts install script needs to run and then not run it every time.
+
+# TODO: Fix
+- First run of iTerm complains about custom prefs. But then it works fine subsequently.
 - Install dropbox before dotfiles; set up require
-- Plan out how to make highstate run despite individual state errors.
-	- I think it does this by default, unless you set failhard=True
+- I don't know what happens when you first run this in terms of brew. Does it
+  install brew if it's missing?
+- Dropbox is currently commented out because it's already there (and thus brew
+  complains). But I should be able to set up dependencies to install Dropbox
+  before decrypting secrets into place.
 - I forgot about decrypting secrets!
 	- Be careful, because the dropbox ones are ansible vault encrypted!
 	- I have decrypted copies in the dotfiles secrets dir for now.

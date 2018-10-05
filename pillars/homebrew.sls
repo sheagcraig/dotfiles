@@ -39,3 +39,4 @@ homebrew_installed_packages:
   - caskroom/cask/steam
   - caskroom/cask/suspicious-package
   - caskroom/cask/vlc
+  - caskroom/cask/wireshark

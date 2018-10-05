@@ -113,7 +113,15 @@ Disable auto-correct:
     - value: False
     - user: {{ pillar['user'] }}
 
-Enable nameboard to tab between modal views:
+Disable web auto-correct:
+  macdefaults.write:
+    - name: WebAutomaticSpellingCorrectionEnabled
+    - domain: NSGlobalDomain
+    - vtype: bool
+    - value: False
+    - user: {{ pillar['user'] }}
+
+Enable keyboard to tab between keyboard focus:
   macdefaults.write:
     - name: AppleKeyboardUIMode
     - domain: NSGlobalDomain
@@ -128,6 +136,7 @@ Restart Finder:
     - onchanges:
       - macdefaults: Use column view for all Finder windows
       - macdefaults: Set orange highlight color
+      - macdefaults: Set orange accent color
 
 Restart SystemUIServer:
   cmd.run:
