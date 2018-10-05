@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 '''
 Homebrew for macOS
-
 .. important::
     If you feel that Salt should be using this module to manage packages on a
     minion, and it is using a different module (or gives an error similar to
     *'pkg.install' is not available*), see :ref:`here
     <module-provider-override>`.
 '''
-from __future__ import absolute_import
+from __future__ import absolute_import, print_function, unicode_literals
 
 # Import python libs
 import copy
@@ -33,6 +32,7 @@ log = logging.getLogger(__name__)
 # Define the module's virtual name
 __virtualname__ = 'pkg'
 
+
 def __virtual__():
     '''
     Confine this module to Mac OS with Homebrew.
@@ -47,7 +47,7 @@ def _list_taps():
     '''
     List currently installed brew taps
     '''
-    cmd = 'brew tap'
+    cmd = 'tap'
     return _call_brew(cmd)['stdout'].splitlines()
 
 
@@ -59,11 +59,11 @@ def _tap(tap, runas=None):
     if tap in _list_taps():
         return True
 
-    cmd = 'brew tap {0}'.format(tap)
+    cmd = 'tap {0}'.format(tap)
     try:
         _call_brew(cmd)
     except CommandExecutionError:
-        log.error('Failed to tap "{0}"'.format(tap))
+        log.error('Failed to tap "%s"', tap)
         return False
 
     return True
@@ -84,6 +84,7 @@ def _call_brew(cmd, failhard=True):
     '''
     user = __salt__['file.get_user'](_homebrew_bin())
     runas = user if user != __opts__['user'] else None
+    cmd = '{} {}'.format(salt.utils.path.which('brew'), cmd)
     result = __salt__['cmd.run_all'](cmd,
                                      runas=runas,
                                      output_loglevel='trace',
@@ -97,13 +98,9 @@ def _call_brew(cmd, failhard=True):
 def list_pkgs(versions_as_list=False, **kwargs):
     '''
     List the packages currently installed in a dict::
-
         {'<package_name>': '<version>'}
-
     CLI Example:
-
     .. code-block:: bash
-
         salt '*' pkg.list_pkgs
     '''
     versions_as_list = salt.utils.data.is_true(versions_as_list)
@@ -121,7 +118,7 @@ def list_pkgs(versions_as_list=False, **kwargs):
             return ret
 
     ret = {}
-    cmd = 'brew info --json=v1 --installed'
+    cmd = 'info --json=v1 --installed'
     package_info = salt.utils.json.loads(_call_brew(cmd)['stdout'])
 
     for package in package_info:
@@ -141,7 +138,7 @@ def list_pkgs(versions_as_list=False, **kwargs):
     # Grab packages from brew cask, if available.
     # Brew Cask doesn't provide a JSON interface, must be parsed the old way.
     try:
-        cask_cmd = 'brew cask list --versions'
+        cask_cmd = 'cask list --versions'
         out = _call_brew(cask_cmd)['stdout']
 
         for line in out.splitlines():
@@ -169,11 +166,8 @@ def version(*names, **kwargs):
     Returns a string representing the package version or an empty string if not
     installed. If more than one package name is specified, a dict of
     name/version pairs is returned.
-
     CLI Example:
-
     .. code-block:: bash
-
         salt '*' pkg.version <package name>
         salt '*' pkg.version <package1> <package2> <package3>
     '''
@@ -184,14 +178,10 @@ def latest_version(*names, **kwargs):
     '''
     Return the latest version of the named package available for upgrade or
     installation
-
     Currently chooses stable versions, falling back to devel if that does not
     exist.
-
     CLI Example:
-
     .. code-block:: bash
-
         salt '*' pkg.latest_version <package name>
         salt '*' pkg.latest_version <package1> <package2> <package3>
     '''
@@ -217,26 +207,16 @@ available_version = salt.utils.functools.alias_function(latest_version, 'availab
 def remove(name=None, pkgs=None, **kwargs):
     '''
     Removes packages with ``brew uninstall``.
-
     name
         The name of the package to be deleted.
-
-
     Multiple Package Options:
-
     pkgs
         A list of packages to delete. Must be passed as a python list. The
         ``name`` parameter will be ignored if this option is passed.
-
     .. versionadded:: 0.16.0
-
-
     Returns a dict containing the changes.
-
     CLI Example:
-
     .. code-block:: bash
-
         salt '*' pkg.remove <package name>
         salt '*' pkg.remove <package1>,<package2>,<package3>
         salt '*' pkg.remove pkgs='["foo", "bar"]'
@@ -252,7 +232,7 @@ def remove(name=None, pkgs=None, **kwargs):
     targets = [x for x in pkg_params if x in old]
     if not targets:
         return {}
-    cmd = 'brew uninstall {0}'.format(' '.join(targets))
+    cmd = 'uninstall {0}'.format(' '.join(targets))
 
     out = _call_brew(cmd)
     if out['retcode'] != 0 and out['stderr']:
@@ -276,16 +256,13 @@ def remove(name=None, pkgs=None, **kwargs):
 def refresh_db():
     '''
     Update the homebrew package repository.
-
     CLI Example:
-
     .. code-block:: bash
-
         salt '*' pkg.refresh_db
     '''
     # Remove rtag file to keep multiple refreshes from happening in pkg states
     salt.utils.pkg.clear_rtag(__opts__)
-    cmd = 'brew update'
+    cmd = 'update'
     if _call_brew(cmd)['retcode']:
         log.error('Failed to update')
         return False
@@ -296,22 +273,20 @@ def refresh_db():
 def _info(*pkgs):
     '''
     Get all info brew can provide about a list of packages.
-
     Does not do any kind of processing, so the format depends entirely on
     the output brew gives. This may change if a new version of the format is
     requested.
-
     On failure, returns an empty dict and logs failure.
     On success, returns a dict mapping each item in pkgs to its corresponding
     object in the output of 'brew info'.
-
     Caveat: If one of the packages does not exist, no packages will be
             included in the output.
     '''
-    cmd = 'brew info --json=v1 {0}'.format(' '.join(pkgs))
+    cmd = 'info --json=v1 {0}'.format(' '.join(pkgs))
     brew_result = _call_brew(cmd)
     if brew_result['retcode']:
-        log.error('Failed to get info about packages: {0}'.format(' '.join(pkgs)))
+        log.error('Failed to get info about packages: %s',
+                  ' '.join(pkgs))
         return {}
     output = salt.utils.json.loads(brew_result['stdout'])
     return dict(zip(pkgs, output))
@@ -320,63 +295,40 @@ def _info(*pkgs):
 def install(name=None, pkgs=None, taps=None, options=None, **kwargs):
     '''
     Install the passed package(s) with ``brew install``
-
     name
         The name of the formula to be installed. Note that this parameter is
         ignored if "pkgs" is passed.
-
         CLI Example:
-
         .. code-block:: bash
-
             salt '*' pkg.install <package name>
-
     taps
         Unofficial GitHub repos to use when updating and installing formulas.
-
         CLI Example:
-
         .. code-block:: bash
-
             salt '*' pkg.install <package name> tap='<tap>'
             salt '*' pkg.install zlib taps='homebrew/dupes'
             salt '*' pkg.install php54 taps='["josegonzalez/php", "homebrew/dupes"]'
-
     options
         Options to pass to brew. Only applies to initial install. Due to how brew
         works, modifying chosen options requires a full uninstall followed by a
         fresh install. Note that if "pkgs" is used, all options will be passed
         to all packages. Unrecognized options for a package will be silently
         ignored by brew.
-
         CLI Example:
-
         .. code-block:: bash
-
             salt '*' pkg.install <package name> tap='<tap>'
             salt '*' pkg.install php54 taps='["josegonzalez/php", "homebrew/dupes"]' options='["--with-fpm"]'
-
     Multiple Package Installation Options:
-
     pkgs
         A list of formulas to install. Must be passed as a python list.
-
         CLI Example:
-
         .. code-block:: bash
-
             salt '*' pkg.install pkgs='["foo","bar"]'
-
-
     Returns a dict containing the new package names and versions::
-
         {'<package>': {'old': '<old-version>',
                        'new': '<new-version>'}}
-
     CLI Example:
-
     .. code-block:: bash
-
         salt '*' pkg.install 'package package package'
     '''
     try:
@@ -403,9 +355,9 @@ def install(name=None, pkgs=None, taps=None, options=None, **kwargs):
             _tap(tap)
 
     if options:
-        cmd = 'brew install {0} {1}'.format(formulas, ' '.join(options))
+        cmd = 'install {0} {1}'.format(formulas, ' '.join(options))
     else:
-        cmd = 'brew install {0}'.format(formulas)
+        cmd = 'install {0}'.format(formulas)
 
     out = _call_brew(cmd)
     if out['retcode'] != 0 and out['stderr']:
@@ -429,17 +381,14 @@ def install(name=None, pkgs=None, taps=None, options=None, **kwargs):
 def list_upgrades(refresh=True, **kwargs):  # pylint: disable=W0613
     '''
     Check whether or not an upgrade is available for all packages
-
     CLI Example:
-
     .. code-block:: bash
-
         salt '*' pkg.list_upgrades
     '''
     if refresh:
         refresh_db()
 
-    res = _call_brew(['brew', 'outdated', '--json=v1'])
+    res = _call_brew('outdated --json=v1')
     ret = {}
 
     try:
@@ -458,11 +407,8 @@ def list_upgrades(refresh=True, **kwargs):  # pylint: disable=W0613
 def upgrade_available(pkg):
     '''
     Check whether or not an upgrade is available for a given package
-
     CLI Example:
-
     .. code-block:: bash
-
         salt '*' pkg.upgrade_available <package name>
     '''
     return pkg in list_upgrades()
@@ -471,22 +417,14 @@ def upgrade_available(pkg):
 def upgrade(refresh=True):
     '''
     Upgrade outdated, unpinned brews.
-
     refresh
         Fetch the newest version of Homebrew and all formulae from GitHub before installing.
-
     Returns a dictionary containing the changes:
-
     .. code-block:: python
-
         {'<package>':  {'old': '<old-version>',
                         'new': '<new-version>'}}
-
-
     CLI Example:
-
     .. code-block:: bash
-
         salt '*' pkg.upgrade
     '''
     ret = {'changes': {},
@@ -499,7 +437,7 @@ def upgrade(refresh=True):
     if salt.utils.data.is_true(refresh):
         refresh_db()
 
-    result = _call_brew('brew upgrade', failhard=False)
+    result = _call_brew('upgrade', failhard=False)
     __context__.pop('pkg.list_pkgs', None)
     new = list_pkgs()
     ret = salt.utils.data.compare_dicts(old, new)
@@ -516,16 +454,11 @@ def upgrade(refresh=True):
 def info_installed(*names):
     '''
     Return the information of the named package(s) installed on the system.
-
     .. versionadded:: 2016.3.1
-
     names
         The names of the packages for which to return information.
-
     CLI example:
-
     .. code-block:: bash
-
         salt '*' pkg.info_installed <package1>
         salt '*' pkg.info_installed <package1> <package2> <package3> ...
     '''
