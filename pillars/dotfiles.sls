@@ -13,6 +13,7 @@ dotfiles:
       - name: .tmuxlinesnap
       - name: .vim
       - name: .vimrc
+      - name: .zshrc
   - dir: /Users/shcrai/.pip
     files:
       - name: pip.conf
