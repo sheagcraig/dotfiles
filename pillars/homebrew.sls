@@ -7,7 +7,6 @@ homebrew_installed_packages:
   - fortune
   - libdvdcss
   - nmap
-  - npm
   - pandoc
   - postgresql
   - readline
