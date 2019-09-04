@@ -6,7 +6,7 @@ Install homebrew packages:
 
 Update packages:
   cmd.run:
-    - name: brew upgrade
+    - name: /usr/local/bin/brew upgrade
     - runas: {{ pillar['user'] }}
     - require:
         - pkg: Install homebrew packages
