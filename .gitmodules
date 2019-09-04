@@ -1,6 +1,7 @@
 [submodule "files/.vim/bundle/python-mode"]
 	path = files/.vim/bundle/python-mode
 	url = https://github.com/klen/python-mode.git
+	branch = develop
 [submodule "files/.vim/bundle/swift.vim"]
 	path = files/.vim/bundle/swift.vim
 	url = https://github.com/keith/swift.vim.git
