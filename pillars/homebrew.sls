@@ -15,6 +15,8 @@ homebrew_installed_packages:
   - sqlite
   - tmux
   - tree
+  # This is required to enable python3 support (for pymode)
+  - vim
   - youtube-dl
   - caskroom/cask/atom
   - caskroom/cask/chromedriver
