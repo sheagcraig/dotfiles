@@ -57,3 +57,15 @@ The kind of tricky iTerm2 config is based on
 http://stratus3d.com/blog/2015/02/28/sync-iterm2-profile-with-dotfiles-repository/
 Any changes to the iTerm profile must be saved back out to this file and
 committed (although that's true of all the dotfiles).
+
+## Stuff you have to setup manually
+Some stuff I haven't figured out how to automate yet. So here's the checklist
+so I don't forget next time.
+- Install Salt...
+- Safari/Preferences/Advanced/Develop menu
+- Safari/Prefernces/Tabs/Turn on favicons in Safari
+- Messages/Preferences/iMessage/Enable messages in iCloud
+- System Preferences/Security & Privacy/General/Allow your Apple Watch to
+  unlock your Mac
+- System Preferences/General/Appearance/Dark mode
+- Add Finder sidebar shortcuts.
