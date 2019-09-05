@@ -1,0 +1,16 @@
+master_type: disable
+
+file_client: local
+
+file_roots:
+  base:
+    - {{ PWD }}
+
+pillar_roots:
+  base:
+    - {{ PWD }}/pillars
+
+#module_dirs:
+#  - {{ PWD }}/_modules
+
+multiprocessing: False
