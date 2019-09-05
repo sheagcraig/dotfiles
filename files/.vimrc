@@ -86,9 +86,6 @@ au BufRead,BufNewFile *.adf set filetype=xml
 
 " Pathogen load
 filetype off
-call pathogen#infect()
-call pathogen#helptags()
-
 " Turn on indention plugins.
 filetype plugin indent on
 syntax on
@@ -169,15 +166,3 @@ vnoremap <silent> # :<C-U>
 au filetype python :iabbrev pdb import pdb; pdb.set_trace()
 " Python main idiom (type ifname in insert mode)
 au filetype python :iabbrev ifname if __name__ == "__main__":<CR>main()
-
-" Setup the bash prompt (from VIM? Crazy talk!)
-" To generate the script, do (from vim):
-" `:PromptlineSnapshot <output file>
-" For some reason this only seems to work once before you have to quit VIM and
-" start again.
-let g:promptline_theme = 'airline'
-let g:promptline_preset = {
-        \'a': [ '\t', promptline#slices#host(), promptline#slices#user() ],
-        \'b': [ promptline#slices#cwd() ],
-        \'c' : [ promptline#slices#vcs_branch() ],
-        \'warn' : [ promptline#slices#last_exit_code(), promptline#slices#battery() ]}
