@@ -106,3 +106,26 @@ bindkey '^e' end-of-line
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias pcat='plutil -convert xml1 -o -'
+alias json='python3 -m json.tool'
+alias sc='sudo /opt/salt/bin/salt-call'
+
+
+# Autorun ######################################################################
+# Fortunes located at /usr/local/var/fortune
+if [[ -z "$VIM" ]] && [[ -e /usr/local/bin/fortune ]]; then
+	if [[ -e /usr/local/bin/cowsay ]]; then
+		fortune | cowsay
+	else
+		fortune
+	fi
+fi
+
+# Python Config
+
+# Use ipdb as our debugger by default.
+#export PYTHONBREAKPOINT="ipdb.set_trace"
+
+# Environment ##################################################################
+# If you don't know, now you know.
+export GREP_OPTIONS='--color=auto'
