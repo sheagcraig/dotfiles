@@ -69,3 +69,4 @@ so I don't forget next time.
   unlock your Mac
 - System Preferences/General/Appearance/Dark mode
 - Add Finder sidebar shortcuts.
+- System Preferences/Date & Time/Clock/Date options: Show date
