@@ -1,14 +1,10 @@
 dotfiles:
   - dir: /Users/shcrai
     files:
-      - name: .bash_profile
-      - name: .git-completion.sh
-      - name: .git-prompt.sh
       - name: .gitconfig
       - name: .gitignore_global
       - {name: .pypirc, mode: '0600', type: secret}
       - name: .pylintrc
-      - name: .shell_prompt.sh
       - name: .tmux.conf
       - name: .tmuxlinesnap
       - name: .vim
