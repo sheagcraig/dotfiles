@@ -146,7 +146,7 @@ vmap <C-x> :!pbcopy<CR>
 vmap <C-c> :w !pbcopy<CR><CR>
 
 " Toggle between tw=79 and 73, and tell us.
-nnoremap tw :let &textwidth = (&textwidth / 79 == 1 ? 72 : 79)<CR>:set textwidth?<CR>
+nnoremap tw :let &textwidth = (&textwidth / 79 == 1 ? 72 : 99)<CR>:set textwidth?<CR>
 
 " Search for current visual selection
 vnoremap // y/<C-R>"<CR>
