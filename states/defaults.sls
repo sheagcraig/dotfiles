@@ -63,16 +63,6 @@ Don't spray .DS_Store all over network volumes:
     - value: True
     - user: {{ pillar['user'] }}
 
-{% for key in ('IncludeDevelopMenu', 'WebKitDeveloperExtrasEnabledPreferenceKey', 'com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled') %}
-Enable Safari develop menu - {{ key }}:
-  macdefaults.write:
-    - name: {{ key }}
-    - domain: com.apple.Safari
-    - vtype: bool
-    - value: True
-    - user: {{ pillar['user'] }}
-{% endfor %}
-
 Enable develop menu contextual item for all WebViews:
   macdefaults.write:
     - name: WebKitDeveloperExtras
@@ -86,7 +76,7 @@ Set orange highlight color:
     - name: AppleHighlightColor
     - domain: NSGlobalDomain
     - vtype: string
-    - value: 1.000000 0.874510 0.701961
+    - value: "1.000000 0.874510 0.701961 Orange"
     - user: {{ pillar['user'] }}
 
 Set orange accent color:
