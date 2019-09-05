@@ -6,7 +6,6 @@ Copy secret {{ pillar['secrets_dir'] }} {{ file['name'] }} dotfile:
   file.managed:
     - source: {{ pillar['secrets_dir'] }}/{{ file['name'] }}
     - name: {{ location['dir'] | replace('~', pillar['home']) }}/{{ file['name'] }}
-    - keep_source: False
 {% else %}
 Link {{ file['name'] }} dotfile:
   file.symlink:

@@ -30,7 +30,7 @@ fi
 # Start decrypting.
 if [[ ! -e $PWD/secrets/id_rsa ]]; then
 	for f in $SECRETS_SOURCE_DIR/*; do
-		gpg --output secrets/$f:t --decrypt $f
+		gpg --output $PWD/secrets/$f:t --decrypt $f
 	done
 	chmod -R 700 secrets
 fi
@@ -47,3 +47,8 @@ sudo /opt/salt/bin/salt-call \
 	-l debug \
 	state.apply \
 	pillar="{'user': '$USER', 'home': '$HOME', 'secrets_dir': '$PWD/secrets'}" 
+
+# Launch zsh if it's not already the shell.
+if [[ $(echo $SHELL) == '/bin/bash' ]]; then
+	/bin/zsh
+fi
