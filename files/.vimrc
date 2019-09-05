@@ -21,7 +21,7 @@ set expandtab
 set ai
 
 " Set our width to programmer width+
-set textwidth=100
+set textwidth=99
 
 " turn off compatibility with the old vi
 set nocompatible
@@ -63,11 +63,9 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 " These are also managed by Pymode, but again, may be helpful elsewhere.
 " Code folding settings
 set foldmethod=indent
-" set foldnestmax=10
-set foldnestmax=1
+set foldnestmax=2
 set nofoldenable
 set foldlevel=0
-" set foldlevel=1
 " Set spacebar to toggle folds
 nnoremap <space> za
 vnoremap <space> zf
@@ -97,7 +95,7 @@ let g:pymode_lint = 0
 " Disable pylint check on every save
 let g:pymode_lint_on_write = 0
 " For some reason pymode wants line length to be 80. Pep8 says 79.""
-let g:pymode_options_max_line_length = 100
+let g:pymode_options_max_line_length = 99
 " This doesn't seem to have an effect.
 let g:pymode_options_colorcolumn = 1
 " ...so I have to do this.
@@ -145,8 +143,8 @@ inoremap <F6> <C-R>=strftime("%Y-%m-%d %T")<CR>
 vmap <C-x> :!pbcopy<CR>
 vmap <C-c> :w !pbcopy<CR><CR>
 
-" Toggle between tw=79 and 73, and tell us.
-nnoremap tw :let &textwidth = (&textwidth / 79 == 1 ? 72 : 99)<CR>:set textwidth?<CR>
+" Toggle between tw=100 and 73, and tell us.
+nnoremap tw :let &textwidth = (&textwidth / 99 == 1 ? 72 : 99)<CR>:set textwidth?<CR>
 
 " Search for current visual selection
 vnoremap // y/<C-R>"<CR>
