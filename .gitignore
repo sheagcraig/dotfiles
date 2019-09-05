@@ -1,5 +1,5 @@
 backup-*
 .pypirc
 *.retry
-secrets
+secrets/*
 minion

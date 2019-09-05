@@ -19,21 +19,23 @@ You'll also need the Xcode developer tools.
 1. `sudo xcodebuild -license`
 
 I usually build my machine with the configuration management system I maintain,
-so these dependencies are already installed. Also, I use python3 instead of the
-Apple-provided system Python, so if it complains about finding pip3 or is
-installing packages in "unexpected" places, keep this in mind.
+so these dependencies are already installed.
 
 To actually configure the Mac:
 1. `cd <this project's folder>`
-1. Decrypt the secrets needed into the secrets dir (you will have to create this).
-1. Install Homebrew: `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
 1. Run `./power_extreme.sh`
+1. And probably run it a few more times. It never seems to get everything the
+   first time...
 
-I've definitely had to do a `rm -rf /var/cache/salt; sudo salt-call --config-dir=$PWD saltutil.sync_modules` to get the pending update to the Homebrew module to sync.
-
-Also, there are some homebrew issues that are not resolved at this time. See the TODO.
+Alas, one truism of dotfiles is that you spend at least as much time screwing
+around with them every time you build a new machine as you would spend just
+doing things by hand. The TODO file includes all of the known broken stuff and
+planned future management.
 
 Here's what happens:
+1. Installs brew if needed
+1. Installs Dropbox and opens it to sign in and begin syncing.
+1. Decrypts secrets from Dropbox into place.
 1. Symlinks dotfiles into place.
 	- Some dotfiles are copied where symlinks are not allowed.
 1. Installs all homebrew and cask apps on macOS.
@@ -41,9 +43,6 @@ Here's what happens:
 	- For this repo, this primarily consists of vim plugins and Emmet.
 1. Installs the fonts used by Powerline/Airline
 1. Instructs iTerm2 to use the preferences included in this project.
-
-I used to install all of my common python packages, but since I do that in
-virtualenvs these days, I no longer do so.
 
 ## Using your own stuff
 This installs my dotfiles, brew packages, etc. If you would like to install

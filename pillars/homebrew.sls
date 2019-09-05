@@ -5,6 +5,7 @@ homebrew_installed_packages:
   - enchant
   - figlet
   - fortune
+  - gpg
   - libdvdcss
   - nethack
   - nmap
