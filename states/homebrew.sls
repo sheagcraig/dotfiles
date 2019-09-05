@@ -10,3 +10,10 @@ Update packages:
     - runas: {{ pillar['user'] }}
     - require:
         - pkg: Install homebrew packages
+
+Update cask packages:
+  cmd.run:
+    - name: /usr/local/bin/brew cask upgrade
+    - runas: {{ pillar['user'] }}
+    - require:
+        - pkg: Install homebrew packages
