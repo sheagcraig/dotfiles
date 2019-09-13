@@ -40,6 +40,7 @@ homebrew_installed_packages:
   - caskroom/cask/suspicious-package
   - caskroom/cask/trainerroad
   - caskroom/cask/vlc
+  - caskroom/cask/vmware-fusion
   - caskroom/cask/wireshark
   # This gets run every time, and fails (even though it does install).
   # Commenting out to allow sub tasks to run.

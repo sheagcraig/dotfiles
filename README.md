@@ -70,3 +70,5 @@ so I don't forget next time.
 - System Preferences/General/Appearance/Dark mode
 - Add Finder sidebar shortcuts.
 - System Preferences/Date & Time/Clock/Date options: Show date
+- Menubar/Power/Show percentage
+- System Preferences/Sound/Show volume in menu bar
