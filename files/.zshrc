@@ -70,6 +70,7 @@ ZSH_THEME="agnoster"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
 	git
+	history-substring-search
 	z
 )
 
@@ -94,7 +95,15 @@ bindkey -v
 # But use emacs begin and end of line commands (old habits die hard)
 bindkey '^a' beginning-of-line
 bindkey '^e' end-of-line
-
+# Testing this out-up/down arrow substring search
+bindkey "^[[A" history-substring-search-up
+bindkey "^[[B" history-substring-search-down
+# Bash habit history search:
+bindkey '^r' history-incremental-search-backward
+bindkey '^s' history-incremental-search-forward
+# Instead of up and down arrow
+bindkey '^P' up-history
+bindkey '^N' down-history
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
@@ -109,6 +118,7 @@ bindkey '^e' end-of-line
 alias pcat='plutil -convert xml1 -o -'
 alias json='python3 -m json.tool'
 alias sc='sudo /opt/salt/bin/salt-call'
+alias sas='cd ~/Developer/SAS/'
 
 
 # Autorun ######################################################################
