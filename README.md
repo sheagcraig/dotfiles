@@ -72,3 +72,4 @@ so I don't forget next time.
 - System Preferences/Date & Time/Clock/Date options: Show date
 - Menubar/Power/Show percentage
 - System Preferences/Sound/Show volume in menu bar
+- Add Play Pause button to touchbar (removing Siri)
