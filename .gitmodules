@@ -37,3 +37,6 @@
 [submodule "files/.vim/pack/emmet-vim/start/emmet-vim"]
 	path = files/.vim/pack/emmet-vim/start/emmet-vim
 	url = https://github.com/mattn/emmet-vim.git
+[submodule "files/.vim/pack/vim-beancount/start/vim-beancount"]
+	path = files/.vim/pack/vim-beancount/start/vim-beancount
+	url = https://github.com/nathangrigg/vim-beancount.git

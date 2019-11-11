@@ -126,6 +126,8 @@ let g:gitgutter_escape_grep = 1
 " Bump up the number of signs gitgutter can add.
 let g:gitgutter_max_signs = 5000
 
+let g:beancount_separator_col = 79
+
 " Use our bash profile if shelling.
 set shell=bash\ -l
 
