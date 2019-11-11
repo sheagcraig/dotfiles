@@ -111,6 +111,14 @@ Disable web auto-correct:
     - value: False
     - user: {{ pillar['user'] }}
 
+Disable capitalizing stuff:
+  macdefaults.write:
+    - name: NSAutomaticCapitalizationEnabled
+    - domain: NSGlobalDomain
+    - vtype: bool
+    - value: False
+    - user: {{ pillar['user'] }}
+
 Enable keyboard to tab between keyboard focus:
   macdefaults.write:
     - name: AppleKeyboardUIMode
