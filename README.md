@@ -73,3 +73,5 @@ so I don't forget next time.
 - Menubar/Power/Show percentage
 - System Preferences/Sound/Show volume in menu bar
 - Add Play Pause button to touchbar (removing Siri)
+- Add iCloud button to Safari toolbar.
+- Turn off Outlook sounds and notifications.
