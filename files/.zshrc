@@ -2,7 +2,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/shcrai/.oh-my-zsh"
+export ZSH="/Users/shea/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -119,6 +119,8 @@ alias pcat='plutil -convert xml1 -o -'
 alias json='python3 -m json.tool'
 alias sc='sudo /opt/salt/bin/salt-call'
 alias sas='cd ~/Developer/SAS/'
+# Use the brew vim
+alias vim='/usr/local/Cellar/vim/8.2.0100/bin/vim'
 
 
 # Autorun ######################################################################
