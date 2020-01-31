@@ -7,7 +7,8 @@ SECRETS_SOURCE_DIR=~/Dropbox/boxen/encrypted
 sed "s|{{ PWD }}|$PWD|" minion_template > $PWD/minion
 
 # Install homebrew
-if [[ ! $(which brew) ]]; then
+which brew &> /dev/null
+if [[ $? -ne 0 ]]; then
 	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
@@ -21,12 +22,12 @@ if [[ ! $(which gpg) ]]; then
 	brew install gpg
 fi
 # Install dropbox if needed.
-if [[ ! -e $SECRETS_SOURCE_DIR ]]; then
-	echo $SECRETS_SOURCE_DIR
-	brew cask install dropbox
-	open /Applications/Dropbox.app
-	read -q "REPLY?Ready to continue?"
-fi
+#if [[ ! -e $SECRETS_SOURCE_DIR ]]; then
+#	echo $SECRETS_SOURCE_DIR
+#	brew cask install dropbox
+#	open /Applications/Dropbox.app
+#	read -q "REPLY?Ready to continue?"
+#fi
 # Start decrypting.
 if [[ ! -e $PWD/secrets/id_rsa ]]; then
 	for f in $SECRETS_SOURCE_DIR/*; do
@@ -37,10 +38,10 @@ fi
 
 # Sync all additional modules.
 # Commented out as there are none needed at this time.
-# sudo /opt/salt/bin/salt-call \
-# 	--config-dir=${PWD} \
-# 	-l debug \
-# 	saltutil.sync_modules
+sudo /opt/salt/bin/salt-call \
+	--config-dir=${PWD} \
+	-l debug \
+	saltutil.sync_modules
 
 sudo /opt/salt/bin/salt-call \
 	--config-dir=${PWD} \
