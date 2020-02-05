@@ -118,6 +118,7 @@ bindkey '^N' down-history
 alias pcat='plutil -convert xml1 -o -'
 alias json='python3 -m json.tool'
 alias sc='sudo /opt/salt/bin/salt-call'
+alias dsc='sudo /opt/salt/bin/salt-call --config-dir=/etc/salt-dev'
 alias sas='cd ~/Developer/SAS/'
 # Use the brew vim
 alias vim='/usr/local/Cellar/vim/8.2.0100/bin/vim'
