@@ -40,3 +40,6 @@
 [submodule "files/.vim/pack/vim-beancount/start/vim-beancount"]
 	path = files/.vim/pack/vim-beancount/start/vim-beancount
 	url = https://github.com/nathangrigg/vim-beancount.git
+[submodule "files/.vim/pack/salt-vim/start/salt-vim"]
+	path = files/.vim/pack/salt-vim/start/salt-vim
+	url = https://github.com/saltstack/salt-vim.git
