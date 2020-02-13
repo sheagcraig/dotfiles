@@ -1,11 +1,11 @@
 "
-"   _/      _/  _/                      _/      _/  _/            _/            
-"  _/      _/      _/_/_/  _/_/        _/_/    _/      _/_/_/          _/_/_/   
-" _/      _/  _/  _/    _/    _/      _/  _/  _/  _/  _/    _/  _/  _/    _/    
-"  _/  _/    _/  _/    _/    _/      _/    _/_/  _/  _/    _/  _/  _/    _/     
-"   _/      _/  _/    _/    _/      _/      _/  _/  _/    _/  _/    _/_/_/      
-"                                                            _/                 
-"                                                         _/                    
+"   _/      _/  _/                      _/      _/  _/            _/
+"  _/      _/      _/_/_/  _/_/        _/_/    _/      _/_/_/          _/_/_/
+" _/      _/  _/  _/    _/    _/      _/  _/  _/  _/  _/    _/  _/  _/    _/
+"  _/  _/    _/  _/    _/    _/      _/    _/_/  _/  _/    _/  _/  _/    _/
+"   _/      _/  _/    _/    _/      _/      _/  _/  _/    _/  _/    _/_/_/
+"                                                            _/
+"                                                         _/
 " Fix our indenting for python.
 " These are all set by Pymode, but I may want them in for other languages.
 " For some reason, if my indent/python.vim is missing, it inserts tabs anyway
@@ -128,8 +128,8 @@ let g:gitgutter_max_signs = 5000
 
 let g:beancount_separator_col = 79
 
-" Use our bash profile if shelling.
-set shell=bash\ -l
+" Use our zsh profile if shelling.
+set shell=zsh
 
 " Only use emmet for html/css
 " let g:user_emmet_install_global = 0
