@@ -121,7 +121,8 @@ alias sc='sudo /opt/salt/bin/salt-call'
 alias dsc='sudo /opt/salt/bin/salt-call --config-dir=/etc/salt-dev'
 alias sas='cd ~/Developer/SAS/'
 # Use the brew vim
-alias vim='/usr/local/Cellar/vim/8.2.0100/bin/vim'
+alias vim='/usr/local/bin/vim'
+alias python38='/usr/local/Cellar/python@3.8/3.8.2/bin/python3'
 
 
 # Autorun ######################################################################
