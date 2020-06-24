@@ -9,7 +9,7 @@ sed "s|{{ PWD }}|$PWD|" minion_template > $PWD/minion
 # Install homebrew
 which brew &> /dev/null
 if [[ $? -ne 0 ]]; then
-	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 fi
 
 # Decrypt secrets if needed
