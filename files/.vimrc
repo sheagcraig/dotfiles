@@ -9,16 +9,18 @@
 " Fix our indenting for python.
 " These are all set by Pymode, but I may want them in for other languages.
 " For some reason, if my indent/python.vim is missing, it inserts tabs anyway
-"
-" set our tabs to four spaces
-set ts=4
-set softtabstop=4
-" set autoindent and ctrl-t/ctrl-d tabs to 4
-set shiftwidth=4
-" set vim to insert spaces rather than a tab char
-set expandtab
 " set auto-indenting on for programming
 set ai
+" Commented out to see if I still want to do this!
+" All of my main languages have plugins/syntax files
+" that should be handling this.
+" " set our tabs to four spaces
+" set ts=4
+" set softtabstop =4
+" " set autoindent and ctrl-t/ctrl-d tabs to 4
+" set shiftwidth=4
+" " set vim to insert spaces rather than a tab char
+" set expandtab
 
 " Set our width to programmer width+
 set textwidth=99
