@@ -1,4 +1,5 @@
 # TODO
+- Automatically install ipdb for brewed python.
 - git submodule init refuses to work from Salt; works just fine from me doing
   it. Move to power extreme if it's going to elude my grasp much longer.
 - Zwift cask install triggers the app to actually run (it downloads the assets
