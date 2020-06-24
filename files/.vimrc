@@ -25,6 +25,8 @@ endif
 set autoindent
 " make that backspace key work the way it should
 set backspace=indent,eol,start
+" Use CTRL-P/CTRL-N completion, but don't scan 'included' files.
+set complete-=i
 " Commented out to see if I still want to do this!
 " All of my main languages have plugins/syntax files
 " that should be handling this.
