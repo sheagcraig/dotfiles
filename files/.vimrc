@@ -79,21 +79,21 @@ endif
 
 " Set up vim plugins using vim-plug
 call plug#begin('~/.vim/plugged')
-Plug 'python-mode/python-mode.git'
-Plug 'keith/swift.vim.git'
-Plug 'bling/vim-airline.git'
+Plug 'airblade/vim-gitgutter'
+Plug 'avakhov/vim-yaml'
+Plug 'bling/vim-airline'
+Plug 'dracula/vim', {'as': 'dracula'}
+Plug 'edkolev/tmuxline.vim'
+Plug 'keith/swift.vim'
+Plug 'mattn/emmet-vim'
+Plug 'nathangrigg/vim-beancount'
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+Plug 'saltstack/salt-vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-markdown'
-Plug 'airblade/vim-gitgutter.git'
-Plug 'edkolev/tmuxline.vim.git'
-Plug 'avakhov/vim-yaml.git'
-Plug 'mattn/emmet-vim.git'
-Plug 'nathangrigg/vim-beancount.git'
-Plug 'saltstack/salt-vim.git'
-Plug 'dracula/vim.git', {'as': 'dracula'}
 call plug#end()
 
 " Turn on autocompletion: hit CTRL-X CTRL-O to use
@@ -126,12 +126,6 @@ au BufRead,BufNewFile *.recipe set filetype=xml
 " As well as SavingThrow ADF's
 au BufRead,BufNewFile *.adf set filetype=xml
 
-" Pathogen load
-" filetype off
-" " Turn on indention plugins.
-" filetype plugin indent on
-" syntax on
-
 " Plugin configuration
 
 " Pymode configuration
@@ -154,13 +148,8 @@ let g:pymode_rope = 0
 " Colors! I like writing to dark terminals.
 set t_Co=256
 set background=dark
-"colorscheme liquidcarbon
-"colorscheme elflord
-"colorscheme nu42dark
-"colorscheme gentooish
 "colorscheme molokai
 "colorscheme PaperColor
-packadd! dracula
 colorscheme dracula
 " Fix the search color so it stands out from cursor
 hi Search cterm=reverse ctermfg=DarkCyan ctermbg=Yellow
