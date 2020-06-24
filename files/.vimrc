@@ -9,8 +9,22 @@
 " Fix our indenting for python.
 " These are all set by Pymode, but I may want them in for other languages.
 " For some reason, if my indent/python.vim is missing, it inserts tabs anyway
+
+" Basic, sensible, VIM setup
+" https://github.com/tpope/vim-sensible/blob/master/plugin/sensible.vim
+
+" Turn on ft detection, plugins, and indentation
+if has('autocmd')
+	filetype plugin indent on
+endif
+" If we have syntax highlighting... USE IT.
+if has('syntax') && !exists('g:syntax_on')
+	syntax enable
+endif
 " set auto-indenting on for programming
-set ai
+set autoindent
+" make that backspace key work the way it should
+set backspace=indent,eol,start
 " Commented out to see if I still want to do this!
 " All of my main languages have plugins/syntax files
 " that should be handling this.
