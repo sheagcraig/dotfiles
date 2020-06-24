@@ -19,6 +19,7 @@ homebrew_installed_packages:
   - tmux
   - tree
   # This is required to enable python3 support (for pymode)
+  # ...and vim hotness
   - vim
   - youtube-dl
   - homebrew/cask/atom
