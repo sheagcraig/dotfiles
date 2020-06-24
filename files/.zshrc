@@ -140,6 +140,13 @@ fi
 # Use ipdb as our debugger by default.
 #export PYTHONBREAKPOINT="ipdb.set_trace"
 
+# Go Config
+export GOPATH=$HOME/Developer/go
+
 # Environment ##################################################################
 # If you don't know, now you know.
 export GREP_OPTIONS='--color=auto'
+
+# Allow gpg to prompt for a password when invoked by git.
+GPG_TTY=$(tty)
+export GPG_TTY
