@@ -27,6 +27,13 @@ set autoindent
 set backspace=indent,eol,start
 " Use CTRL-P/CTRL-N completion, but don't scan 'included' files.
 set complete-=i
+" Visually highlight searches.
+set hlsearch
+" ...but use <C-L> to clear search highlights
+if maparg('<C-L>', 'n') ==# ''
+  nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+endif
+
 " Commented out to see if I still want to do this!
 " All of my main languages have plugins/syntax files
 " that should be handling this.
@@ -47,9 +54,6 @@ set nocompatible
 " turn on the "visual bell" - which is much quieter than the "audio blink"
 set vb
 
-" Visually highlight searches.
-set hlsearch
-
 " Automatically show matching brackets.
 set showmatch
 
@@ -62,9 +66,6 @@ set binary noeol
 "set ruler
 
 set encoding=utf-8
-
-" make that backspace key work the way it should
-set backspace=indent,eol,start
 
 " Use _ as a word boundary also.
 set iskeyword-=_
