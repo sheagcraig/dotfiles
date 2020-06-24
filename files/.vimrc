@@ -111,7 +111,10 @@ set background=dark
 "colorscheme elflord
 "colorscheme nu42dark
 "colorscheme gentooish
-colorscheme molokai
+"colorscheme molokai
+"colorscheme PaperColor
+packadd! dracula
+colorscheme dracula
 " Fix the search color so it stands out from cursor
 hi Search cterm=reverse ctermfg=DarkCyan ctermbg=Yellow
 
