@@ -3,7 +3,7 @@ dotfiles:
     files:
       - name: .gitconfig
       - name: .gitignore_global
-      #- {name: .pypirc, mode: '0600', type: secret}
+      - {name: .pypirc, mode: '0600', type: secret}
       - name: .pylintrc
       - name: .tmux.conf
       - name: .tmuxlinesnap
