@@ -5,7 +5,9 @@ homebrew_installed_packages:
   - enchant
   - figlet
   - fortune
+  - go
   - gpg
+  - joplin
   - libdvdcss
   - nethack
   - nmap
@@ -19,29 +21,30 @@ homebrew_installed_packages:
   # This is required to enable python3 support (for pymode)
   - vim
   - youtube-dl
-  #- caskroom/cask/atom
-  #- caskroom/cask/chromedriver
-  #- caskroom/cask/dropbox
-  #- caskroom/cask/dwarf-fortress-lmp
-  #- caskroom/cask/evernote
-  #- caskroom/cask/google-earth-pro
-  #- caskroom/cask/google-hangouts
-  #- caskroom/cask/grandperspective
-  #- caskroom/cask/handbrake
-  #- caskroom/cask/iterm2
-  #- caskroom/cask/openemu
-  #- caskroom/cask/pacifist
-  #- caskroom/cask/packages
-  #- caskroom/cask/qlmarkdown
-  #- caskroom/cask/skitch
-  #- caskroom/cask/slack
-  #- caskroom/cask/spotify
-  #- caskroom/cask/steam
-  #- caskroom/cask/suspicious-package
-  #- caskroom/cask/trainerroad
-  #- caskroom/cask/vlc
-  #- caskroom/cask/vmware-fusion
-  #- caskroom/cask/wireshark
+  - homebrew/cask/atom
+  - homebrew/cask/calibre
+  - homebrew/cask/chromedriver
+  # - homebrew/cask/dropbox
+  - homebrew/cask/dwarf-fortress-lmp
+  - homebrew/cask/evernote
+  - homebrew/cask/google-hangouts
+  - homebrew/cask/grandperspective
+  - homebrew/cask/handbrake
+  - homebrew/cask/iterm2
+  - homebrew/cask/joplin
+  - homebrew/cask/openemu
+  - homebrew/cask/pacifist
+  - homebrew/cask/packages
+  - homebrew/cask/qlmarkdown
+  - homebrew/cask/skitch
+  - homebrew/cask/slack
+  - homebrew/cask/spotify
+  - homebrew/cask/steam
+  - homebrew/cask/suspicious-package
+  - homebrew/cask/trainerroad
+  - homebrew/cask/vlc
+  - homebrew/cask/vmware-fusion
+  - homebrew/cask/wireshark
   # This gets run every time, and fails (even though it does install).
   # Commenting out to allow sub tasks to run.
-  # - caskroom/cask/zwift
+  # - homebrew/cask/zwift

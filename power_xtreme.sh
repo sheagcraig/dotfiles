@@ -50,29 +50,29 @@ sudo /opt/salt/bin/salt-call \
 	pillar="{'user': '$USER', 'home': '$HOME', 'secrets_dir': '$PWD/secrets'}" 
 
 
-brew cask install atom
-brew cask install chromedriver
-brew cask install dropbox
-brew cask install dwarf-fortress-lmp
-brew cask install evernote
-brew cask install google-earth-pro
-brew cask install google-hangouts
-brew cask install grandperspective
-brew cask install handbrake
-brew cask install iterm2
-brew cask install openemu
-brew cask install pacifist
-brew cask install packages
-brew cask install qlmarkdown
-brew cask install skitch
-brew cask install slack
-brew cask install spotify
-brew cask install steam
-brew cask install suspicious-package
-brew cask install trainerroad
-brew cask install vlc
-brew cask install vmware-fusion
-brew cask install wireshark
+# brew cask install atom
+# brew cask install chromedriver
+# brew cask install dropbox
+# brew cask install dwarf-fortress-lmp
+# brew cask install evernote
+# brew cask install google-earth-pro
+# brew cask install google-hangouts
+# brew cask install grandperspective
+# brew cask install handbrake
+# brew cask install iterm2
+# brew cask install openemu
+# brew cask install pacifist
+# brew cask install packages
+# brew cask install qlmarkdown
+# brew cask install skitch
+# brew cask install slack
+# brew cask install spotify
+# brew cask install steam
+# brew cask install suspicious-package
+# brew cask install trainerroad
+# brew cask install vlc
+# brew cask install vmware-fusion
+# brew cask install wireshark
 
 # Launch zsh if it's not already the shell.
 if [[ $(echo $SHELL) == '/bin/bash' ]]; then
