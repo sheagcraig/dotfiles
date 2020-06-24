@@ -51,13 +51,38 @@ set backspace=indent,eol,start
 " Use _ as a word boundary also.
 set iskeyword-=_
 
+" Download vim-plug 
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" Set up vim plugins using vim-plug
+call plug#begin('~/.vim/plugged')
+Plug 'python-mode/python-mode.git'
+Plug 'keith/swift.vim.git'
+Plug 'bling/vim-airline.git'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-markdown'
+Plug 'airblade/vim-gitgutter.git'
+Plug 'edkolev/tmuxline.vim.git'
+Plug 'avakhov/vim-yaml.git'
+Plug 'mattn/emmet-vim.git'
+Plug 'nathangrigg/vim-beancount.git'
+Plug 'saltstack/salt-vim.git'
+Plug 'dracula/vim.git', {'as': 'dracula'}
+call plug#end()
+
 " Turn on autocompletion: hit CTRL-X CTRL-O to use
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 
 " These are also managed by Pymode, but again, may be helpful elsewhere.
@@ -83,11 +108,14 @@ au BufRead,BufNewFile *.recipe set filetype=xml
 au BufRead,BufNewFile *.adf set filetype=xml
 
 " Pathogen load
-filetype off
-" Turn on indention plugins.
-filetype plugin indent on
-syntax on
+" filetype off
+" " Turn on indention plugins.
+" filetype plugin indent on
+" syntax on
 
+" Plugin configuration
+
+" Pymode configuration
 " Put pymode in python3 land
 let g:pymode_python = 'python3'
 " Disable pylint check on every save
@@ -169,3 +197,4 @@ vnoremap <silent> # :<C-U>
 au filetype python :iabbrev pdb import pdb; pdb.set_trace()
 " Python main idiom (type ifname in insert mode)
 au filetype python :iabbrev ifname if __name__ == "__main__":<CR>main()
+
