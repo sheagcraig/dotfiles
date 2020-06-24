@@ -4,3 +4,5 @@
 *.pyc
 *.ropeproject
 *.swp
+.vscode
+venv
