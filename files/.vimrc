@@ -10,6 +10,8 @@
 " These are all set by Pymode, but I may want them in for other languages.
 " For some reason, if my indent/python.vim is missing, it inserts tabs anyway
 
+" =========================================== Basics ==============================================
+
 " Basic, sensible, VIM setup
 " https://github.com/tpope/vim-sensible/blob/master/plugin/sensible.vim
 
@@ -17,26 +19,60 @@
 if has('autocmd')
 	filetype plugin indent on
 endif
+
 " If we have syntax highlighting... USE IT.
 if has('syntax') && !exists('g:syntax_on')
 	syntax enable
 endif
+
 " set auto-indenting on for programming
 set autoindent
+
 " make that backspace key work the way it should
 set backspace=indent,eol,start
+
 " Use CTRL-P/CTRL-N completion, but don't scan 'included' files.
 set complete-=i
+
 " Visually highlight searches.
 set hlsearch
+
 " ...but use <C-L> to clear search highlights
 if maparg('<C-L>', 'n') ==# ''
   nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
 endif
 
+" Have status (airline) appear all of the time.
+set laststatus=2
+
+" It's nice to have line and column numbers displayed
+" But vim-airline status bar does this for us.
+"set ruler
+
+" Expand vim commands (i.e. : mode) with tab
+set wildmenu
+
+" Horizontal completion menu (keep hitting tab) for wildmenu
+set wildmode=longest:full,full
+
+" Always show at least one more line above/below cursor
+if !&scrolloff
+  set scrolloff=1
+endif
+if !&sidescrolloff
+  set sidescrolloff=5
+endif
+
+" Show really really long lines (as much as possible in view) instead of `@`
+set display+=lastline
+
+set encoding=utf-8
+
 " Commented out to see if I still want to do this!
 " All of my main languages have plugins/syntax files
 " that should be handling this.
+" Possibly also replace with:
+" https://github.com/tpope/vim-sleuth
 " " set our tabs to four spaces
 " set ts=4
 " set softtabstop =4
@@ -62,14 +98,27 @@ set showmatch
 " that's bad.
 set binary noeol
 
-" It's nice to have line and column numbers displayed
-"set ruler
+" Code folding settings
+" TODO: These are managed by pymode; are they conflicting? Which wins? And it still isn't great.
+set foldmethod=indent
+set foldnestmax=2
+set nofoldenable
+set foldlevel=0
 
-set encoding=utf-8
+" Set spacebar to toggle folds
+nnoremap <space> za
+vnoremap <space> zf
 
-" Use _ as a word boundary also.
-set iskeyword-=_
+" Jump to last position in file from previous edit session.
+if has("autocmd")
+	au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
 
+" Use our zsh profile if shelling.
+set shell=zsh
+
+
+" ========================================== Plugins! =============================================
 " Download vim-plug 
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -81,7 +130,7 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'airblade/vim-gitgutter'
 Plug 'avakhov/vim-yaml'
-Plug 'bling/vim-airline'
+Plug 'vim-airline/vim-airline'
 Plug 'dracula/vim', {'as': 'dracula'}
 Plug 'edkolev/tmuxline.vim'
 Plug 'keith/swift.vim'
@@ -96,7 +145,49 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 call plug#end()
 
-" Turn on autocompletion: hit CTRL-X CTRL-O to use
+" Pymode configuration
+
+" Put pymode in python3 land
+let g:pymode_python = 'python3'
+
+" Disable pylint check on every save
+let g:pymode_lint = 0
+
+" Disable pylint check on every save
+let g:pymode_lint_on_write = 0
+
+" For some reason pymode wants line length to be 80.
+let g:pymode_options_max_line_length = 99
+
+" This doesn't seem to have an effect.
+let g:pymode_options_colorcolumn = 1
+
+" ...so I have to do this.
+hi ColorColumn ctermbg=Red
+set cc=+1
+
+" Rope drives me nuts.
+let g:pymode_rope = 0
+
+" Add symbols: Needs a powerline patched font.
+let g:airline_powerline_fonts = 1
+
+" Configure vim-gitgutter
+" I alias grep to use color by default.
+let g:gitgutter_escape_grep = 1
+
+" Bump up the number of signs gitgutter can add.
+let g:gitgutter_max_signs = 5000
+
+let g:beancount_separator_col = 79
+
+" Only use emmet for html/css
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
+
+
+" ====================================== Language Configs =========================================
+" Turn on autocompletion: hit CTRL-X CTRL-O to use (omnifunc)
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
@@ -104,77 +195,39 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType c set omnifunc=ccomplete#Complete
 
-" These are also managed by Pymode, but again, may be helpful elsewhere.
-" Code folding settings
-set foldmethod=indent
-set foldnestmax=2
-set nofoldenable
-set foldlevel=0
-" Set spacebar to toggle folds
-nnoremap <space> za
-vnoremap <space> zf
-
-" Jump to last position in file
-if has("autocmd")
-	au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
-
 " Make sure Vim knows .md is markdown
 au BufRead,BufNewFile *.md set filetype=markdown
+
 " And that AutoPkg recipes are XML
 au BufRead,BufNewFile *.recipe set filetype=xml
-" As well as SavingThrow ADF's
-au BufRead,BufNewFile *.adf set filetype=xml
 
-" Plugin configuration
+" Python debugger abbreviation (type pdb in insert mode)
+au filetype python :iabbrev pdb import pdb; pdb.set_trace()
 
-" Pymode configuration
-" Put pymode in python3 land
-let g:pymode_python = 'python3'
-" Disable pylint check on every save
-let g:pymode_lint = 0
-" Disable pylint check on every save
-let g:pymode_lint_on_write = 0
-" For some reason pymode wants line length to be 80. Pep8 says 79.""
-let g:pymode_options_max_line_length = 99
-" This doesn't seem to have an effect.
-let g:pymode_options_colorcolumn = 1
-" ...so I have to do this.
-hi ColorColumn ctermbg=Red
-set cc=+1
-" Rope drives me nuts.
-let g:pymode_rope = 0
+" Python main idiom (type ifname in insert mode)
+au filetype python :iabbrev ifname if __name__ == "__main__":<CR>main()
 
-" Colors! I like writing to dark terminals.
+" Use _ as a word boundary also.
+" For python only right now
+autocmd FileType python setlocal iskeyword-=_
+
+
+" =========================================== Colors ==============================================
+
+" I like dark terminals.
 set t_Co=256
 set background=dark
 "colorscheme molokai
 "colorscheme PaperColor
 colorscheme dracula
+
 " Fix the search color so it stands out from cursor
 hi Search cterm=reverse ctermfg=DarkCyan ctermbg=Yellow
 
-" Have airline appear all of the time.
-set laststatus=2
-" Add symbols: Needs a powerline patched font.
-let g:airline_powerline_fonts = 1
 
-" Configure vim-gitgutter
-" I alias grep to use color by default.
-let g:gitgutter_escape_grep = 1
-" Bump up the number of signs gitgutter can add.
-let g:gitgutter_max_signs = 5000
+" ==================================== Fancy Keyboard Magic =======================================
 
-let g:beancount_separator_col = 79
-
-" Use our zsh profile if shelling.
-set shell=zsh
-
-" Only use emmet for html/css
-" let g:user_emmet_install_global = 0
-" autocmd FileType html,css EmmetInstall
-
-" Add changelog date or timestamp with F5
+" Add changelog date or timestamp with F5/F6
 nnoremap <F5> "=strftime("%Y-%m-%d")<CR>P
 inoremap <F5> <C-R>=strftime("%Y-%m-%d")<CR>
 nnoremap <F6> "=strftime("%Y-%m-%d %T")<CR>P
@@ -189,6 +242,7 @@ nnoremap tw :let &textwidth = (&textwidth / 99 == 1 ? 72 : 99)<CR>:set textwidth
 
 " Search for current visual selection
 vnoremap // y/<C-R>"<CR>
+
 " Search for selected text, forwards or backwards.
 vnoremap <silent> * :<C-U>
   \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
@@ -200,9 +254,3 @@ vnoremap <silent> # :<C-U>
   \gvy?<C-R><C-R>=substitute(
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
-
-" Python debugger abbreviation (type pdb in insert mode)
-au filetype python :iabbrev pdb import pdb; pdb.set_trace()
-" Python main idiom (type ifname in insert mode)
-au filetype python :iabbrev ifname if __name__ == "__main__":<CR>main()
-
