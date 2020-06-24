@@ -1,3 +1,21 @@
 Host *
-  UseKeychain yes
-  AddKeysToAgent yes
+  AddKeysToAgent      yes
+  UseKeychain         yes
+  ServerAliveInterval 2m
+  ServerAliveCountMax 5
+  IdentityFile        ~/.ssh/id_ed25519
+  CertificateFile     ~/.ssh/id_ed25519-cert.pub
+
+Match host=bastion-*
+  ControlMaster       auto
+  ControlPath         ~/.ssh/cm/%r@%h:%p
+  ControlPersist      30m
+
+Match host=!bastion-*,*.uswest1.sqcorp.co
+  ProxyJump bastion-0.uswest1.sqcorp.co
+
+Match host=!bastion-*,*.uswest2.sqcorp.co
+  ProxyJump bastion-0.uswest2.sqcorp.co
+
+Match host=!bastion-*,*.useast1.sqcorp.co
+  ProxyJump bastion-0.useast1.sqcorp.co
