@@ -133,6 +133,7 @@ Plug 'avakhov/vim-yaml'
 Plug 'vim-airline/vim-airline'
 Plug 'dracula/vim', {'as': 'dracula'}
 Plug 'edkolev/tmuxline.vim'
+Plug 'godlygeek/tabular'
 Plug 'keith/swift.vim'
 Plug 'mattn/emmet-vim'
 Plug 'nathangrigg/vim-beancount'
