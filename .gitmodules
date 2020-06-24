@@ -43,3 +43,6 @@
 [submodule "files/.vim/pack/salt-vim/start/salt-vim"]
 	path = files/.vim/pack/salt-vim/start/salt-vim
 	url = https://github.com/saltstack/salt-vim.git
+[submodule "files/.vim/pack/themes/start/dracula"]
+	path = files/.vim/pack/themes/start/dracula
+	url = https://github.com/dracula/vim.git
