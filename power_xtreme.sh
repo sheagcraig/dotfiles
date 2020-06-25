@@ -1,7 +1,7 @@
 #!/bin/zsh
 
 # Change to desired secret storage.
-SECRETS_SOURCE_DIR="~/Google Drive/boxen/encrypted"
+SECRETS_SOURCE_DIR=~/Google\ Drive/boxen/encrypted
 
 # Create a minion config that points to this dir.
 sed "s|{{ PWD }}|$PWD|" minion_template > $PWD/minion
@@ -23,16 +23,16 @@ if [[ ! -e "$(which gpg)" ]]; then
 fi
 # Install gdrive if needed.
 if [[ ! -e $SECRETS_SOURCE_DIR ]]; then
-	echo $SECRETS_SOURCE_DIR
 	brew cask install google-backup-and-sync
-	open "/Applications/Google Backup and Sync.app"
+	open "/Applications/Backup and Sync.app"
+	echo "Wait for everything to be done syncing..."
 	read -q "REPLY?Ready to continue?"
 fi
 
 # Start decrypting.
 if [[ ! -e $PWD/secrets/id_rsa ]]; then
-	for f in $SECRETS_SOURCE_DIR/*; do
-		gpg --output $PWD/secrets/$f:t --decrypt $f
+	for f in "$SECRETS_SOURCE_DIR"/*; do
+		gpg --output $PWD/secrets/$(basename $f) --decrypt "$f"
 	done
 	chmod -R 700 secrets
 fi
