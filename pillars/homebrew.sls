@@ -38,7 +38,7 @@ homebrew_installed_packages:
   - homebrew/cask/packages
   - homebrew/cask/qlmarkdown
   - homebrew/cask/skitch
-  - homebrew/cask/slack
+  # - homebrew/cask/slack
   - homebrew/cask/spotify
   - homebrew/cask/steam
   - homebrew/cask/suspicious-package
