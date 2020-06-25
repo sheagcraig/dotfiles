@@ -14,3 +14,10 @@ pillar_roots:
 #  - {{ PWD }}/_modules
 
 multiprocessing: False
+
+# Required for new-style module.run use in states
+use_superseded:
+  - module.run
+
+cachedir: /var/cache/dotfiles/minion
+enable_fqdns_grains: False
