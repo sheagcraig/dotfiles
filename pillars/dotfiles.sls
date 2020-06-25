@@ -1,5 +1,5 @@
 dotfiles:
-  - dir: /Users/shea
+  - dir: "~"
     files:
       - name: .gitconfig
       - name: .gitignore_global
@@ -10,13 +10,13 @@ dotfiles:
       - name: .vim
       - name: .vimrc
       - name: .zshrc
-  - dir: /Users/shea/.pip
+  - dir: "~/.pip"
     files:
       - name: pip.conf
   - dir: /usr/local/share/luggage
     files:
       - {name: luggage.local, owner: root, group: wheel, limit_to_platform: MacOS}
-  - dir: /Users/shea/.ssh
+  - dir: "~/.ssh"
     files:
       - name: config
       - {name: id_rsa, mode: '0600', type: secret}
