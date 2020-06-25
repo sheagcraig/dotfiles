@@ -134,6 +134,8 @@ Plug 'vim-airline/vim-airline'
 Plug 'dracula/vim', {'as': 'dracula'}
 Plug 'edkolev/tmuxline.vim'
 Plug 'godlygeek/tabular'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 Plug 'keith/swift.vim'
 Plug 'mattn/emmet-vim'
 Plug 'nathangrigg/vim-beancount'
@@ -187,6 +189,10 @@ let g:beancount_separator_col = 79
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 
+" FZF mapping to Ctrl+P
+nmap <C-P> :Files<CR>
+" FZF Ctrl+G for only git-controlled files.
+nmap <C-G> :GFiles<CR>
 
 " ====================================== Language Configs =========================================
 " Turn on autocompletion: hit CTRL-X CTRL-O to use (omnifunc)
