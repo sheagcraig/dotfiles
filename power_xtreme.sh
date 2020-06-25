@@ -22,10 +22,12 @@ if [[ ! -e "$(which gpg)" ]]; then
 	brew install gpg
 fi
 # Install gdrive if needed.
-if [[ ! -e $SECRETS_SOURCE_DIR ]]; then
+if [[ ! -e "/Applications/Backup and Sync.app" ]]; then
 	brew cask install google-backup-and-sync
+fi
+if [[ ! -e $SECRETS_SOURCE_DIR ]]; then
 	open "/Applications/Backup and Sync.app"
-	echo "Wait for everything to be done syncing..."
+	echo "Waiting for everything to finish syncing..."
 	read -q "REPLY?Ready to continue?"
 fi
 
