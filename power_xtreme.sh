@@ -18,7 +18,7 @@ if [[ ! -d $PWD/secrets ]]; then
 	mkdir secrets
 fi
 # Install gpg if needed.
-if [[ ! $(which gpg) ]]; then
+if [[ ! -e "$(which gpg)" ]]; then
 	brew install gpg
 fi
 # Install gdrive if needed.
