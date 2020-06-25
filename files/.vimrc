@@ -138,6 +138,7 @@ Plug 'keith/swift.vim'
 Plug 'mattn/emmet-vim'
 Plug 'nathangrigg/vim-beancount'
 Plug 'plasticboy/vim-markdown'
+Plug 'preservim/nerdtree'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'saltstack/salt-vim'
 Plug 'tpope/vim-commentary'
