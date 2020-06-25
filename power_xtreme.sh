@@ -28,13 +28,6 @@ if [[ ! -e $SECRETS_SOURCE_DIR ]]; then
 	open "/Applications/Google Backup and Sync.app"
 	read -q "REPLY?Ready to continue?"
 fi
-# Install dropbox if needed.
-#if [[ ! -e $SECRETS_SOURCE_DIR ]]; then
-#	echo $SECRETS_SOURCE_DIR
-#	brew cask install dropbox
-#	open /Applications/Dropbox.app
-#	read -q "REPLY?Ready to continue?"
-#fi
 
 # Start decrypting.
 if [[ ! -e $PWD/secrets/id_rsa ]]; then
@@ -44,16 +37,13 @@ if [[ ! -e $PWD/secrets/id_rsa ]]; then
 	chmod -R 700 secrets
 fi
 
-# Sync all additional modules.
-# Commented out as there are none needed at this time.
-sudo /opt/salt/bin/salt-call \
-	--config-dir=${PWD} \
-	-l debug \
-	saltutil.sync_modules
+# Get submodules set up so we can use them
+# This fails if done by Salt :(
+git submodule init
+git submodule update --remote
 
 sudo /opt/salt/bin/salt-call \
 	--config-dir=${PWD} \
-	-l debug \
 	state.apply \
 	pillar="{'user': '$USER', 'home': '$HOME', 'secrets_dir': '$PWD/secrets'}" 
 
