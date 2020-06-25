@@ -37,11 +37,6 @@ if [[ ! -e $PWD/secrets/id_rsa ]]; then
 	chmod -R 700 secrets
 fi
 
-# Get submodules set up so we can use them
-# This fails if done by Salt :(
-git submodule init
-git submodule update --remote
-
 sudo /opt/salt/bin/salt-call \
 	--config-dir=${PWD} \
 	state.apply \
