@@ -133,6 +133,7 @@ Plug 'avakhov/vim-yaml'
 Plug 'vim-airline/vim-airline'
 Plug 'dracula/vim', {'as': 'dracula'}
 Plug 'edkolev/tmuxline.vim'
+Plug 'fatih/vim-go'
 Plug 'godlygeek/tabular'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
