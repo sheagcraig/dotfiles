@@ -24,32 +24,22 @@ so these dependencies are already installed.
 
 To actually configure the Mac:
 1. `cd <this project's folder>`
-1. Run `./power_extreme.sh`
-1. And probably run it a few more times. It never seems to get everything the
-   first time...
+1. Run `./power_extreme.sh bootstrap` to set up my cloud file sync client and decrypt secrets into place.
+1. Run `./power_extreme.sh brew` to run the homebrew state. This is really slow, so it's separated out to avoid running it multiple times. It's also "successful" in a way that Salt sees as an error, so other stuff can't use requisites correctly. Yet. 
+1. Run `./power_extreme.sh g` to run the highstate.
+
+If individual states fail, `./power_extreme.sh -s states/<state_name>` will re-run them with the local Salt config.
 
 Alas, one truism of dotfiles is that you spend at least as much time screwing
 around with them every time you build a new machine as you would spend just
 doing things by hand. The TODO file includes all of the known broken stuff and
 planned future management.
 
-Here's what happens:
-1. Installs brew if needed
-1. Installs Dropbox and opens it to sign in and begin syncing.
-1. Decrypts secrets from Dropbox into place.
-1. Symlinks dotfiles into place.
-	- Some dotfiles are copied where symlinks are not allowed.
-1. Installs all homebrew and cask apps on macOS.
-1. Git inits submodules
-	- For this repo, this primarily consists of vim plugins and Emmet.
-1. Installs the fonts used by Powerline/Airline
-1. Instructs iTerm2 to use the preferences included in this project.
-
 ## Using your own stuff
 This installs my dotfiles, brew packages, etc. If you would like to install
 your own, you'll need to override the configuration variables and/or pillars.
 
-Some files are pulled from my Dropbox folder since they can't be included on a
+Some files are pulled from my Google Drive folder since they can't be included on a
 public GitHub repo. Feel free to do the same for your own secrets. Just make
 sure you encrypt anything that you put up there!
 
@@ -76,3 +66,4 @@ so I don't forget next time.
 - Add Play Pause button to touchbar (removing Siri)
 - Add iCloud button to Safari toolbar.
 - Turn off Outlook sounds and notifications.
+- gpg key for git commits

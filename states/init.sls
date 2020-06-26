@@ -4,7 +4,6 @@ include:
   - .submodules
   - .npm
   {% if grains['os'] == 'MacOS' %}
-  - .homebrew
   - .defaults
   - .dock
   - .terms
