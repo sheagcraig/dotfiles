@@ -49,6 +49,10 @@ set laststatus=2
 " But vim-airline status bar does this for us.
 "set ruler
 
+" Use hybrid line numbering (current line actual number, all other lines
+" relative.
+set number relativenumber
+
 " Expand vim commands (i.e. : mode) with tab
 set wildmenu
 
