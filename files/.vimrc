@@ -210,7 +210,14 @@ nmap <C-P> :Files<CR>
 nmap <C-G> :GFiles<CR>
 
 " Open / close nerdtree
-nnoremap <Leader>f :NERDTreeToggle<Enter>
+nnoremap <C-n> :NERDTreeToggle<CR>
+
+" Automatically close NERDTree when you open a file
+let NERDTreeQuitOnOpen = 1
+
+" And close if only NERDTree is left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
 
 " Vim-go configs
 " Enable syntax highlighting
