@@ -212,6 +212,15 @@ nmap <C-G> :GFiles<CR>
 " Open / close nerdtree
 nnoremap <Leader>f :NERDTreeToggle<Enter>
 
+" Vim-go configs
+" Enable syntax highlighting
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+
 " ====================================== Language Configs =========================================
 " Turn on autocompletion: hit CTRL-X CTRL-O to use (omnifunc)
 autocmd FileType python set omnifunc=pythoncomplete#Complete
@@ -237,6 +246,8 @@ au filetype python :iabbrev ifname if __name__ == "__main__":<CR>main()
 " For python only right now
 autocmd FileType python setlocal iskeyword-=_
 
+" Shrink those go tabs to be less enormous
+autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 
 " =========================================== Colors ==============================================
 
