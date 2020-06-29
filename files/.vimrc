@@ -152,6 +152,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 call plug#end()
 
 " Pymode configuration
@@ -175,7 +176,7 @@ let g:pymode_options_colorcolumn = 1
 hi ColorColumn ctermbg=Red
 set cc=+1
 
-" Rope drives me nuts.
+" Rope never seems to work for me.
 let g:pymode_rope = 0
 
 " Add symbols: Needs a powerline patched font.
@@ -198,6 +199,9 @@ autocmd FileType html,css EmmetInstall
 nmap <C-P> :Files<CR>
 " FZF Ctrl+G for only git-controlled files.
 nmap <C-G> :GFiles<CR>
+
+" Open / close nerdtree
+nnoremap <Leader>f :NERDTreeToggle<Enter>
 
 " ====================================== Language Configs =========================================
 " Turn on autocompletion: hit CTRL-X CTRL-O to use (omnifunc)
