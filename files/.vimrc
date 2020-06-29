@@ -103,11 +103,12 @@ set showmatch
 set binary noeol
 
 " Code folding settings
-" TODO: These are managed by pymode; are they conflicting? Which wins? And it still isn't great.
-set foldmethod=indent
-set foldnestmax=2
-set nofoldenable
-set foldlevel=0
+" TODO: These are allegedly managed by pymode; but folding doesn't work if
+" they're commented out.
+" set foldmethod=indent
+" set foldnestmax=2
+" set nofoldenable
+" set foldlevel=0
 
 " Set spacebar to toggle folds
 nnoremap <space> za
@@ -159,6 +160,14 @@ call plug#end()
 
 " Put pymode in python3 land
 let g:pymode_python = 'python3'
+
+" Pymode folding (still) considered "experimental"
+" It seems to fold JUST the def line in a lot of salt funcs.
+" Leaving off.
+let g:pymode_folding = 0
+
+" Configure the linters to use
+let g:pymode_lint_checkers = ['pylint', 'pyflakes', 'pep8', 'pep257', 'mccabe']
 
 " Disable pylint check on every save
 let g:pymode_lint = 0
