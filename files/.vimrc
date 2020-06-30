@@ -73,13 +73,11 @@ set display+=lastline
 set encoding=utf-8
 
 " Commented out to see if I still want to do this!
-" All of my main languages have plugins/syntax files
-" that should be handling this.
 " Possibly also replace with:
 " https://github.com/tpope/vim-sleuth
 " " set our tabs to four spaces
 " set ts=4
-" set softtabstop =4
+" set softtabstop=4
 " " set autoindent and ctrl-t/ctrl-d tabs to 4
 " set shiftwidth=4
 " " set vim to insert spaces rather than a tab char
@@ -101,14 +99,6 @@ set showmatch
 " programming for the web the default will cause http headers to be sent.
 " that's bad.
 set binary noeol
-
-" Code folding settings
-" TODO: These are allegedly managed by pymode; but folding doesn't work if
-" they're commented out.
-" set foldmethod=indent
-" set foldnestmax=2
-" set nofoldenable
-" set foldlevel=0
 
 " Set spacebar to toggle folds
 nnoremap <space> za
@@ -237,11 +227,12 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType c set omnifunc=ccomplete#Complete
 
+" Markdown
+
 " Make sure Vim knows .md is markdown
 au BufRead,BufNewFile *.md set filetype=markdown
 
-" And that AutoPkg recipes are XML
-au BufRead,BufNewFile *.recipe set filetype=xml
+" Python
 
 " Python debugger abbreviation (type pdb in insert mode)
 au filetype python :iabbrev pdb import pdb; pdb.set_trace()
@@ -253,8 +244,24 @@ au filetype python :iabbrev ifname if __name__ == "__main__":<CR>main()
 " For python only right now
 autocmd FileType python setlocal iskeyword-=_
 
+" Code folding settings
+" TODO: pymode folding is fancy... but doesn't work great.
+autocmd FileType python setlocal foldmethod=indent nofoldenable foldlevel=0
+
+" Go
+
 " Shrink those go tabs to be less enormous
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
+autocmd FileType go setlocal foldmethod=syntax nofoldenable foldlevel=0
+
+" Autopkg Recipes
+
+" And that AutoPkg recipes are XML
+au BufRead,BufNewFile *.recipe set filetype=xml
+
+" HTML
+autocmd FileType html setlocal foldmethod=syntax nofoldenable foldlevel=0
+
 
 " =========================================== Colors ==============================================
 
