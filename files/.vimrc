@@ -254,6 +254,9 @@ autocmd FileType python setlocal foldmethod=indent nofoldenable foldlevel=0
 autocmd BufNewFile,BufRead *.go setlocal noexpandtab tabstop=4 shiftwidth=4
 autocmd FileType go setlocal foldmethod=syntax nofoldenable foldlevel=0
 
+" This gets a lot of work
+au filetype go :iabbrev iferr if err != nil {<CR>return err<CR>}
+
 " Autopkg Recipes
 
 " And that AutoPkg recipes are XML
