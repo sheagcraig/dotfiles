@@ -119,10 +119,11 @@ alias pcat='plutil -convert xml1 -o -'
 alias json='python3 -m json.tool'
 alias sc='sudo /opt/salt/bin/salt-call'
 alias dsc='sudo /opt/salt/bin/salt-call --config-dir=/etc/salt-dev'
-alias sas='cd ~/Developer/SAS/'
+alias sq='cd ~/Developer/sq/'
 # Use the brew vim
 alias vim='/usr/local/bin/vim'
-alias python38='/usr/local/Cellar/python@3.8/3.8.2/bin/python3'
+alias fv='/usr/local/bin/vim $(fzf)'
+alias python38='/usr/local/Cellar/python@3.8/3.8.5/bin/python3'
 
 
 # Autorun ######################################################################
@@ -150,3 +151,8 @@ export GREP_OPTIONS='--color=auto'
 # Allow gpg to prompt for a password when invoked by git.
 GPG_TTY=$(tty)
 export GPG_TTY
+
+# Python 3.8 + brew management
+export PATH="/usr/local/opt/python@3.8/bin:$PATH"
+export LDFLAGS="-L/usr/local/opt/python3.8/lib"
+export PKG_CONFIG_PATH="/usr/local/opt/python@3.8/lib/pkgconfig"
