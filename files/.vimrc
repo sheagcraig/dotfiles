@@ -112,6 +112,13 @@ endif
 " Use our zsh profile if shelling.
 set shell=zsh
 
+" Automatically save and reload views for folding while changing buffers
+augroup AutoSaveFolds
+  autocmd!
+  autocmd BufWinLeave * mkview
+  autocmd BufWinEnter * silent loadview
+augroup END
+
 
 " ========================================== Plugins! =============================================
 " Download vim-plug 
@@ -160,7 +167,7 @@ let g:pymode_folding = 0
 let g:pymode_lint_checkers = ['pylint', 'pyflakes', 'pep8', 'pep257', 'mccabe']
 
 " Disable pylint check on every save
-let g:pymode_lint = 0
+let g:pymode_lint = 1
 
 " Disable pylint check on every save
 let g:pymode_lint_on_write = 0
