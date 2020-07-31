@@ -5,3 +5,4 @@ secrets/*
 minion
 files/.vim/plugged
 files/.vim/autoload/plug.vim
+files/.vim/view
