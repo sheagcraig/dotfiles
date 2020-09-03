@@ -238,6 +238,8 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 
 " Make sure Vim knows .md is markdown
 au BufRead,BufNewFile *.md set filetype=markdown
+au FileType markdown setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
+let g:vim_markdown_new_list_item_indent = 0
 
 " Python
 
