@@ -119,11 +119,23 @@ alias pcat='plutil -convert xml1 -o -'
 alias json='python3 -m json.tool'
 alias sc='sudo /opt/salt/bin/salt-call'
 alias dsc='sudo /opt/salt/bin/salt-call --config-dir=/etc/salt-dev'
-alias sq='cd ~/Developer/sq/'
+# alias sq='cd ~/Developer/sq/'
 # Use the brew vim
 alias vim='/usr/local/bin/vim'
 alias fv='/usr/local/bin/vim $(fzf)'
 alias python38='/usr/local/Cellar/python@3.8/3.8.5/bin/python3'
+sn () {
+	ioreg -c IOPlatformExpertDevice -d 2 | awk -F\" '/IOPlatformSerialNumber/{print $(NF-1)}'
+}
+snp () {
+	sn | pbcopy
+}
+function sq {
+	cd ~/Developer/sq/
+	if [[ $1 != "" ]]; then
+		cd $1
+	fi
+}
 
 
 # Autorun ######################################################################
