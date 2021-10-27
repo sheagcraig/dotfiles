@@ -120,10 +120,15 @@ alias json='python3 -m json.tool'
 alias sc='sudo /opt/salt/bin/salt-call'
 alias dsc='sudo /opt/salt/bin/salt-call --config-dir=/etc/salt-dev'
 # alias sq='cd ~/Developer/sq/'
-# Use the brew vim
-alias vim='/usr/local/bin/vim'
-alias fv='/usr/local/bin/vim $(fzf)'
-alias python38='/usr/local/Cellar/python@3.8/3.8.5/bin/python3'
+
+
+if [[ $(arch) = arm64 ]]; then
+	BREW='/opt/homebrew/bin'
+else
+	BREW='/usr/local/Cellar'
+fi
+alias vim="$BREW/vim"
+alias fv="$BREW/vim $(fzf)"
 sn () {
 	ioreg -c IOPlatformExpertDevice -d 2 | awk -F\" '/IOPlatformSerialNumber/{print $(NF-1)}'
 }
@@ -140,8 +145,8 @@ function sq {
 
 # Autorun ######################################################################
 # Fortunes located at /usr/local/var/fortune
-if [[ -z "$VIM" ]] && [[ -e /usr/local/bin/fortune ]]; then
-	if [[ -e /usr/local/bin/cowsay ]]; then
+if [[ -z "$VIM" ]] && [[ -e $BREW/fortune ]]; then
+	if [[ -e $BREW/cowsay ]]; then
 		fortune | cowsay
 	else
 		fortune
@@ -153,6 +158,11 @@ fi
 # Use ipdb as our debugger by default.
 #export PYTHONBREAKPOINT="ipdb.set_trace"
 
+# Python 3.8 + brew management
+# export PATH="/opt/homebrew/opt/python@3.8/bin:$PATH"
+# export LDFLAGS="-L/opt/homebrew/opt/python3.8/lib"
+# export PKG_CONFIG_PATH="/opt/homebrew/opt/python@3.8/lib/pkgconfig"
+
 # Go Config
 export GOPATH=$HOME/Developer/go
 
@@ -163,10 +173,5 @@ export GREP_OPTIONS='--color=auto'
 # Allow gpg to prompt for a password when invoked by git.
 GPG_TTY=$(tty)
 export GPG_TTY
-
-# Python 3.8 + brew management
-export PATH="/usr/local/opt/python@3.8/bin:$PATH"
-export LDFLAGS="-L/usr/local/opt/python3.8/lib"
-export PKG_CONFIG_PATH="/usr/local/opt/python@3.8/lib/pkgconfig"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
