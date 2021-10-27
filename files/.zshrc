@@ -168,3 +168,5 @@ export GPG_TTY
 export PATH="/usr/local/opt/python@3.8/bin:$PATH"
 export LDFLAGS="-L/usr/local/opt/python3.8/lib"
 export PKG_CONFIG_PATH="/usr/local/opt/python@3.8/lib/pkgconfig"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
