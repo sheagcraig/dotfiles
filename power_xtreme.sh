@@ -1,8 +1,12 @@
 #!/bin/zsh
 
 # Install homebrew if it's not here yet.
-which brew &> /dev/null
-if [[ $? -ne 0 ]]; then
+if [[ $(arch) = arm64 ]]; then
+        BREW='/opt/homebrew/bin/brew'
+else
+        BREW='/usr/local/Cellar/brew'
+fi
+if [[ ! -f $BREW ]]; then
 	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 fi
 
@@ -38,11 +42,11 @@ case "$1" in
         fi
         # Install gpg if needed.
         if [[ ! -e "$(which gpg)" ]]; then
-            brew install gpg
+            $BREW install gpg
         fi
         # Install gdrive if needed.
         if [[ ! -e "/Applications/Backup and Sync.app" ]]; then
-            brew cask install google-backup-and-sync
+            $BREW cask install google-backup-and-sync
         fi
         if [[ ! -e $SECRETS_SOURCE_DIR ]]; then
             open "/Applications/Backup and Sync.app"
