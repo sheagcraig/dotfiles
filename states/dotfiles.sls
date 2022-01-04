@@ -6,6 +6,12 @@ Copy secret {{ pillar['secrets_dir'] }} {{ file['name'] }} dotfile:
   file.managed:
     - source: {{ pillar['secrets_dir'] }}/{{ file['name'] }}
     - name: {{ location['dir'] | replace('~', pillar['home']) }}/{{ file['name'] }}
+{% elif file.get('type', 'link') == 'templated' %}
+Copy templated {{ pillar['secrets_dir'] }} {{ file['name'] }} dotfile:
+  file.managed:
+    - source: {{ opts['file_roots']['base'][0] }}/files/{{ file['name'] }}
+    - name: {{ location['dir'] | replace('~', pillar['home']) }}/{{ file['name'] }}
+    - template: jinja
 {% else %}
 Link {{ file['name'] }} dotfile:
   file.symlink:

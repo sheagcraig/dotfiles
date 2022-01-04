@@ -21,3 +21,6 @@ dotfiles:
       - name: config
       - {name: id_rsa, mode: '0600', type: secret}
       - {name: id_rsa.pub, mode: '0640', type: secret}
+  - dir: "~/.gnupg"
+    files:
+      - {name: gpg-agent.conf, type: templated}
