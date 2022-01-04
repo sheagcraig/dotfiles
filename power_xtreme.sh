@@ -56,15 +56,61 @@ case "$1" in
 
         # Start decrypting.
         if [[ ! -e $PWD/secrets/id_rsa ]]; then
-            for f in "$SECRETS_SOURCE_DIR"/*; do
-                gpg --output $PWD/secrets/$(basename $f) --decrypt "$f"
+            for f in "$SECRETS_SOURCE_DIR"/*(D); do
+		echo $f
+                $BREW/gpg --output $PWD/secrets/$(basename $f) --decrypt "$f"
             done
             chmod -R 700 secrets
         fi
         ;;
     "brew")
-	state="states/homebrew"
-	sc
+	HOMEBREW_PKGS=(
+            awscli
+            cowsay
+            dockutil
+            enchant
+            figlet
+            fortune
+            fzf
+            go
+            gpg
+            joplin
+            libdvdcss
+            nethack
+            nmap
+            pandoc
+	    pinentry-mac
+            postgresql
+            readline
+            reattach-to-user-namespace
+            sqlite
+            tmux
+            tree
+            vim
+            youtube-dl
+            homebrew/cask/atom
+            homebrew/cask/calibre
+            homebrew/cask/chromedriver
+            homebrew/cask/dwarf-fortress-lmp
+            homebrew/cask/evernote
+            homebrew/cask/grandperspective
+            homebrew/cask/handbrake
+            homebrew/cask/iterm2
+            homebrew/cask/joplin
+            homebrew/cask/openemu
+            homebrew/cask/pacifist
+            homebrew/cask/packages
+            homebrew/cask/qlmarkdown
+            homebrew/cask/skitch
+            homebrew/cask/spotify
+            homebrew/cask/steam
+            homebrew/cask/suspicious-package
+            homebrew/cask/trainerroad
+            homebrew/cask/vlc
+            homebrew/cask/wireshark)
+	for pkg in $HOMEBREW_PKGS; do
+	    $BREW/brew install $pkg
+	done;
 	;;
     "-s")
 	state=$2
