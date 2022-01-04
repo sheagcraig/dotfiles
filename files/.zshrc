@@ -128,7 +128,7 @@ else
 	BREW='/usr/local/Cellar'
 fi
 alias vim="$BREW/vim"
-alias fv="$BREW/vim $(fzf)"
+alias fv='$BREW/vim $(fzf)'
 sn () {
 	ioreg -c IOPlatformExpertDevice -d 2 | awk -F\" '/IOPlatformSerialNumber/{print $(NF-1)}'
 }
