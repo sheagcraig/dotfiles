@@ -24,9 +24,10 @@ so these dependencies are already installed.
 
 To actually configure the Mac:
 1. `cd <this project's folder>`
-1. Run `./power_extreme.sh bootstrap` to set up my cloud file sync client and decrypt secrets into place.
-1. Run `./power_extreme.sh brew` to run the homebrew state. This is really slow, so it's separated out to avoid running it multiple times. It's also "successful" in a way that Salt sees as an error, so other stuff can't use requisites correctly. Yet. 
-1. Run `./power_extreme.sh g` to run the highstate.
+1. Run `./power_extreme.sh bootstrap` to set install homebrew and configure salt.
+1. Run `./power_extreme.sh decrypt <path to secrets>` to decrypt anything in the provided path to the dotfiles `secrets` folder (mode 700) for later management by the salt states.
+1. Run `./power_extreme.sh brew` to install all homebrew pkgs. This is really slow, so it's separated out to avoid running it multiple times.
+1. Run `./power_extreme.sh go` to run the highstate.
 
 If individual states fail, `./power_extreme.sh -s states/<state_name>` will re-run them with the local Salt config.
 

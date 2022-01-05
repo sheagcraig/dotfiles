@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+export PATH=$HOME/bin:/usr/local/bin:/opt/homebrew/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/shea/.oh-my-zsh"
@@ -128,7 +128,7 @@ else
 	BREW='/usr/local/Cellar'
 fi
 alias vim="$BREW/vim"
-alias fv="$BREW/vim $(fzf)"
+alias fv='$BREW/vim $(fzf)'
 sn () {
 	ioreg -c IOPlatformExpertDevice -d 2 | awk -F\" '/IOPlatformSerialNumber/{print $(NF-1)}'
 }

@@ -1,21 +1,23 @@
 #!/bin/zsh
 
-# Install homebrew if it's not here yet.
-which brew &> /dev/null
-if [[ $? -ne 0 ]]; then
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+if [[ $(arch) = arm64 ]]; then
+	BREW='/opt/homebrew/bin'
+else
+	BREW='/usr/local/Cellar'
 fi
 
-# Create/update minion config that points to this dir.
-sed "s|{{ PWD }}|$PWD|" minion_template > $PWD/minion
 
 function help() {
 	echo "$0 accepts the following commands:"
-	echo "bootstrap (install gpg, cloud secrets, and decrypt to dotfiles)"
+	echo "bootstrap (install homebrew and configure salt)"
+	echo "decrypt (install gpg and decrypt to dotfiles project)"
 	echo "brew (install brew and brew cask apps)"
-	echo "-s <state> (runs one state instead of the entire highstate)"
 	echo "go (run the Salt high state)"
+	echo "-s <state> (runs one state instead of the entire highstate)"
 }
+
+
 function sc() {
         sudo /opt/salt/bin/salt-call \
             --config-dir=${PWD} \
@@ -23,11 +25,21 @@ function sc() {
             pillar="{'user': '$USER', 'home': '$HOME', 'secrets_dir': '$PWD/secrets'}" 
 }
 
+
 case "$1" in
     "-h" | "--help")
 	help
 	;;
     "bootstrap")
+	# Install homebrew if it's not here yet.
+	if [[ ! -d $BREW ]]; then
+		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+	fi
+
+	# Create/update minion config that points to this dir.
+	sed "s|{{ PWD }}|$PWD|" minion_template > $PWD/minion
+	;;
+    "decrypt")
         # Decrypt secrets if needed
   
         # Change this to desired secret storage.
@@ -38,29 +50,67 @@ case "$1" in
         fi
         # Install gpg if needed.
         if [[ ! -e "$(which gpg)" ]]; then
-            brew install gpg
-        fi
-        # Install gdrive if needed.
-        if [[ ! -e "/Applications/Backup and Sync.app" ]]; then
-            brew cask install google-backup-and-sync
-        fi
-        if [[ ! -e $SECRETS_SOURCE_DIR ]]; then
-            open "/Applications/Backup and Sync.app"
-            echo "Waiting for everything to finish syncing..."
-            read -q "REPLY?Ready to continue?"
+            $BREW/brew install gpg
         fi
 
         # Start decrypting.
         if [[ ! -e $PWD/secrets/id_rsa ]]; then
-            for f in "$SECRETS_SOURCE_DIR"/*; do
-                gpg --output $PWD/secrets/$(basename $f) --decrypt "$f"
+            for f in "$SECRETS_SOURCE_DIR"/*(D); do
+		echo $f
+		read -q "Hit any key to decrypt"
+                $BREW/gpg --output $PWD/secrets/$(basename $f) --decrypt "$f"
             done
             chmod -R 700 secrets
         fi
         ;;
     "brew")
-	state="states/homebrew"
-	sc
+	HOMEBREW_PKGS=(
+            awscli
+            cowsay
+            dockutil
+            enchant
+            figlet
+            fortune
+            fzf
+            go
+            gpg
+            joplin
+            libdvdcss
+            nethack
+            nmap
+            pandoc
+	    pinentry-mac
+            postgresql
+            readline
+            reattach-to-user-namespace
+            sqlite
+            tmux
+            tree
+            vim
+            youtube-dl
+            homebrew/cask/atom
+            homebrew/cask/calibre
+            homebrew/cask/chromedriver
+            homebrew/cask/dwarf-fortress-lmp
+            homebrew/cask/evernote
+            homebrew/cask/grandperspective
+            homebrew/cask/handbrake
+            homebrew/cask/iterm2
+            homebrew/cask/joplin
+            homebrew/cask/openemu
+            homebrew/cask/pacifist
+            homebrew/cask/packages
+            homebrew/cask/qlmarkdown
+            homebrew/cask/skitch
+            homebrew/cask/spotify
+            homebrew/cask/steam
+            homebrew/cask/suspicious-package
+            homebrew/cask/trainerroad
+            homebrew/cask/vlc
+            homebrew/cask/wireshark)
+	for pkg in $HOMEBREW_PKGS; do
+	    $BREW/brew install $pkg
+	done;
 	;;
     "-s")
 	state=$2
