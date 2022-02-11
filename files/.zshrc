@@ -119,6 +119,7 @@ alias pcat='plutil -convert xml1 -o -'
 alias json='python3 -m json.tool'
 alias sc='sudo /opt/salt/bin/salt-call'
 alias dsc='sudo /opt/salt/bin/salt-call --config-dir=/etc/salt-dev'
+alias snowsql='/Applications/SnowSQL.app/Contents/MacOS/snowsql'
 # alias sq='cd ~/Developer/sq/'
 
 
