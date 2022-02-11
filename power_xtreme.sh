@@ -2,43 +2,43 @@
 
 
 if [[ $(arch) = arm64 ]]; then
-	BREW='/opt/homebrew/bin'
+    BREW='/opt/homebrew/bin'
 else
-	BREW='/usr/local/Cellar'
+    BREW='/usr/local/Cellar'
 fi
 
 
 function help() {
-	echo "$0 accepts the following commands:"
-	echo "bootstrap (install homebrew and configure salt)"
-	echo "decrypt (install gpg and decrypt to dotfiles project)"
-	echo "brew (install brew and brew cask apps)"
-	echo "go (run the Salt high state)"
-	echo "-s <state> (runs one state instead of the entire highstate)"
+    echo "$0 accepts the following commands:"
+    echo "bootstrap (install homebrew and configure salt)"
+    echo "decrypt (install gpg and decrypt to dotfiles project)"
+    echo "brew (install brew and brew cask apps)"
+    echo "go (run the Salt high state)"
+    echo "-s <state> (runs one state instead of the entire highstate)"
 }
 
 
 function sc() {
-        sudo /opt/salt/bin/salt-call \
-            --config-dir=${PWD} \
-            state.apply $state \
-            pillar="{'user': '$USER', 'home': '$HOME', 'secrets_dir': '$PWD/secrets'}" 
+    sudo /opt/salt/bin/salt-call \
+        --config-dir=${PWD} \
+        state.apply $state \
+        pillar="{'user': '$USER', 'home': '$HOME', 'secrets_dir': '$PWD/secrets'}" 
 }
 
 
 case "$1" in
     "-h" | "--help")
-	help
-	;;
+        help
+        ;;
     "bootstrap")
-	# Install homebrew if it's not here yet.
-	if [[ ! -d $BREW ]]; then
-		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
-	fi
+        # Install homebrew if it's not here yet.
+        if [[ ! -d $BREW ]]; then
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+        fi
 
-	# Create/update minion config that points to this dir.
-	sed "s|{{ PWD }}|$PWD|" minion_template > $PWD/minion
-	;;
+        # Create/update minion config that points to this dir.
+        sed "s|{{ PWD }}|$PWD|" minion_template > $PWD/minion
+        ;;
     "decrypt")
         # Decrypt secrets if needed
   
@@ -56,15 +56,15 @@ case "$1" in
         # Start decrypting.
         if [[ ! -e $PWD/secrets/id_rsa ]]; then
             for f in "$SECRETS_SOURCE_DIR"/*(D); do
-		echo $f
-		read -q "Hit any key to decrypt"
+                echo $f
+                read -q "Hit any key to decrypt"
                 $BREW/gpg --output $PWD/secrets/$(basename $f) --decrypt "$f"
             done
             chmod -R 700 secrets
         fi
         ;;
     "brew")
-	HOMEBREW_PKGS=(
+        HOMEBREW_PKGS=(
             awscli
             cowsay
             dockutil
@@ -72,6 +72,7 @@ case "$1" in
             figlet
             fortune
             fzf
+            gh
             go
             gpg
             joplin
@@ -79,7 +80,7 @@ case "$1" in
             nethack
             nmap
             pandoc
-	    pinentry-mac
+            pinentry-mac
             postgresql
             readline
             reattach-to-user-namespace
@@ -102,23 +103,24 @@ case "$1" in
             homebrew/cask/packages
             homebrew/cask/qlmarkdown
             homebrew/cask/skitch
+            homebrew/cask/snowflake-snowsql
             homebrew/cask/spotify
             homebrew/cask/steam
             homebrew/cask/suspicious-package
             homebrew/cask/trainerroad
             homebrew/cask/vlc
             homebrew/cask/wireshark)
-	for pkg in $HOMEBREW_PKGS; do
-	    $BREW/brew install $pkg
-	done;
-	;;
+        for pkg in $HOMEBREW_PKGS; do
+            $BREW/brew install $pkg
+        done;
+        ;;
     "-s")
-	state=$2
-	sc
+        state=$2
+        sc
         ;;
     "go")
-	state=""
-	sc
+        state=""
+        sc
 
         # Launch zsh if it's not already the shell.
         if [[ $(echo $SHELL) == '/bin/bash' ]]; then
@@ -126,7 +128,7 @@ case "$1" in
         fi
         ;;
     *)
-	help
-	;;
+        help
+        ;;
 esac
 
