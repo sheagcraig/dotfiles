@@ -68,3 +68,7 @@ so I don't forget next time.
 - Add iCloud button to Safari toolbar.
 - Turn off Outlook sounds and notifications.
 - gpg key for git commits
+- Add Obsidian vault
+-	- Enable iCloud for files; vault is there.
+- Add web clipping for Obisidian
+	- Add markdownloader Chrome extension and import dotfiles/files/(markdownloadconfig).json
