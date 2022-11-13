@@ -74,41 +74,48 @@ case "$1" in
             fzf
             gh
             go
-            gpg
-            joplin
+            gnupg
+            jira-cli
+            jq
             libdvdcss
             nethack
             nmap
             pandoc
             pinentry-mac
             postgresql
+            python@3.11
             readline
             reattach-to-user-namespace
+            ripgrep
+            rust
             sqlite
+            swift-format
             tmux
             tree
             vim
-            youtube-dl
+            # youtube-dl
             homebrew/cask/atom
             homebrew/cask/calibre
-            homebrew/cask/chromedriver
-            homebrew/cask/dwarf-fortress-lmp
-            homebrew/cask/evernote
+            # homebrew/cask/chromedriver
+            # homebrew/cask/dwarf-fortress-lmp
+            # homebrew/cask/evernote
+            homebrew/cask/gimp
             homebrew/cask/grandperspective
             homebrew/cask/handbrake
             homebrew/cask/iterm2
-            homebrew/cask/joplin
+            homebrew/cask/obsidian
             homebrew/cask/openemu
             homebrew/cask/pacifist
             homebrew/cask/packages
             homebrew/cask/qlmarkdown
-            homebrew/cask/skitch
             homebrew/cask/snowflake-snowsql
             homebrew/cask/spotify
-            homebrew/cask/steam
+            # homebrew/cask/steam
             homebrew/cask/suspicious-package
-            homebrew/cask/trainerroad
+            # homebrew/cask/trainerroad
+            homebrew/cask/utm
             homebrew/cask/vlc
+            homebrew/cask/warp
             homebrew/cask/wireshark)
         for pkg in $HOMEBREW_PKGS; do
             $BREW/brew install $pkg
