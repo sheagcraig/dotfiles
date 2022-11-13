@@ -240,6 +240,8 @@ autocmd FileType c set omnifunc=ccomplete#Complete
 au BufRead,BufNewFile *.md set filetype=markdown
 au FileType markdown setlocal noexpandtab tabstop=4 shiftwidth=4 softtabstop=4
 let g:vim_markdown_new_list_item_indent = 0
+" Fix weird and annoying autofolding
+let g:vim_markdown_folding_style_pythonic = 1
 
 " Python
 
