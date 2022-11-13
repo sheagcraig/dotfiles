@@ -155,10 +155,19 @@ fi
 # Use ipdb as our debugger by default.
 #export PYTHONBREAKPOINT="ipdb.set_trace"
 
-# Python 3.8 + brew management
-# export PATH="/opt/homebrew/opt/python@3.8/bin:$PATH"
-# export LDFLAGS="-L/opt/homebrew/opt/python3.8/lib"
-# export PKG_CONFIG_PATH="/opt/homebrew/opt/python@3.8/lib/pkgconfig"
+# Choose the python _I want_
+ 
+# Current (2022.11.13) brew does not have a python3 in the 3.11 bin.
+# And worse, it does have the "brew" python3 aliased to 3.10. So for now
+# I'll just do an alias for python3 and python to python3.11 and move
+# the correct install to the front of my path.
+alias python3=python3.11
+alias python=python3.11
+alias pip=pip3.11
+alias pip3=pip3.11
+export PATH="/opt/homebrew/opt/python@3.11/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/python3.11/lib"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/python@3.11/lib/pkgconfig"
 
 # Go Config
 export GOPATH=$HOME/Developer/go
