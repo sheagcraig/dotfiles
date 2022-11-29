@@ -26,3 +26,6 @@ dotfiles:
   - dir: "~/.gnupg"
     files:
       - {name: gpg-agent.conf, type: templated}
+  - dir: "~/.warp/themes"
+    files:
+      - {name: nord.yaml, mode: '0600', type: copy}
