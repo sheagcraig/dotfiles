@@ -54,9 +54,12 @@ committed (although that's true of all the dotfiles).
 Some stuff I haven't figured out how to automate yet. So here's the checklist
 so I don't forget next time.
 - Install Salt...
-- Safari/Preferences/Advanced/Develop menu
-- Safari/Prefernces/Tabs/Turn on favicons in Safari
+- Safari
+	- Safari/Preferences/Advanced/Develop menu
+	- Safari/Prefernces/Tabs/Turn on favicons in Safari
+	- Add iCloud button to Safari toolbar.
 - Messages/Preferences/iMessage/Enable messages in iCloud
+	- Maybe... Sometimes it's nice to just not get bothered.
 - System Preferences/Security & Privacy/General/Allow your Apple Watch to
   unlock your Mac
 - System Preferences/General/Appearance/Dark mode
@@ -65,10 +68,9 @@ so I don't forget next time.
 - Menubar/Power/Show percentage
 - System Preferences/Sound/Show volume in menu bar
 - Add Play Pause button to touchbar (removing Siri)
-- Add iCloud button to Safari toolbar.
-- Turn off Outlook sounds and notifications.
 - gpg key for git commits
 - Add Obsidian vault
 -	- Enable iCloud for files; vault is there.
 - Add web clipping for Obisidian
 	- Add markdownloader Chrome extension and import dotfiles/files/(markdownloadconfig).json
+- Add Pocket extension to browsers
