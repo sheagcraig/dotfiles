@@ -134,6 +134,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'avakhov/vim-yaml'
 Plug 'vim-airline/vim-airline'
 Plug 'dracula/vim', {'as': 'dracula'}
+Plug 'arcticicestudio/nord-vim'
+Plug 'ericbn/vim-solarized'
 Plug 'edkolev/tmuxline.vim'
 Plug 'fatih/vim-go'
 Plug 'godlygeek/tabular'
@@ -284,10 +286,15 @@ set t_Co=256
 set background=dark
 "colorscheme molokai
 "colorscheme PaperColor
-colorscheme dracula
+" colorscheme dracula
+"colorscheme solarized
+colorscheme nord
 
 " Fix the search color so it stands out from cursor
 hi Search cterm=reverse ctermfg=DarkCyan ctermbg=Yellow
+
+" Highlight the current line
+set cursorline
 
 
 " ==================================== Fancy Keyboard Magic =======================================
