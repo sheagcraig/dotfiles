@@ -94,7 +94,6 @@ case "$1" in
             tree
             vim
             # youtube-dl
-            homebrew/cask/atom
             homebrew/cask/calibre
             # homebrew/cask/chromedriver
             # homebrew/cask/dwarf-fortress-lmp
