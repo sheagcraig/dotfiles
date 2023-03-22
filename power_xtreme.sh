@@ -83,6 +83,7 @@ case "$1" in
             pandoc
             pinentry-mac
             postgresql
+            pre-commit
             python@3.11
             readline
             reattach-to-user-namespace
