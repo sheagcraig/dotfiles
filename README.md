@@ -60,8 +60,6 @@ so I don't forget next time.
 	- Add iCloud button to Safari toolbar.
 - Messages/Preferences/iMessage/Enable messages in iCloud
 	- Maybe... Sometimes it's nice to just not get bothered.
-- System Preferences/Security & Privacy/General/Allow your Apple Watch to
-  unlock your Mac
 - System Preferences/General/Appearance/Dark mode
 - Add Finder sidebar shortcuts.
 - System Preferences/Date & Time/Clock/Date options: Show date
@@ -69,8 +67,16 @@ so I don't forget next time.
 - System Preferences/Sound/Show volume in menu bar
 - Add Play Pause button to touchbar (removing Siri)
 - gpg key for git commits
+	- https://gist.github.com/angela-d/8b27670bac26e4bf7c431715fef5cc51
+	- `gpg --list-secret-keys --keyid-format LONG` to get ID of current key (see .gitconfig too)
+	- `gpg --export -a {ID} > gpg-pub.asc`
+	- `gpg --export-secret-keys -a {ID} > gpg-sc.asc`
+	- `gpg --import gpg-pub.asc`
+	- `gpg --import gpg-sc.asc`
+	- possibly `killall gpg-agent`
 - Add Obsidian vault
 -	- Enable iCloud for files; vault is there.
 - Add web clipping for Obisidian
 	- Add markdownloader Chrome extension and import dotfiles/files/(markdownloadconfig).json
 - Add Pocket extension to browsers
+- 
