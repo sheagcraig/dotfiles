@@ -100,6 +100,7 @@ case "$1" in
             # homebrew/cask/dwarf-fortress-lmp
             # homebrew/cask/evernote
             homebrew/cask/gimp
+            homebrew/cask/github
             homebrew/cask/grandperspective
             homebrew/cask/handbrake
             homebrew/cask/iterm2
