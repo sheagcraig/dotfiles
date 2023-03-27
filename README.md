@@ -73,7 +73,7 @@ so I don't forget next time.
 	- `gpg --export-secret-keys -a {ID} > gpg-sc.asc`
 	- `gpg --import gpg-pub.asc`
 	- `gpg --import gpg-sc.asc`
-	- possibly `killall gpg-agent`
+	- `killall gpg-agent` (to get it to use pinentry-mac instead of pinentry, which lets you save the password in the keychain)
 - Add Obsidian vault
 -	- Enable iCloud for files; vault is there.
 - Add web clipping for Obisidian
