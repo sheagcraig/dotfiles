@@ -153,6 +153,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'hashivim/vim-terraform'
 call plug#end()
 
 " Pymode configuration
@@ -277,6 +278,9 @@ au BufRead,BufNewFile *.recipe set filetype=xml
 
 " HTML
 autocmd FileType html setlocal foldmethod=syntax nofoldenable foldlevel=0
+
+" Terraform
+autocmd FileType terraform setlocal shiftwidth=4 tabstop=4 softtabstop=4 expandtab
 
 
 " =========================================== Colors ==============================================
