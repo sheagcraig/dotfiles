@@ -91,6 +91,7 @@ case "$1" in
             rust
             sqlite
             swift-format
+            terraform
             tmux
             tree
             vim
