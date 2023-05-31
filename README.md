@@ -73,7 +73,10 @@ so I don't forget next time.
 		- `gpg --export -a {ID} > gpg-pub.asc`
 		- `gpg --export-secret-keys -a {ID} > gpg-sc.asc`
 		- Or it's in my secrets encrypted:
+			- Encrypt
 			- `gpg -c <filename>`
+			- Decrypt
+			- `gpg -d <filename>`
 	- Import
 		- `gpg --import gpg-pub.asc`
 		- `gpg --import gpg-sc.asc`
