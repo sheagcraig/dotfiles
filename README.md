@@ -68,12 +68,16 @@ so I don't forget next time.
 - Add Play Pause button to touchbar (removing Siri)
 - gpg key for git commits
 	- https://gist.github.com/angela-d/8b27670bac26e4bf7c431715fef5cc51
-	- `gpg --list-secret-keys --keyid-format LONG` to get ID of current key (see .gitconfig too)
-	- `gpg --export -a {ID} > gpg-pub.asc`
-	- `gpg --export-secret-keys -a {ID} > gpg-sc.asc`
-	- `gpg --import gpg-pub.asc`
-	- `gpg --import gpg-sc.asc`
-	- `killall gpg-agent` (to get it to use pinentry-mac instead of pinentry, which lets you save the password in the keychain)
+	- Get keys out
+		- `gpg --list-secret-keys --keyid-format LONG` to get ID of current key (see .gitconfig too)
+		- `gpg --export -a {ID} > gpg-pub.asc`
+		- `gpg --export-secret-keys -a {ID} > gpg-sc.asc`
+		- Or it's in my secrets encrypted:
+			- `gpg -c <filename>`
+	- Import
+		- `gpg --import gpg-pub.asc`
+		- `gpg --import gpg-sc.asc`
+		- `killall gpg-agent` (to get it to use pinentry-mac instead of pinentry, which lets you save the password in the keychain)
 - Add Obsidian vault
 -	- Enable iCloud for files; vault is there.
 - Add web clipping for Obisidian

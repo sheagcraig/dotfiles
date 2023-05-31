@@ -1,6 +1,6 @@
 [user]
 	name = Shea Craig
-	email = sheagcraig@gmail.com
+	email = sheagcraig@users.noreply.github.com
 	signingkey = 74001D71157199F1
 [core]
 	editor = /usr/bin/vim
@@ -40,3 +40,8 @@
 [credential "https://gist.github.com"]
 	helper = 
 	helper = !/opt/homebrew/bin/gh auth git-credential
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
