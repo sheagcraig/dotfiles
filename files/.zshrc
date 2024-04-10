@@ -1,3 +1,24 @@
+#######################################################
+# load Square specific zshrc; please don't change this bit.
+#######################################################
+source ~/Developer/sq/config_files/square/zshrc
+#######################################################
+
+###########################################
+# Feel free to make your own changes below.
+###########################################
+
+# uncomment to automatically `bundle exec` common ruby commands
+# if [[ -f "$SQUARE_HOME/config_files/square/bundler-exec.sh" ]]; then
+#   source $SQUARE_HOME/config_files/square/bundler-exec.sh
+# fi
+
+# load the aliases in config_files files (optional)
+source ~/Developer/sq/config_files/square/aliases
+
+[[ -f "$HOME/.aliases" ]] && source "$HOME/.aliases"
+[[ -f "$HOME/.localaliases" ]] && source "$HOME/.localaliases"
+
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/shea/.oh-my-zsh"
 
@@ -54,7 +75,7 @@ bindkey '^N' down-history
 alias pcat='plutil -convert xml1 -o -'
 alias json='python3 -m json.tool'
 alias sc='sudo /opt/salt/bin/salt-call'
-alias dsc='sudo /opt/salt/bin/salt-call --config-dir=/etc/salt-dev'
+alias dsc='sudo /opt/salt/salt-call --config-dir=/etc/salt-dev'
 alias snowsql='/Applications/SnowSQL.app/Contents/MacOS/snowsql'
 # alias sq='cd ~/Developer/sq/'
 
@@ -70,7 +91,7 @@ sn () {
 	ioreg -c IOPlatformExpertDevice -d 2 | awk -F\" '/IOPlatformSerialNumber/{print $(NF-1)}'
 }
 snp () {
-	sn | pbcopy
+	ioreg -c IOPlatformExpertDevice -d 2 | awk -F\" '/IOPlatformSerialNumber/{printf "%s",$(NF-1)}' | pbcopy
 }
 function sq {
 	cd ~/Developer/sq/
@@ -105,12 +126,16 @@ fi
 # alias python=python3.11
 # alias pip=pip3.11
 # alias pip3=pip3.11
+# export PATH="/opt/homebrew/opt/python@3.11/bin:/Users/shea/.local/bin:$PATH"
 export PATH="/opt/homebrew/opt/python@3.11/bin:$PATH"
 export LDFLAGS="-L/opt/homebrew/opt/python3.11/lib"
 export PKG_CONFIG_PATH="/opt/homebrew/opt/python@3.11/lib/pkgconfig"
 
 # Go Config
 export GOPATH=$HOME/Developer/go
+
+# Rust config
+export PATH="/Users/shea/.cargo/bin:$PATH"
 
 # Environment ##################################################################
 # If you don't know, now you know.
@@ -121,3 +146,12 @@ GPG_TTY=$(tty)
 export GPG_TTY
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export SSH_AUTH_SOCK=/Users/shea/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh
+# export SSH_AUTH_SOCK="$(brew --prefix)/var/run/yubikey-agent.sock"
