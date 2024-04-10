@@ -5,4 +5,5 @@
 *.ropeproject
 *.swp
 .vscode
+.idea
 venv
