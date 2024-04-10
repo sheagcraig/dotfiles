@@ -149,3 +149,17 @@ Restart Dock:
     - runas: {{ pillar['user'] }}
     - onchanges:
       - macdefaults: Set dark theme
+
+Ensure global key repeat does accented entry:
+  macdefaults.absent:
+    - name: ApplePressAndHoldEnabled
+    - domain: NSGlobalDomain
+    - user: {{ pillar['user'] }}
+
+Ensure key repeat repeats for warp:
+  macdefaults.write:
+    - name: ApplePressAndHoldEnabled
+    - domain: dev.warp.Warp-Stable
+    - vtype: bool
+    - value: True
+    - user: {{ pillar['user'] }}
