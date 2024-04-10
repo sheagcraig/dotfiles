@@ -4,3 +4,4 @@ Host *
   AddKeysToAgent      yes
   UseKeychain         yes
   IdentityFile        ~/.ssh/id_rsa
+  IdentityAgent /Users/shea/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh
