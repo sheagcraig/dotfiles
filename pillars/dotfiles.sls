@@ -29,3 +29,8 @@ dotfiles:
   - dir: "~/.warp/themes"
     files:
       - {name: nord.yaml, mode: '0600', type: copy}
+  - dir: "~/.config/zed"
+    files:
+      - name: keymap.json
+      - name: settings.json
+      - name: tasks.json

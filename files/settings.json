@@ -1,0 +1,61 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "colorize_brackets": false,
+  "minimum_contrast_for_highlights": 45.0,
+  "edit_predictions": {
+    "mode": "subtle",
+    "copilot": {
+      "proxy": null,
+      "proxy_no_verify": null
+    },
+    "enabled_in_text_threads": false
+  },
+  // Example settings.json snippet
+  "experimental.theme_overrides": {
+    "editor.document_highlight.read_background": "#FFFF0033" // Transparant Yellow
+  },
+  "features": {
+    "edit_prediction_provider": "copilot"
+  },
+  "vim_mode": true,
+  "ui_font_size": 12,
+  "buffer_font_size": 12,
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "One Dark"
+  },
+  "terminal": {
+    "font_family": "Hack",
+    "option_as_meta": true
+  },
+  "file_types": {
+    "YAML": ["*.yml", "*.yaml"],
+    "XML": ["mobileconfig", "plist"],
+    "Jinja2": ["*.sls"]
+  },
+  "languages": {
+    "Python": {
+      "wrap_guides": [73, 99],
+      "language_servers": ["pyright", "ruff"],
+      "format_on_save": "on",
+      "code_actions_on_format": {
+        "source.organizeImports.ruff": true
+      },
+      "formatter": [
+        {
+          "language_server": {
+            "name": "ruff"
+          }
+        }
+      ]
+    }
+  }
+}

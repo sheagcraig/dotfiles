@@ -1,0 +1,37 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+    }
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-w t": "terminal_panel::ToggleFocus",
+    }
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-w t": "terminal_panel::ToggleFocus"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      "alt-h": "vim::NormalBefore",
+      "alt-l": ["workspace::SendKeystrokes", "escape l"],
+      "alt-j": ["workspace::SendKeystrokes", "escape j"],
+      "alt-k": ["workspace::SendKeystrokes", "escape k"],
+      "alt-w": ["workspace::SendKeystrokes", "escape w"],
+      "alt-b": ["workspace::SendKeystrokes", "escape b"]
+    }
+  }
+]
