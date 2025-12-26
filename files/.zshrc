@@ -85,6 +85,7 @@ if [[ $(arch) = arm64 ]]; then
 else
 	BREW='/usr/local/Cellar'
 fi
+export PATH="$PATH:/opt/homebrew/bin"
 alias vim="$BREW/vim"
 alias fv='$BREW/vim $(fzf)'
 sn () {
@@ -116,20 +117,12 @@ fi
 # Use ipdb as our debugger by default.
 #export PYTHONBREAKPOINT="ipdb.set_trace"
 
-# Choose the python _I want_
  
-# Current (2022.11.13) brew does not have a python3 in the 3.11 bin.
-# And worse, it does have the "brew" python3 aliased to 3.10. So for now
-# I'll just do an alias for python3 and python to python3.11 and move
-# the correct install to the front of my path.
-# alias python3=python3.11
-# alias python=python3.11
-# alias pip=pip3.11
-# alias pip3=pip3.11
 # export PATH="/opt/homebrew/opt/python@3.11/bin:/Users/shea/.local/bin:$PATH"
-export PATH="/opt/homebrew/opt/python@3.11/bin:$PATH"
-export LDFLAGS="-L/opt/homebrew/opt/python3.11/lib"
-export PKG_CONFIG_PATH="/opt/homebrew/opt/python@3.11/lib/pkgconfig"
+# Choose the python _I want_
+export PATH="/opt/homebrew/opt/python@3.12/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/python3.12/lib"
+export PKG_CONFIG_PATH="/opt/homebrew/opt/python@3.12/lib/pkgconfig"
 
 # Go Config
 export GOPATH=$HOME/Developer/go
@@ -153,5 +146,9 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && . "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# export SSH_AUTH_SOCK="/Users/shea/Library/Application Support/beyond-ssh-agent/agent.sock"
 export SSH_AUTH_SOCK=/Users/shea/Library/Containers/com.maxgoedjen.Secretive.SecretAgent/Data/socket.ssh
 # export SSH_AUTH_SOCK="$(brew --prefix)/var/run/yubikey-agent.sock"
+
+# Created by `pipx` on 2024-06-05 20:22:21
+export PATH="$PATH:/Users/shea/.local/bin"

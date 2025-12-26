@@ -73,6 +73,7 @@ case "$1" in
             fortune
             fzf
             gh
+	    git-lfs
             go
             gnupg
             jira-cli
